@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add api-reference/endpoint/create-transcription.mdx api-reference/endpoint/generate-image.mdx api-reference/endpoint/generate-tts.mdx api-reference/endpoint/generate.mdx api-reference/endpoint/get-tts-config.mdx api-reference/endpoint/get-tts-voices.mdx api-reference/introduction.mdx api-reference/openapi.json docs.json index.mdx)",
+      "Bash(git add api-reference/endpoint/create.mdx api-reference/endpoint/delete.mdx api-reference/endpoint/get.mdx api-reference/endpoint/webhook.mdx ai-tools/ essentials/ snippets/ development.mdx quickstart.mdx)",
+      "Bash(git commit:*)",
+      "Bash(git push origin main)",
+      "Bash(gh auth status)"
+    ]
+  }
+}

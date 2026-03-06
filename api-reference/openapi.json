@@ -684,7 +684,7 @@
       "post": {
         "summary": "Generate Image",
         "operationId": "generateImage",
-        "description": "Programmatically generate [AI Images](https://easy-peasy.ai/ai-images) using DALL-E 3, Stable Diffusion XL, or Stable Diffusion 3.0.",
+        "description": "Programmatically generate [AI Images](https://easy-peasy.ai/ai-images) using 40+ models including DALL-E 3, Midjourney, FLUX.2, Imagen 4, Stable Diffusion, Seedream, and more.",
         "parameters": [
           {
             "name": "x-api-key",
@@ -1265,32 +1265,103 @@
           "model": {
             "type": "string",
             "description": "The model to use for image generation",
-            "enum": ["DALL-E 3", "Stable Diffusion XL", "Stable Diffusion 3.0"],
+            "enum": [
+              "DALL-E 3",
+              "OpenAI GPT Image 1",
+              "OpenAI GPT Image 1.5",
+              "Midjourney V6",
+              "Midjourney V7",
+              "FLUX.1",
+              "FLUX 1.1 Pro",
+              "FLUX 1.1 Pro Ultra",
+              "FLUX.2 [dev]",
+              "FLUX.2 [flex]",
+              "FLUX.2 [pro]",
+              "FLUX.2 [max]",
+              "Flux Kontext Pro",
+              "Flux Kontext Max",
+              "Flux.1 Krea",
+              "Stable Diffusion XL",
+              "Stable Diffusion 3.0",
+              "Stable Diffusion 3.5",
+              "Imagen 3",
+              "Imagen 4",
+              "Imagen 4 Ultra",
+              "Imagen 4 Fast",
+              "Seedream 3.0",
+              "Seedream 4.0",
+              "Seedream 4.5",
+              "Seedream 5.0 Lite",
+              "Recraft v3",
+              "REVE",
+              "ImagineArt 1.5",
+              "HiDream",
+              "HunyuanImage 3.0",
+              "Bria 3.2",
+              "Dreamina 3.1",
+              "Qwen-Image",
+              "Grok",
+              "Grok Pro",
+              "Ideogram v3",
+              "MiniMax Image 01",
+              "WAN 2.2",
+              "WAN 2.5 Preview",
+              "Nano Banana",
+              "Nano Banana 2",
+              "Nano Banana Pro",
+              "Nano Banana Flash",
+              "Z-Image Turbo"
+            ],
             "example": "DALL-E 3"
           },
           "style": {
             "type": "string",
-            "description": "Style for the image (e.g. Cyberpunk, Watercolor)",
+            "description": "Style for the image (e.g. Cyberpunk, Watercolor). Not all models support this parameter.",
             "example": "Cyberpunk"
           },
           "artist": {
             "type": "string",
-            "description": "Artist style to emulate",
+            "description": "Artist style to emulate (e.g. Van Gogh). Not all models support this parameter.",
             "example": "Van Gogh"
           },
           "dimensions": {
             "type": "string",
-            "description": "Dimensions of the generated image",
+            "description": "Dimensions of the generated image (e.g. 1024x1024, 1024x1792, 1792x1024)",
             "example": "1024x1024"
           },
           "useHD": {
             "type": "boolean",
-            "description": "Use HD quality",
+            "description": "Use HD quality. Supported by select models.",
+            "default": false,
             "example": false
           },
           "image": {
             "type": "string",
-            "description": "Image URL for Image-to-Image generations"
+            "description": "Image URL for Image-to-Image generations. Provide a source image to edit or transform."
+          },
+          "outputs": {
+            "type": "integer",
+            "description": "Number of images to generate.",
+            "default": 1,
+            "example": 1
+          },
+          "resolution": {
+            "type": "string",
+            "description": "Resolution quality level. Supported by FLUX.2, Nano Banana, and other select models.",
+            "enum": ["1K", "2K"],
+            "example": "1K"
+          },
+          "recraftStyle": {
+            "type": "string",
+            "description": "Style preset for Recraft v3 model.",
+            "default": "any",
+            "example": "any"
+          },
+          "waitForResult": {
+            "type": "boolean",
+            "description": "Wait for the image to be fully generated before returning the response. If false, returns immediately with a pending status.",
+            "default": false,
+            "example": false
           }
         }
       },
