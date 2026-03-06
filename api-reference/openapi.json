@@ -1238,6 +1238,426 @@
         }
       }
     },
+    "/api/generate-video": {
+      "post": {
+        "summary": "Generate Video",
+        "operationId": "generateVideo",
+        "description": "Generate AI videos from text prompts or images using 40+ models including Veo 3.1, Kling 3.0, Sora 2, Hailuo, and more.\n\nVideo generation is asynchronous — the response returns a video ID immediately. Use the [Get Video](/api-reference/endpoint/get-video) endpoint to poll for the result.\n\n**Input types:**\n- **Text-to-video** — Provide only a `prompt`\n- **Image-to-video** — Provide both `prompt` and `image` URL\n\n**Note:** Video generation requires a paid plan.",
+        "parameters": [
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Your API key",
+            "example": "27feb2bb-aeb4-4a83-9fb6-8f3f2a15885e"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GenerateVideoRequest"
+              },
+              "examples": {
+                "text_to_video": {
+                  "summary": "Text-to-video",
+                  "value": {
+                    "prompt": "A cat walking on the beach at sunset, cinematic lighting",
+                    "model": "Veo 3.1 Fast",
+                    "duration": "5",
+                    "aspectRatio": "16:9"
+                  }
+                },
+                "image_to_video": {
+                  "summary": "Image-to-video",
+                  "value": {
+                    "prompt": "The subject slowly turns and smiles at the camera",
+                    "image": "https://example.com/photo.jpg",
+                    "model": "Kling 3.0 Pro Image",
+                    "duration": "5",
+                    "aspectRatio": "16:9"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Video generation started",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenerateVideoResponse"
+                },
+                "example": {
+                  "id": 12345,
+                  "prompt": "A cat walking on the beach at sunset",
+                  "image_url": "",
+                  "model": "Veo 3.1 Fast",
+                  "is_video": true,
+                  "created_at": "2025-01-15T10:30:00.000Z"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request — invalid model, duration, aspect ratio, or input type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": "Invalid model selected"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": "Invalid API key"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Plan limit reached or free plan",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": "Video generation is not available on the Free plan. Please upgrade to a paid plan to generate videos."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/get-video": {
+      "get": {
+        "summary": "Get Video",
+        "operationId": "getVideo",
+        "description": "Retrieve the status and result of a video generation request. Since video generation is asynchronous (typically 1–5 minutes), poll this endpoint every 15–30 seconds until the `status` is `completed` and the `url` field contains the video URL.",
+        "parameters": [
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Your API key",
+            "example": "27feb2bb-aeb4-4a83-9fb6-8f3f2a15885e"
+          },
+          {
+            "name": "video_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The video ID returned from the Generate Video endpoint"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Video data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetVideoResponse"
+                },
+                "examples": {
+                  "processing": {
+                    "summary": "Video still processing",
+                    "value": {
+                      "video": {
+                        "id": 12345,
+                        "prompt": "A cat walking on the beach at sunset",
+                        "url": "",
+                        "model": "Veo 3.1 Fast",
+                        "status": "processing",
+                        "created_at": "2025-01-15T10:30:00.000Z",
+                        "request": {
+                          "duration": "5",
+                          "aspectRatio": "16:9",
+                          "isTextToVideo": true,
+                          "isImageToVideo": false
+                        }
+                      }
+                    }
+                  },
+                  "completed": {
+                    "summary": "Video completed",
+                    "value": {
+                      "video": {
+                        "id": 12345,
+                        "prompt": "A cat walking on the beach at sunset",
+                        "url": "https://media.easy-peasy.ai/videos/abc123.mp4",
+                        "model": "Veo 3.1 Fast",
+                        "status": "completed",
+                        "created_at": "2025-01-15T10:30:00.000Z",
+                        "request": {
+                          "duration": "5",
+                          "aspectRatio": "16:9",
+                          "isTextToVideo": true,
+                          "isImageToVideo": false
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": "Invalid API key"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Video not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": "Video not found"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/generate-talking-video": {
+      "post": {
+        "summary": "Generate Talking Video",
+        "operationId": "generateTalkingVideo",
+        "description": "Generate a talking video by animating a face image or video with speech. Provide either text + voice to generate audio, or supply your own audio file.\n\n**Input combinations:**\n- **Image + text + voice** — Generates speech from text using the specified voice, then animates the face in the image\n- **Image + audio** — Uses the provided audio to animate the face in the image\n- **Video + text + voice** — Generates speech from text, then lip-syncs the video\n- **Video + audio** — Lip-syncs the video with the provided audio\n\n**Models:**\n- `premium` — High-quality avatar generation (VEED Fabric). Supports 480p and 720p.\n- `standard` — Faster generation (WaveSpeed InfiniteTalk). Supports 480p and 720p.\n\nVideo generation is asynchronous. Use the [Get Video](/api-reference/endpoint/get-video) endpoint to poll for results.\n\n**Note:** Requires a paid plan. Image must be at least 512x512 pixels. Audio/video max 5 minutes.",
+        "parameters": [
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Your API key",
+            "example": "27feb2bb-aeb4-4a83-9fb6-8f3f2a15885e"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GenerateTalkingVideoRequest"
+              },
+              "examples": {
+                "image_with_text": {
+                  "summary": "Image + text-to-speech",
+                  "value": {
+                    "image": "https://example.com/portrait.jpg",
+                    "text": "Hello! Welcome to our product demo.",
+                    "voiceID": "21m00Tcm4TlvDq8ikWAM",
+                    "avatarModel": "premium",
+                    "resolution": "720p"
+                  }
+                },
+                "image_with_audio": {
+                  "summary": "Image + audio file",
+                  "value": {
+                    "image": "https://example.com/portrait.jpg",
+                    "audio": "https://example.com/narration.mp3",
+                    "avatarModel": "standard",
+                    "resolution": "480p"
+                  }
+                },
+                "video_with_audio": {
+                  "summary": "Video lip-sync with audio",
+                  "value": {
+                    "video": "https://example.com/clip.mp4",
+                    "audio": "https://example.com/narration.mp3"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Talking video generation started",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenerateVideoResponse"
+                },
+                "example": {
+                  "id": 12345,
+                  "prompt": "Hello! Welcome to our product demo.",
+                  "image_url": "",
+                  "is_video": true,
+                  "created_at": "2025-01-15T10:30:00.000Z"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request — missing required fields or invalid input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": "Image or video is required"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": "Invalid API key"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Plan limit reached or free plan",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": "Talking video generation is not available on the Free plan. Please upgrade to a paid plan."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/generate-sound": {
+      "post": {
+        "summary": "Generate Sound Effect",
+        "operationId": "generateSoundEffect",
+        "description": "Generate AI sound effects from a text description using ElevenLabs. Returns the audio URL immediately (synchronous).\n\nUsage is counted against your plan's character limit.",
+        "parameters": [
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Your API key",
+            "example": "27feb2bb-aeb4-4a83-9fb6-8f3f2a15885e"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GenerateSoundRequest"
+              },
+              "examples": {
+                "short_effect": {
+                  "summary": "Short sound effect",
+                  "value": {
+                    "prompt": "A door creaking open slowly in a haunted house",
+                    "duration": 3
+                  }
+                },
+                "ambient": {
+                  "summary": "Ambient sound",
+                  "value": {
+                    "prompt": "Rain falling on a tin roof with distant thunder",
+                    "duration": 10,
+                    "prompt_influence": 0.5
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Sound effect generated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenerateSoundResponse"
+                },
+                "example": {
+                  "url": "https://media.easy-peasy.ai/tts/user-id/abc123.mp3",
+                  "text": "A door creaking open slowly in a haunted house",
+                  "seconds": 3,
+                  "status": "completed"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request — missing prompt or plan limit reached",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": "Missing parameter prompt"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": "Invalid API key"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/get-text-to-speech-config": {
       "get": {
         "summary": "Get TTS Configuration",
@@ -2208,6 +2628,271 @@
             "enum": ["completed"],
             "description": "Status of the speech generation",
             "example": "completed"
+          }
+        }
+      },
+      "GenerateVideoRequest": {
+        "type": "object",
+        "required": ["prompt"],
+        "properties": {
+          "prompt": {
+            "type": "string",
+            "description": "Text prompt describing the video to generate.",
+            "example": "A cat walking on the beach at sunset, cinematic lighting"
+          },
+          "image": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL of an image for image-to-video generation. If omitted, text-to-video mode is used."
+          },
+          "model": {
+            "type": "string",
+            "default": "Kling 1.0",
+            "description": "The video model to use.",
+            "enum": [
+              "Veo 3.1 Fast",
+              "Grok Imagine",
+              "Kling 2.6 Pro",
+              "Veo 3.1 Fast Image",
+              "Grok Imagine Image",
+              "Kling 2.6 Pro Image",
+              "Kling 3.0 Pro",
+              "Kling 3.0 Pro Image",
+              "Kling 3.0 Standard",
+              "Kling 3.0 Standard Image",
+              "Seedance 1.5 Pro",
+              "Seedance 1.5 Pro Image",
+              "Kling Motion Control Pro",
+              "Kling Motion Control",
+              "Kling O1 Image",
+              "Kling O1 Reference",
+              "Kling 2.5 Turbo Pro Image",
+              "Kling 2.5 Turbo Pro",
+              "Kling 2.5 Turbo Standard",
+              "Seedance 1.5 Pro First-Last Frame",
+              "Veo 3.1",
+              "LTX-2 Pro",
+              "LTX-2 Fast",
+              "Veo 3.1 Image",
+              "Veo 3.1 First-Last Frame",
+              "Veo 3.1 Fast First-Last Frame",
+              "LTX-2 Pro Image",
+              "LTX-2 Fast Image",
+              "Sora 2",
+              "Sora 2 Pro",
+              "Hailuo 2.0",
+              "Hailuo 2.0 Pro",
+              "Hailuo 2.3",
+              "Hailuo 2.3 Pro",
+              "Hailuo 2.3 Image",
+              "Hailuo 2.3 Pro Image",
+              "Hailuo 2.3-Fast Pro Image",
+              "Seedance v1 Pro Fast",
+              "Pixverse v5.5",
+              "Wan 2.5",
+              "Wan v2.2 Turbo",
+              "Wan v2.2",
+              "Sora 2 Image",
+              "Sora 2 Pro Image",
+              "Hailuo 2.0 Image",
+              "Hailuo 2.0 Pro Image",
+              "Seedance 1.0 Pro Fast",
+              "Pixverse v5.5 Image",
+              "Wan 2.5 Image",
+              "Wan v2.2 Turbo Image",
+              "Wan-2.2 Image",
+              "Seedance 2.0"
+            ]
+          },
+          "duration": {
+            "type": "string",
+            "default": "5",
+            "description": "Duration of the video in seconds. Available values depend on the model.",
+            "example": "5"
+          },
+          "aspectRatio": {
+            "type": "string",
+            "default": "16:9",
+            "description": "Aspect ratio of the video.",
+            "enum": ["16:9", "9:16", "1:1", "4:3", "3:4", "21:9", "9:21", "3:2", "2:3"]
+          },
+          "resolution": {
+            "type": "string",
+            "description": "Video resolution (supported by some models like Veo 3.1).",
+            "enum": ["720p", "1080p", "4k"]
+          },
+          "generateAudio": {
+            "type": "boolean",
+            "description": "Whether to generate audio along with the video (supported by some models like Veo 3.1, Kling 3.0)."
+          }
+        }
+      },
+      "GenerateVideoResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Video ID. Use this to poll for the result with the Get Video endpoint."
+          },
+          "prompt": {
+            "type": "string",
+            "description": "The prompt used for generation"
+          },
+          "image_url": {
+            "type": "string",
+            "description": "Video URL. Empty string while processing."
+          },
+          "model": {
+            "type": "string",
+            "description": "The model used for generation"
+          },
+          "is_video": {
+            "type": "boolean"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "GetVideoResponse": {
+        "type": "object",
+        "properties": {
+          "video": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "description": "Video ID"
+              },
+              "prompt": {
+                "type": "string",
+                "description": "The prompt used for generation"
+              },
+              "url": {
+                "type": "string",
+                "description": "Video URL. Empty string while processing, populated when complete."
+              },
+              "model": {
+                "type": "string",
+                "description": "The model used for generation"
+              },
+              "status": {
+                "type": "string",
+                "enum": ["processing", "completed"],
+                "description": "Current status. `processing` means the video is still being generated. `completed` means the video URL is ready."
+              },
+              "created_at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "request": {
+                "type": "object",
+                "description": "The original request parameters",
+                "properties": {
+                  "duration": { "type": "string" },
+                  "aspectRatio": { "type": "string" },
+                  "isTextToVideo": { "type": "boolean" },
+                  "isImageToVideo": { "type": "boolean" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "GenerateSoundRequest": {
+        "type": "object",
+        "required": ["prompt"],
+        "properties": {
+          "prompt": {
+            "type": "string",
+            "description": "Text description of the sound effect to generate.",
+            "example": "A door creaking open slowly in a haunted house"
+          },
+          "duration": {
+            "type": "number",
+            "default": 5,
+            "description": "Duration of the sound effect in seconds.",
+            "example": 5
+          },
+          "prompt_influence": {
+            "type": "number",
+            "default": 0.3,
+            "minimum": 0,
+            "maximum": 1,
+            "description": "How closely the output follows the prompt (0.0 = more creative, 1.0 = more literal).",
+            "example": 0.3
+          }
+        }
+      },
+      "GenerateSoundResponse": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL of the generated audio file (MP3)"
+          },
+          "text": {
+            "type": "string",
+            "description": "The prompt used for generation"
+          },
+          "seconds": {
+            "type": "integer",
+            "description": "Duration of the generated sound in seconds"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["completed"],
+            "description": "Status of the generation"
+          }
+        }
+      },
+      "GenerateTalkingVideoRequest": {
+        "type": "object",
+        "properties": {
+          "image": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL of a face image to animate. Must be at least 512x512 pixels. Provide either `image` or `video`."
+          },
+          "video": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL of a video to lip-sync. Supported formats: .mp4, .mov. Duration: 3–300 seconds. Provide either `image` or `video`."
+          },
+          "text": {
+            "type": "string",
+            "description": "Text to convert to speech. Required if `audio` is not provided."
+          },
+          "voiceID": {
+            "type": "string",
+            "description": "Voice ID for text-to-speech. Get available voices from the [Get TTS Voices](/api-reference/endpoint/get-tts-voices) endpoint. Required if `text` is provided and `audio` is not."
+          },
+          "audio": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL of an audio file to use directly (instead of generating from text). Max 5 minutes."
+          },
+          "avatarModel": {
+            "type": "string",
+            "enum": ["premium", "standard"],
+            "default": "premium",
+            "description": "Avatar generation model. `premium` uses VEED Fabric (higher quality), `standard` uses WaveSpeed InfiniteTalk (faster). Only applies to image input."
+          },
+          "resolution": {
+            "type": "string",
+            "enum": ["480p", "720p"],
+            "default": "480p",
+            "description": "Output video resolution."
+          },
+          "generateCaptions": {
+            "type": "boolean",
+            "description": "Whether to generate captions on the video."
+          },
+          "captionColor": {
+            "type": "string",
+            "description": "Highlight color for captions (hex code)."
           }
         }
       },

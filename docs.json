@@ -34,6 +34,14 @@
             ]
           },
           {
+            "group": "Video Generation",
+            "pages": [
+              "api-reference/endpoint/generate-video",
+              "api-reference/endpoint/generate-talking-video",
+              "api-reference/endpoint/get-video"
+            ]
+          },
+          {
             "group": "Transcription",
             "pages": [
               "api-reference/endpoint/create-transcription",
@@ -47,6 +55,12 @@
               "api-reference/endpoint/get-tts-config",
               "api-reference/endpoint/get-tts-voices",
               "api-reference/endpoint/generate-tts"
+            ]
+          },
+          {
+            "group": "Sound Effects",
+            "pages": [
+              "api-reference/endpoint/generate-sound"
             ]
           },
           {

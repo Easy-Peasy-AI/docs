@@ -1,0 +1,34 @@
+---
+title: 'Generate Talking Video'
+openapi: 'POST /api/generate-talking-video'
+---
+
+## Workflow
+
+1. **Submit** a talking video request using this endpoint
+2. **Save** the `id` from the response
+3. **Poll** the [Get Video](/api-reference/endpoint/get-video) endpoint every 15–30 seconds until `status` is `completed`
+4. **Download** the video from the `url` field
+
+<Note>
+Talking video generation requires a **paid plan**. Processing typically takes **1–5 minutes** depending on audio length and resolution.
+</Note>
+
+## Input combinations
+
+| Input | Audio Source | Description |
+|---|---|---|
+| `image` | `text` + `voiceID` | Generates speech, then animates the face |
+| `image` | `audio` | Animates the face with provided audio |
+| `video` | `text` + `voiceID` | Generates speech, then lip-syncs the video |
+| `video` | `audio` | Lip-syncs the video with provided audio |
+
+## Voice IDs
+
+Use the [Get TTS Voices](/api-reference/endpoint/get-tts-voices) endpoint to discover available voice IDs. Both ElevenLabs and OpenAI voices are supported.
+
+## Requirements
+
+- **Image**: minimum 512x512 pixels
+- **Video**: .mp4 or .mov format, 3–300 seconds
+- **Audio**: max 5 minutes

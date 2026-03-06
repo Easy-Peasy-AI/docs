@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "Easy-Peasy.AI Bots API",
-    "description": "API for interacting with Easy-Peasy.AI chatbots programmatically. Each bot has its own unique URL and API key, available from the bot's Integrations page in the dashboard.",
+    "description": "API for interacting with Easy-Peasy.AI chatbots programmatically. Each bot has its own unique URL identifier (`public_url`), available from the bot's Integrations page in the dashboard. Uses the same API key as all other Easy-Peasy.AI endpoints.",
     "version": "1.0.0"
   },
   "servers": [
@@ -20,7 +20,7 @@
       "post": {
         "summary": "Chat with Bot",
         "operationId": "chatWithBot",
-        "description": "Send a message to a bot and receive a response. Each bot has a unique `public_url` identifier and its own API key, both available from the bot's **Integrations > API** page in the [dashboard](https://easy-peasy.ai).\n\nSupports optional conversation history for multi-turn conversations and streaming responses.",
+        "description": "Send a message to a bot and receive a response. Each bot has a unique `public_url` identifier, available from the bot's **Integrations > API** page in the [dashboard](https://easy-peasy.ai). Uses the same `x-api-key` as all other Easy-Peasy.AI endpoints.\n\nSupports optional conversation history for multi-turn conversations and streaming responses.",
         "parameters": [
           {
             "name": "x-api-key",
@@ -29,7 +29,7 @@
             "schema": {
               "type": "string"
             },
-            "description": "The bot-specific API key. Found on the bot's Integrations > API page."
+            "description": "Your API key (same as all other Easy-Peasy.AI endpoints)."
           },
           {
             "name": "public_url",
@@ -145,7 +145,7 @@
         "type": "apiKey",
         "name": "x-api-key",
         "in": "header",
-        "description": "Bot-specific API key. Each bot has its own API key, available from the bot's Integrations > API page in the dashboard."
+        "description": "Your API key (same as all other Easy-Peasy.AI endpoints). Get yours at https://easy-peasy.ai/settings/api"
       }
     },
     "schemas": {
