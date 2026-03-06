@@ -1,0 +1,214 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Easy-Peasy.AI Bots API",
+    "description": "API for interacting with Easy-Peasy.AI chatbots programmatically. Each bot has its own unique URL and API key, available from the bot's Integrations page in the dashboard.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://bots.easy-peasy.ai"
+    }
+  ],
+  "security": [
+    {
+      "botApiKeyAuth": []
+    }
+  ],
+  "paths": {
+    "/bot/{public_url}/api": {
+      "post": {
+        "summary": "Chat with Bot",
+        "operationId": "chatWithBot",
+        "description": "Send a message to a bot and receive a response. Each bot has a unique `public_url` identifier and its own API key, both available from the bot's **Integrations > API** page in the [dashboard](https://easy-peasy.ai).\n\nSupports optional conversation history for multi-turn conversations and streaming responses.",
+        "parameters": [
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The bot-specific API key. Found on the bot's Integrations > API page."
+          },
+          {
+            "name": "public_url",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The bot's unique public URL identifier. Found on the bot's Integrations > API page."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChatRequest"
+              },
+              "examples": {
+                "simple": {
+                  "summary": "Simple message",
+                  "value": {
+                    "message": "What can you help me with?"
+                  }
+                },
+                "with_history": {
+                  "summary": "With conversation history",
+                  "value": {
+                    "message": "Can you explain that in more detail?",
+                    "history": [
+                      {
+                        "role": "human",
+                        "text": "What is Easy-Peasy.AI?"
+                      },
+                      {
+                        "role": "ai",
+                        "text": "Easy-Peasy.AI is an AI-powered content generation platform that helps you create marketing copy, blog posts, images, and more."
+                      }
+                    ]
+                  }
+                },
+                "streaming": {
+                  "summary": "Streaming response",
+                  "value": {
+                    "message": "Write me a short story",
+                    "stream": true
+                  }
+                },
+                "with_sources": {
+                  "summary": "Include sources",
+                  "value": {
+                    "message": "What are your pricing plans?",
+                    "include_sources": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response from the bot",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChatResponse"
+                },
+                "example": {
+                  "response": "I can help you with a variety of tasks including answering questions, providing information, and assisting with content creation."
+                }
+              },
+              "text/event-stream": {
+                "schema": {
+                  "type": "string",
+                  "description": "Server-sent events stream. Each event contains a chunk of the bot's response text. Returned when `stream: true` is set in the request."
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized — missing or invalid API key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": "Invalid API key"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Bot not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": "Bot not found"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "botApiKeyAuth": {
+        "type": "apiKey",
+        "name": "x-api-key",
+        "in": "header",
+        "description": "Bot-specific API key. Each bot has its own API key, available from the bot's Integrations > API page in the dashboard."
+      }
+    },
+    "schemas": {
+      "ChatRequest": {
+        "type": "object",
+        "required": ["message"],
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "The message to send to the bot."
+          },
+          "history": {
+            "type": "array",
+            "description": "Previous conversation history for multi-turn conversations. Messages should alternate between human and ai roles.",
+            "items": {
+              "$ref": "#/components/schemas/HistoryMessage"
+            }
+          },
+          "stream": {
+            "type": "boolean",
+            "default": false,
+            "description": "If `true`, the response is streamed as server-sent events (SSE). Each event contains a chunk of the bot's response."
+          },
+          "include_sources": {
+            "type": "boolean",
+            "default": false,
+            "description": "If `true`, the response includes source references from the bot's knowledge base (if configured)."
+          }
+        }
+      },
+      "HistoryMessage": {
+        "type": "object",
+        "required": ["role", "text"],
+        "properties": {
+          "role": {
+            "type": "string",
+            "enum": ["human", "ai"],
+            "description": "The role of the message sender. Use `human` for user messages and `ai` for bot responses."
+          },
+          "text": {
+            "type": "string",
+            "description": "The message content."
+          }
+        }
+      },
+      "ChatResponse": {
+        "type": "object",
+        "properties": {
+          "response": {
+            "type": "string",
+            "description": "The bot's response text."
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "description": "Error message."
+          }
+        }
+      }
+    }
+  }
+}

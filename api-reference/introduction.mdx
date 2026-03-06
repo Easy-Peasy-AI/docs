@@ -12,6 +12,7 @@ The Easy-Peasy.AI API lets you programmatically access our AI-powered tools:
 - **Image Generation** — Create AI images with 40+ models including DALL-E 3, Midjourney, FLUX.2, Imagen 4, and more
 - **Transcription** — Transcribe audio files with speaker detection and enhanced quality
 - **Text-to-Speech** — Convert text to natural-sounding speech with 150+ voices
+- **Bots** — Chat with your custom AI bots via API
 
 ## Authentication
 
@@ -40,6 +41,12 @@ All API requests are made to:
 https://easy-peasy.ai
 ```
 
+The **Bots API** uses a separate base URL:
+
+```
+https://bots.easy-peasy.ai
+```
+
 ## Typical Workflow
 
 1. **Discover presets** — Call `GET /api/presets` to list available templates
@@ -66,5 +73,8 @@ https://easy-peasy.ai
   </Card>
   <Card title="Text-to-Speech" icon="volume-high" href="/api-reference/endpoint/generate-tts">
     Convert text to natural speech.
+  </Card>
+  <Card title="Chat with Bot" icon="robot" href="/api-reference/endpoint/chat-with-bot">
+    Interact with your custom AI bots via API.
   </Card>
 </Columns>

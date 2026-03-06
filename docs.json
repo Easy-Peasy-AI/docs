@@ -36,7 +36,9 @@
           {
             "group": "Transcription",
             "pages": [
-              "api-reference/endpoint/create-transcription"
+              "api-reference/endpoint/create-transcription",
+              "api-reference/endpoint/get-transcription",
+              "api-reference/endpoint/generate-audio-content"
             ]
           },
           {
@@ -45,6 +47,12 @@
               "api-reference/endpoint/get-tts-config",
               "api-reference/endpoint/get-tts-voices",
               "api-reference/endpoint/generate-tts"
+            ]
+          },
+          {
+            "group": "Bots",
+            "pages": [
+              "api-reference/endpoint/chat-with-bot"
             ]
           }
         ]
@@ -91,6 +99,10 @@
       "cursor"
     ]
   },
+  "openapi": [
+    "api-reference/openapi.json",
+    "api-reference/openapi-bots.json"
+  ],
   "footer": {
     "socials": {
       "x": "https://x.com/easy_peasy_ai",

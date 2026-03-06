@@ -2,3 +2,79 @@
 title: 'Create Transcription'
 openapi: 'POST /api/transcriptions'
 ---
+
+## Complete Workflow
+
+Transcription is asynchronous — after submitting an audio file, you need to poll for results. Here's the full workflow:
+
+### Step 1: Submit audio for transcription
+
+Use this endpoint to upload your audio file. The response includes a `uuid` you'll need for the next steps.
+
+<Note>
+Transcription typically takes **1–5 minutes** depending on audio length. Save the `uuid` from the response.
+</Note>
+
+### Step 2: Poll for results
+
+Use [Get Transcription Result](/api-reference/endpoint/get-transcription) to check if the transcription is complete. **Poll every 15–30 seconds** until the `content` field is populated.
+
+The transcription is ready when the response includes a non-empty `content` field and a `segments` array with timestamped text.
+
+```javascript
+async function waitForTranscription(uuid, apiKey) {
+  const maxAttempts = 40; // ~10 minutes max
+
+  for (let i = 0; i < maxAttempts; i++) {
+    const response = await fetch('https://easy-peasy.ai/api/audios', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': apiKey
+      },
+      body: JSON.stringify({ audio_id: uuid })
+    });
+
+    const data = await response.json();
+
+    if (data.audio.content) {
+      return data; // Transcription complete!
+    }
+
+    await new Promise(resolve => setTimeout(resolve, 15000));
+  }
+
+  throw new Error('Transcription timeout');
+}
+```
+
+### Step 3: Generate AI content (optional)
+
+Once the transcription is complete, use [Generate Audio Content](/api-reference/endpoint/generate-audio-content) to create summaries, titles, action items, and more.
+
+```bash
+curl -X POST https://easy-peasy.ai/api/generate-audio-content \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: YOUR_API_KEY" \
+  -d '{"audio_id": "YOUR_AUDIO_UUID"}'
+```
+
+You can also generate specific fields only:
+
+```bash
+curl -X POST https://easy-peasy.ai/api/generate-audio-content \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: YOUR_API_KEY" \
+  -d '{
+    "audio_id": "YOUR_AUDIO_UUID",
+    "fields": ["summary", "title", "keywords"]
+  }'
+```
+
+**Content generated depends on the audio type:**
+
+| Audio Type | Fields |
+|---|---|
+| **Meeting** | summary, title, description, action items, keywords, timestamped overview, topics & bullets, LinkedIn post |
+| **Podcast** | summary, title, description, show notes, Twitter thread, article, newsletter, keywords, questions, LinkedIn post, timestamped overview, topics & bullets |
+| **Therapy Session** | summary, title, description, progress note, SOAP note, DAP note, keywords, timestamped overview, topics & bullets, LinkedIn post |
