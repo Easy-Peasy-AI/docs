@@ -20,15 +20,10 @@
             ]
           },
           {
-            "group": "Presets",
-            "pages": [
-              "api-reference/endpoint/list-presets",
-              "api-reference/endpoint/get-preset"
-            ]
-          },
-          {
             "group": "Text Generation",
             "pages": [
+              "api-reference/endpoint/list-presets",
+              "api-reference/endpoint/get-preset",
               "api-reference/endpoint/generate"
             ]
           },
