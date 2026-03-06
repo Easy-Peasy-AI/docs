@@ -80,6 +80,15 @@
       "href": "https://easy-peasy.ai"
     }
   },
+  "contextual": {
+    "options": [
+      "copy",
+      "view",
+      "chatgpt",
+      "claude",
+      "cursor"
+    ]
+  },
   "footer": {
     "socials": {
       "x": "https://x.com/easy_peasy_ai",
