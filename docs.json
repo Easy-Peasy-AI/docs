@@ -64,8 +64,8 @@
     }
   },
   "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    "light": "/logo/marky.png",
+    "dark": "/logo/marky.png"
   },
   "navbar": {
     "links": [

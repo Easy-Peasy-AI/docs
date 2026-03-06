@@ -5,7 +5,8 @@
       "Bash(git add api-reference/endpoint/create.mdx api-reference/endpoint/delete.mdx api-reference/endpoint/get.mdx api-reference/endpoint/webhook.mdx ai-tools/ essentials/ snippets/ development.mdx quickstart.mdx)",
       "Bash(git commit:*)",
       "Bash(git push origin main)",
-      "Bash(gh auth status)"
+      "Bash(gh auth status)",
+      "Bash(curl -sL \"https://easy-peasy.ai/images/marky.png\" -o /Users/dmytroolefyrenko/Projects/docs/logo/marky.png)"
     ]
   }
 }
