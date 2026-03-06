@@ -680,6 +680,225 @@
         }
       }
     },
+    "/api/presets": {
+      "get": {
+        "summary": "List Presets",
+        "operationId": "listPresets",
+        "description": "Retrieve a list of all available text generation presets (templates). Use this to discover which presets you can pass to the `/api/generate` endpoint.\n\nOptionally filter by category. Only presets with input fields are returned.",
+        "parameters": [
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Your API key",
+            "example": "27feb2bb-aeb4-4a83-9fb6-8f3f2a15885e"
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": ["Social Media", "Content", "Business", "HR", "Marketing", "Resume", "Education", "Project Management", "Tools", "Other"]
+            },
+            "description": "Filter presets by category",
+            "example": "Marketing"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved presets",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PresetsListResponse"
+                },
+                "example": {
+                  "presets": [
+                    {
+                      "slug": "custom-generator",
+                      "title": "Custom Generator",
+                      "description": "Generate custom text for any purpose.",
+                      "category": ["Tools", "Content", "Marketing", "Other", "Social Media", "Business", "Resume"],
+                      "isFree": false
+                    },
+                    {
+                      "slug": "paragraph-writer",
+                      "title": "Paragraph Writer",
+                      "description": "Generate paragraphs with the click of a button!",
+                      "category": ["Tools", "Content", "Social Media", "Marketing", "Business"],
+                      "isFree": true
+                    }
+                  ],
+                  "total": 2,
+                  "categories": ["Social Media", "Content", "Business", "HR", "Marketing", "Resume", "Education", "Project Management", "Tools", "Other"]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or missing API key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": "Invalid API key"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Method not allowed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/presets/{slug}": {
+      "get": {
+        "summary": "Get Preset Details",
+        "operationId": "getPreset",
+        "description": "Retrieve the full configuration for a specific preset, including all input fields and their constraints.\n\nUse this to understand exactly which parameters to pass when calling `/api/generate` with this preset.",
+        "parameters": [
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Your API key",
+            "example": "27feb2bb-aeb4-4a83-9fb6-8f3f2a15885e"
+          },
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The preset slug (e.g. `custom-generator`, `blog-post`, `paragraph-writer`)",
+            "example": "paragraph-writer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved preset details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PresetDetailResponse"
+                },
+                "example": {
+                  "slug": "paragraph-writer",
+                  "title": "Paragraph Writer",
+                  "description": "Generate paragraphs with the click of a button!",
+                  "category": ["Tools", "Content", "Social Media", "Marketing", "Business"],
+                  "isFree": true,
+                  "fields": [
+                    {
+                      "name": "keywords",
+                      "label": "What the paragraph is about",
+                      "type": "textarea",
+                      "required": true,
+                      "placeholder": "example: how to optimize your website for search engines",
+                      "maxLength": 2500
+                    },
+                    {
+                      "name": "extra1",
+                      "label": "Keywords to include (optional)",
+                      "type": "text",
+                      "required": false,
+                      "placeholder": "example: meta tags, link building, sitemap.xml",
+                      "maxLength": 1000
+                    },
+                    {
+                      "name": "tone",
+                      "label": "Tone",
+                      "type": "text",
+                      "required": false,
+                      "placeholder": "example: friendly, funny, cheerful",
+                      "maxLength": 250
+                    },
+                    {
+                      "name": "length",
+                      "label": "Output length",
+                      "type": "radio",
+                      "required": false,
+                      "radioOptions": [
+                        {"value": "Short", "default": false},
+                        {"value": "Medium", "default": true},
+                        {"value": "Long", "default": false}
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Missing slug parameter",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": "Missing slug parameter"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or missing API key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": "Invalid API key"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Preset not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": "Preset not found"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Method not allowed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/generate-image": {
       "post": {
         "summary": "Generate Image",
@@ -1170,6 +1389,168 @@
   },
   "components": {
     "schemas": {
+      "PresetsListResponse": {
+        "type": "object",
+        "properties": {
+          "presets": {
+            "type": "array",
+            "description": "List of available presets",
+            "items": {
+              "$ref": "#/components/schemas/PresetSummary"
+            }
+          },
+          "total": {
+            "type": "integer",
+            "description": "Total number of presets returned",
+            "example": 50
+          },
+          "categories": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "All available preset categories",
+            "example": ["Social Media", "Content", "Business", "HR", "Marketing", "Resume", "Education", "Project Management", "Tools", "Other"]
+          }
+        }
+      },
+      "PresetSummary": {
+        "type": "object",
+        "properties": {
+          "slug": {
+            "type": "string",
+            "description": "Unique preset identifier to pass to `/api/generate`",
+            "example": "paragraph-writer"
+          },
+          "title": {
+            "type": "string",
+            "description": "Human-readable preset name",
+            "example": "Paragraph Writer"
+          },
+          "description": {
+            "type": "string",
+            "description": "Short description of what the preset does",
+            "example": "Generate paragraphs with the click of a button!"
+          },
+          "category": {
+            "description": "Category or categories the preset belongs to",
+            "oneOf": [
+              {"type": "string"},
+              {"type": "array", "items": {"type": "string"}}
+            ],
+            "example": ["Tools", "Content", "Marketing"]
+          },
+          "isFree": {
+            "type": "boolean",
+            "description": "Whether this preset is available on the free plan",
+            "example": true
+          }
+        }
+      },
+      "PresetDetailResponse": {
+        "type": "object",
+        "properties": {
+          "slug": {
+            "type": "string",
+            "description": "Unique preset identifier",
+            "example": "paragraph-writer"
+          },
+          "title": {
+            "type": "string",
+            "description": "Human-readable preset name",
+            "example": "Paragraph Writer"
+          },
+          "description": {
+            "type": "string",
+            "description": "Short description of what the preset does",
+            "example": "Generate paragraphs with the click of a button!"
+          },
+          "category": {
+            "description": "Category or categories the preset belongs to",
+            "oneOf": [
+              {"type": "string"},
+              {"type": "array", "items": {"type": "string"}}
+            ]
+          },
+          "isFree": {
+            "type": "boolean",
+            "description": "Whether this preset is available on the free plan"
+          },
+          "fields": {
+            "type": "array",
+            "description": "Input fields required by this preset. Pass these as body parameters to `/api/generate`.",
+            "items": {
+              "$ref": "#/components/schemas/PresetField"
+            }
+          }
+        }
+      },
+      "PresetField": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Field name to use as the request body key in `/api/generate`",
+            "example": "keywords"
+          },
+          "label": {
+            "type": "string",
+            "description": "Human-readable label for the field",
+            "example": "What the paragraph is about"
+          },
+          "type": {
+            "type": "string",
+            "description": "Field input type",
+            "enum": ["text", "textarea", "select", "radio", "number", "checkbox", "hidden"],
+            "example": "textarea"
+          },
+          "required": {
+            "type": "boolean",
+            "description": "Whether this field is required",
+            "example": true
+          },
+          "description": {
+            "type": "string",
+            "description": "Additional guidance for the field"
+          },
+          "placeholder": {
+            "type": "string",
+            "description": "Example value for the field",
+            "example": "example: how to optimize your website for search engines"
+          },
+          "maxLength": {
+            "type": "integer",
+            "description": "Maximum character length for the field value",
+            "example": 2500
+          },
+          "options": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Available options for `select` type fields"
+          },
+          "radioOptions": {
+            "type": "array",
+            "description": "Available options for `radio` type fields",
+            "items": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "description": "Option value",
+                  "example": "Medium"
+                },
+                "default": {
+                  "type": "boolean",
+                  "description": "Whether this option is selected by default",
+                  "example": true
+                }
+              }
+            }
+          }
+        }
+      },
       "GenerateRequest": {
         "type": "object",
         "required": ["preset", "keywords"],
@@ -1326,7 +1707,7 @@
           },
           "dimensions": {
             "type": "string",
-            "description": "Dimensions of the generated image (e.g. 1024x1024, 1024x1792, 1792x1024)",
+            "description": "Dimensions of the generated image. Accepted values vary by model:\n\n- **DALL-E 3**: `1024x1024`, `1792x1024`, `1024x1792`\n- **OpenAI GPT Image 1/1.5**: `1024x1024`, `1536x1024`, `1024x1536`\n- **Midjourney V6/V7, FLUX.1, FLUX 1.1 Pro/Ultra**: `1:1`, `2:3`, `3:2`, `4:5`, `5:4`, `16:9`, `9:16`\n- **FLUX.2 [dev/flex/pro/max]**: `1:1`, `2:3`, `3:2`, `4:5`, `5:4`, `16:9`, `9:16`\n- **Flux Kontext Pro/Max, Stable Diffusion 3.0/3.5**: `1:1`, `21:9`, `16:9`, `4:3`, `3:2`, `2:3`, `3:4`, `9:16`, `9:21`\n- **Imagen 3/4/4 Ultra/4 Fast, Seedream, HiDream, Dreamina, HunyuanImage, MiniMax, WAN, ImagineArt, Ideogram v3, Qwen-Image**: `1:1`, `3:4`, `4:3`, `9:16`, `16:9`\n- **Grok/Grok Pro**: `1:1`, `3:4`, `4:3`, `9:16`, `16:9`, `2:3`, `3:2`, `1:2`, `2:1`\n- **Recraft v3**: `1024x1024`, `1365x1024`, `1024x1365`, `1536x1024`, `1024x1536`, `1820x1024`, `1024x1820`, `2048x1024`, `1024x2048`\n- **Nano Banana/Pro/Flash**: `1:1`, `2:3`, `3:2`, `3:4`, `4:3`, `4:5`, `5:4`, `9:16`, `16:9`, `21:9`\n- **Nano Banana 2**: same as above plus `1:4`, `4:1`, `1:8`, `8:1`\n- **REVE**: `1:1`, `2:3`, `3:2`, `3:4`, `4:3`, `9:16`, `16:9`\n- **Bria 3.2**: `1:1`, `2:3`, `3:2`, `3:4`, `4:3`, `4:5`, `5:4`, `9:16`, `16:9`\n- **Z-Image Turbo**: `1:1`, `4:3`, `3:4`, `16:9`, `9:16`\n- **Stable Diffusion XL**: `1024x1024`, `2048x1536`, `1536x2048`",
             "example": "1024x1024"
           },
           "useHD": {

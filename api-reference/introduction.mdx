@@ -7,14 +7,15 @@ description: 'Getting started with the Easy-Peasy.AI API'
 
 The Easy-Peasy.AI API lets you programmatically access our AI-powered tools:
 
+- **Presets** — Discover available text generation templates and their input fields
 - **Text Generation** — Generate blog posts, social media captions, emails, marketing copy, and more using 50+ templates
-- **Image Generation** — Create AI images with DALL-E 3, Stable Diffusion XL, or Stable Diffusion 3.0
+- **Image Generation** — Create AI images with 40+ models including DALL-E 3, Midjourney, FLUX.2, Imagen 4, and more
 - **Transcription** — Transcribe audio files with speaker detection and enhanced quality
 - **Text-to-Speech** — Convert text to natural-sounding speech with 150+ voices
 
 ## Authentication
 
-All API requests must include your API key in the `x-api-key` header.
+All API requests require your API key in the `x-api-key` header (except TTS Config/Voices which are public).
 
 ```bash
 curl -X POST https://easy-peasy.ai/api/generate \
@@ -39,14 +40,26 @@ All API requests are made to:
 https://easy-peasy.ai
 ```
 
+## Typical Workflow
+
+1. **Discover presets** — Call `GET /api/presets` to list available templates
+2. **Get field requirements** — Call `GET /api/presets/{slug}` to see what fields a preset needs
+3. **Generate content** — Call `POST /api/generate` with the preset slug and required fields
+
 ## Endpoints
 
 <Columns cols={2}>
+  <Card title="List Presets" icon="list" href="/api-reference/endpoint/list-presets">
+    Discover available text generation templates.
+  </Card>
+  <Card title="Get Preset Details" icon="circle-info" href="/api-reference/endpoint/get-preset">
+    Get input fields and constraints for a preset.
+  </Card>
   <Card title="Generate Text" icon="pen" href="/api-reference/endpoint/generate">
-    Generate content using 50+ AI templates.
+    Generate content using any preset.
   </Card>
   <Card title="Generate Image" icon="image" href="/api-reference/endpoint/generate-image">
-    Create AI images with multiple models.
+    Create AI images with 40+ models.
   </Card>
   <Card title="Create Transcription" icon="microphone" href="/api-reference/endpoint/create-transcription">
     Transcribe audio files to text.
