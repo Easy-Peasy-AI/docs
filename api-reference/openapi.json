@@ -1,94 +1,1052 @@
 {
-  "openapi": "3.1.0",
+  "openapi": "3.0.1",
   "info": {
-    "title": "OpenAPI Plant Store",
-    "description": "A sample API that uses a plant store as an example to demonstrate features in the OpenAPI specification",
-    "license": {
-      "name": "MIT"
-    },
-    "version": "1.0.0"
+    "title": "Easy-Peasy.AI API",
+    "description": "OpenAPI Specifications for the Easy-Peasy.AI API.\n\nAll API requests must be authenticated with an API key. Include the `x-api-key` API key in the request header with all requests. You can get the API key [here](https://easy-peasy.ai/settings/api).",
+    "version": "1.0.4"
   },
   "servers": [
     {
-      "url": "http://sandbox.mintlify.com"
+      "url": "https://easy-peasy.ai"
     }
   ],
   "security": [
     {
-      "bearerAuth": []
+      "apiKeyAuth": []
     }
   ],
   "paths": {
-    "/plants": {
-      "get": {
-        "description": "Returns all plants from the system that the user has access to",
+    "/api/generate": {
+      "post": {
+        "summary": "Generate Text",
+        "operationId": "generateText",
+        "description": "Programmatically generate outputs for any of the [Templates](https://easy-peasy.ai/presets). Each template (preset) accepts different parameters — see the request body schema and examples below.",
         "parameters": [
           {
-            "name": "limit",
-            "in": "query",
-            "description": "The maximum number of results to return",
+            "name": "x-api-key",
+            "in": "header",
+            "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int32"
+              "type": "string"
+            },
+            "description": "Your API key",
+            "example": "27feb2bb-aeb4-4a83-9fb6-8f3f2a15885e"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GenerateRequest"
+              },
+              "examples": {
+                "custom-generator": {
+                  "summary": "Custom Generator",
+                  "description": "Generate custom text for any purpose.\n\n**keywords** — What do you want to generate? (maxlength: 1000)\n\n**extra1** — Background Information (optional) (maxlength: 1000)",
+                  "value": {
+                    "preset": "custom-generator",
+                    "keywords": "Write an email to potential investors about my startup",
+                    "outputs": 1,
+                    "language": "English",
+                    "shouldUseGPT4": false
+                  }
+                },
+                "paragraph-writer": {
+                  "summary": "Paragraph Writer",
+                  "description": "Generate paragraphs with the click of a button.\n\n**keywords** — What the paragraph is about (maxlength: 1000)\n\n**tone** — Tone (maxlength: 100)\n\n**length** — Output length",
+                  "value": {
+                    "preset": "paragraph-writer",
+                    "keywords": "how to optimize your website for search engines",
+                    "tone": "friendly, funny, cheerful",
+                    "length": "Medium",
+                    "outputs": 1
+                  }
+                },
+                "instagram-post-caption": {
+                  "summary": "Instagram Post Caption",
+                  "description": "Generate a caption for an Instagram post.\n\n**keywords** — Post Topic (maxlength: 1000)\n\n**tone** — Tone (maxlength: 1000)\n\n**length** — Output length",
+                  "value": {
+                    "preset": "instagram-post-caption",
+                    "keywords": "weekend with family in the park",
+                    "tone": "friendly, funny, cheerful",
+                    "length": "Short",
+                    "outputs": 1
+                  }
+                },
+                "linkedin-post-generator": {
+                  "summary": "LinkedIn Post Generator",
+                  "description": "Get more out of LinkedIn with the LinkedIn Post Generator.\n\n**keywords** — What is your post about? (maxlength: 1000)\n\n**tone** — Tone (optional) (maxlength: 1000)",
+                  "value": {
+                    "preset": "linkedin-post-generator",
+                    "keywords": "Announcing our new AI product launch",
+                    "tone": "professional, energetic, funny",
+                    "outputs": 1
+                  }
+                },
+                "full-blog-post": {
+                  "summary": "Full Blog Post",
+                  "description": "Generate a full blog post in seconds.\n\n**extra2** — Blog post title/topic (maxlength: 1000)\n\n**extra1** — Blog post intro (maxlength: 1000)\n\n**keywords** — Blog post outline (maxlength: 1000)\n\n**tone** — Tone (optional) (maxlength: 1000)",
+                  "value": {
+                    "preset": "full-blog-post",
+                    "extra2": "How To Become A Software Engineer",
+                    "extra1": "The skills required to become a software engineer. The education required to become a software engineer.",
+                    "keywords": "",
+                    "tone": "professional, energetic, clever",
+                    "outputs": 1
+                  }
+                },
+                "blog-post": {
+                  "summary": "Blog Post",
+                  "description": "Generate complete blog posts on any topic in seconds.\n\n**keywords** — Describe your blog topic (maxlength: 1000)\n\n**tone** — Tone (optional) (maxlength: 1000)",
+                  "value": {
+                    "preset": "blog-post",
+                    "keywords": "I visited the crypto event Token2049 in Singapore and met many VCs and entrepreneurs.",
+                    "tone": "professional, energetic, clever",
+                    "outputs": 1
+                  }
+                },
+                "aida-framework": {
+                  "summary": "AIDA Framework",
+                  "description": "Attention, Interest, Desire, Action. Generate a sales copy.\n\n**keywords** — Product description (maxlength: 1000)\n\n**tone** — Tone (optional) (maxlength: 1000)",
+                  "value": {
+                    "preset": "aida-framework",
+                    "keywords": "Easy-Peasy.AI is an AI copywriting tool that can help you with a variety of writing tasks.",
+                    "tone": "professional, energetic, clever",
+                    "outputs": 1
+                  }
+                },
+                "before-after-bridge-framework": {
+                  "summary": "Before-After-Bridge Framework",
+                  "description": "Before, After, Bridge. Generate marketing copy in seconds.\n\n**keywords** — Product description (maxlength: 1000)\n\n**tone** — Tone (optional) (maxlength: 1000)",
+                  "value": {
+                    "preset": "before-after-bridge-framework",
+                    "keywords": "Easy-Peasy.AI is an AI copywriting tool that can help you with a variety of writing tasks.",
+                    "tone": "professional, energetic, clever",
+                    "outputs": 1
+                  }
+                },
+                "problem-agitate-solution-framework": {
+                  "summary": "Problem-Agitate-Solution Framework",
+                  "description": "Problem-Agitate-Solution. Write Persuasive Copy.\n\n**keywords** — Product description (maxlength: 1000)\n\n**tone** — Tone (optional) (maxlength: 1000)",
+                  "value": {
+                    "preset": "problem-agitate-solution-framework",
+                    "keywords": "Easy-Peasy.AI is an AI copywriting tool that can help you with a variety of writing tasks.",
+                    "tone": "professional, energetic, clever",
+                    "outputs": 1
+                  }
+                },
+                "sentence-expander": {
+                  "summary": "Sentence Expander",
+                  "description": "Make your writing more engaging and interesting to read.\n\n**keywords** — Sentence to expand (maxlength: 1000)\n\n**tone** — Tone (optional) (maxlength: 1000)",
+                  "value": {
+                    "preset": "sentence-expander",
+                    "keywords": "Today is good weather",
+                    "tone": "professional, energetic, clever",
+                    "outputs": 1
+                  }
+                },
+                "content-rewriter": {
+                  "summary": "Content Rewriter",
+                  "description": "Make your content shine with our easy-to-use content rewriter.\n\n**keywords** — Content (maxlength: 5000)\n\n**tone** — Tone (maxlength: 1000)",
+                  "value": {
+                    "preset": "content-rewriter",
+                    "keywords": "Most companies try to stay ahead of the curve when it comes to visual design.",
+                    "tone": "friendly, funny, cheerful",
+                    "outputs": 1
+                  }
+                },
+                "content-summarizer": {
+                  "summary": "Content Summarizer",
+                  "description": "Get the main points of any text in a fraction of the time.\n\n**keywords** — Content (maxlength: 100000)\n\n**length** — Output length",
+                  "value": {
+                    "preset": "content-summarizer",
+                    "keywords": "Paste your long content here to summarize.",
+                    "length": "Short",
+                    "outputs": 1
+                  }
+                },
+                "grammar-corrector": {
+                  "summary": "Grammar Corrector",
+                  "description": "Make sure your writing is error-free.\n\n**keywords** — Text (maxlength: 5000)",
+                  "value": {
+                    "preset": "grammar-corrector",
+                    "keywords": "I has breakfast with the my friends these morning.",
+                    "outputs": 1
+                  }
+                },
+                "native-speaker": {
+                  "summary": "Native Speaker",
+                  "description": "Clear, concise and authentic writing.\n\n**keywords** — Text (maxlength: 5000)",
+                  "value": {
+                    "preset": "native-speaker",
+                    "keywords": "I has breakfast with the my friends these morning.",
+                    "outputs": 1
+                  }
+                },
+                "email-generation": {
+                  "summary": "Email Generator",
+                  "description": "Turn a sentence into an email.\n\n**keywords** — Email Topic (maxlength: 1000)",
+                  "value": {
+                    "preset": "email-generation",
+                    "keywords": "ask about pay raise",
+                    "outputs": 1
+                  }
+                },
+                "email-subject-line-generation": {
+                  "summary": "Email Subject Line Generator",
+                  "description": "Generate attention-grabbing email subject lines.\n\n**keywords** — What is the email about? (maxlength: 1000)\n\n**tone** — Tone (optional) (maxlength: 1000)",
+                  "value": {
+                    "preset": "email-subject-line-generation",
+                    "keywords": "ask about pay raise",
+                    "tone": "professional, energetic",
+                    "outputs": 1
+                  }
+                },
+                "reply-to-email": {
+                  "summary": "Reply to Email",
+                  "description": "Make your email replies more efficient.\n\n**keywords** — Received Email (maxlength: 2000)\n\n**extra2** — Your Reply (maxlength: 1000)\n\n**extra1** — What to include in your reply? (optional) (maxlength: 1000)\n\n**tone** — Tone (optional) (maxlength: 1000)",
+                  "value": {
+                    "preset": "reply-to-email",
+                    "keywords": "Hi Janice! How did you spend your weekend?",
+                    "extra2": "Positive",
+                    "extra1": "went to East Coast park with family",
+                    "tone": "professional, energetic, clever",
+                    "outputs": 1
+                  }
+                },
+                "reply-to-messsage": {
+                  "summary": "Reply to Message",
+                  "description": "Reply to WhatsApp, Slack or any other message.\n\n**keywords** — Message (maxlength: 2000)\n\n**extra2** — Your Reply (maxlength: 1000)\n\n**extra1** — What to include in your reply? (optional) (maxlength: 1000)\n\n**tone** — Tone (optional) (maxlength: 1000)",
+                  "value": {
+                    "preset": "reply-to-messsage",
+                    "keywords": "Hi Janice! How did you spend your weekend?",
+                    "extra2": "Positive",
+                    "extra1": "went to East Coast park with family",
+                    "tone": "professional, energetic, clever",
+                    "outputs": 1
+                  }
+                },
+                "blog-post-title": {
+                  "summary": "Blog Post Title",
+                  "description": "Generate catchy titles for your blog posts.\n\n**keywords** — Describe your blog topic (maxlength: 1000)\n\n**tone** — Tone (optional) (maxlength: 1000)",
+                  "value": {
+                    "preset": "blog-post-title",
+                    "keywords": "I visited the crypto event Token2049 in Singapore.",
+                    "tone": "professional, energetic, clever",
+                    "outputs": 1
+                  }
+                },
+                "blog-post-outline": {
+                  "summary": "Blog Post Outline",
+                  "description": "Writing a blog post is easy when you have a plan.\n\n**keywords** — Blog post title/topic (maxlength: 1000)\n\n**tone** — Tone (optional) (maxlength: 1000)",
+                  "value": {
+                    "preset": "blog-post-outline",
+                    "keywords": "How To Become A Software Engineer",
+                    "tone": "professional, energetic, clever",
+                    "outputs": 1
+                  }
+                },
+                "blog-post-intro": {
+                  "summary": "Blog Post Intro",
+                  "description": "Get your readers hooked from the very beginning.\n\n**keywords** — Blog post title/topic (maxlength: 1000)\n\n**extra1** — What is the blog about? (maxlength: 1000)\n\n**tone** — Tone (optional) (maxlength: 1000)",
+                  "value": {
+                    "preset": "blog-post-intro",
+                    "keywords": "How To Become A Software Engineer",
+                    "extra1": "The skills required to become a software engineer.",
+                    "tone": "professional, energetic, clever",
+                    "outputs": 1
+                  }
+                },
+                "blog-post-conclusion": {
+                  "summary": "Blog Post Conclusion",
+                  "description": "End your blog post with a bang.\n\n**keywords** — Blog post title/topic (maxlength: 1000)\n\n**extra1** — What is the blog about? (maxlength: 1000)\n\n**tone** — Tone (optional) (maxlength: 1000)",
+                  "value": {
+                    "preset": "blog-post-conclusion",
+                    "keywords": "How To Become A Software Engineer",
+                    "extra1": "The skills required to become a software engineer.",
+                    "tone": "professional, energetic, clever",
+                    "outputs": 1
+                  }
+                },
+                "headline-generator": {
+                  "summary": "Headline Generator",
+                  "description": "Make your headlines pop.\n\n**keywords** — Topic (maxlength: 1000)\n\n**tone** — Tone (optional) (maxlength: 1000)",
+                  "value": {
+                    "preset": "headline-generator",
+                    "keywords": "Website Design",
+                    "tone": "catchy, energetic, clever",
+                    "outputs": 1
+                  }
+                },
+                "clickbait-title-generator": {
+                  "summary": "Clickbait Title Generator",
+                  "description": "Generate attention-grabbing titles that get clicks.\n\n**keywords** — Topic (maxlength: 1000)\n\n**tone** — Tone (optional) (maxlength: 1000)",
+                  "value": {
+                    "preset": "clickbait-title-generator",
+                    "keywords": "Website Design",
+                    "tone": "catchy, energetic, clever",
+                    "outputs": 1
+                  }
+                },
+                "catchy-tagline": {
+                  "summary": "Catchy Tagline",
+                  "description": "Create catchy slogans and taglines.\n\n**keywords** — Tell us about your business or product (maxlength: 1000)",
+                  "value": {
+                    "preset": "catchy-tagline",
+                    "keywords": "Easy-Peasy.AI is an AI copywriting tool that can help you with a variety of writing tasks.",
+                    "outputs": 1
+                  }
+                },
+                "youtube-video-title": {
+                  "summary": "YouTube Video Title",
+                  "description": "Generate catchy titles for your YouTube Videos.\n\n**keywords** — What is your video about? (maxlength: 1000)\n\n**tone** — Tone (optional) (maxlength: 1000)",
+                  "value": {
+                    "preset": "youtube-video-title",
+                    "keywords": "I visited the crypto event Token2049 in Singapore.",
+                    "tone": "professional, energetic, clever",
+                    "outputs": 1
+                  }
+                },
+                "youtube-video-description": {
+                  "summary": "YouTube Video Description",
+                  "description": "Make your videos stand out with great descriptions.\n\n**keywords** — What is your video about? (maxlength: 1000)\n\n**tone** — Tone (optional) (maxlength: 1000)",
+                  "value": {
+                    "preset": "youtube-video-description",
+                    "keywords": "I visited the crypto event Token2049 in Singapore.",
+                    "tone": "professional, energetic, clever",
+                    "outputs": 1
+                  }
+                },
+                "youtube-video-ideas": {
+                  "summary": "YouTube Video Ideas",
+                  "description": "Get inspired to make your next YouTube video.\n\n**keywords** — What is your video about? (maxlength: 1000)\n\n**tone** — Tone (optional) (maxlength: 1000)",
+                  "value": {
+                    "preset": "youtube-video-ideas",
+                    "keywords": "AI and machine learning tutorials",
+                    "tone": "professional, energetic, clever",
+                    "outputs": 1
+                  }
+                },
+                "youtube-video-script-outline": {
+                  "summary": "YouTube Video Script Outline",
+                  "description": "Make your next video a hit with a professional script outline.\n\n**keywords** — What is your video about? (maxlength: 1000)\n\n**tone** — Tone (optional) (maxlength: 1000)",
+                  "value": {
+                    "preset": "youtube-video-script-outline",
+                    "keywords": "AI and machine learning tutorials",
+                    "tone": "professional, energetic, clever",
+                    "outputs": 1
+                  }
+                },
+                "tiktok-video-caption": {
+                  "summary": "TikTok Video Caption",
+                  "description": "Get more likes and views on your TikTok videos.\n\n**keywords** — What is your video about? (maxlength: 1000)\n\n**tone** — Tone (optional) (maxlength: 1000)",
+                  "value": {
+                    "preset": "tiktok-video-caption",
+                    "keywords": "I visited the crypto event Token2049 in Singapore.",
+                    "tone": "professional, energetic, clever",
+                    "outputs": 1
+                  }
+                },
+                "resume-headline-generator": {
+                  "summary": "Resume Headline Generator",
+                  "description": "Get the Job You Want.\n\n**keywords** — Job Role and skills (maxlength: 1000)\n\n**tone** — Tone (optional) (maxlength: 1000)",
+                  "value": {
+                    "preset": "resume-headline-generator",
+                    "keywords": "web developer, php, javascript",
+                    "tone": "professional, energetic",
+                    "outputs": 1
+                  }
+                },
+                "resume-objective-generator": {
+                  "summary": "Resume Objective Generator",
+                  "description": "Create your professional resume objective.\n\n**keywords** — Job Title (maxlength: 1000)\n\n**extra1** — Key skills (optional) (maxlength: 1000)\n\n**extra2** — Professional goals (optional) (maxlength: 1000)",
+                  "value": {
+                    "preset": "resume-objective-generator",
+                    "keywords": "Customer Service Agent",
+                    "extra1": "trained in conflict resolution and communication",
+                    "extra2": "increase sales and customer loyalty",
+                    "outputs": 1
+                  }
+                },
+                "linkedin-bio-generator": {
+                  "summary": "LinkedIn Bio Generator",
+                  "description": "Create a custom bio that will help you stand out.\n\n**keywords** — Personal Information (maxlength: 1000)",
+                  "value": {
+                    "preset": "linkedin-bio-generator",
+                    "keywords": "Software engineer with 5 years of experience in web development.",
+                    "outputs": 1
+                  }
+                },
+                "linkedin-headline-generator": {
+                  "summary": "LinkedIn Headline Generator",
+                  "description": "Create the Perfect Professional Headline.\n\n**keywords** — Job Role and skills (maxlength: 1000)\n\n**tone** — Tone (optional) (maxlength: 1000)",
+                  "value": {
+                    "preset": "linkedin-headline-generator",
+                    "keywords": "web developer, php, javascript",
+                    "tone": "professional, energetic",
+                    "outputs": 1
+                  }
+                },
+                "linkedin-recommendation-generator": {
+                  "summary": "LinkedIn Recommendation Generator",
+                  "description": "Generate a recommendation for someone's profile.\n\n**keywords** — Name of the person (maxlength: 1000)\n\n**extra3** — Their Job Title (maxlength: 1000)\n\n**extra1** — Company name (maxlength: 1000)\n\n**extra2** — Role of the person (maxlength: 1000)\n\n**extra4** — What to include (optional) (maxlength: 500)",
+                  "value": {
+                    "preset": "linkedin-recommendation-generator",
+                    "keywords": "Peter Parker",
+                    "extra3": "Web Developer",
+                    "extra1": "Google",
+                    "extra2": "Colleague",
+                    "extra4": "Successful in managing projects and implementing new technologies",
+                    "outputs": 1
+                  }
+                },
+                "job-description-generator": {
+                  "summary": "Job Description Generator",
+                  "description": "Quickly generate job descriptions.\n\n**keywords** — Job Title (maxlength: 1000)\n\n**extra1** — Key skills (optional) (maxlength: 1000)",
+                  "value": {
+                    "preset": "job-description-generator",
+                    "keywords": "Customer Service Agent",
+                    "extra1": "trained in conflict resolution and communication",
+                    "outputs": 1
+                  }
+                },
+                "job-summary-generator": {
+                  "summary": "Job Summary Generator",
+                  "description": "Get a strong, attention-grabbing summary.\n\n**keywords** — Job Title (maxlength: 1000)\n\n**extra1** — Company overview (optional) (maxlength: 1000)",
+                  "value": {
+                    "preset": "job-summary-generator",
+                    "keywords": "Customer Service Agent",
+                    "extra1": "What makes your company unique. Include details about your company culture",
+                    "outputs": 1
+                  }
+                },
+                "job-qualifications-generator": {
+                  "summary": "Job Qualifications Generator",
+                  "description": "Quickly generate job qualifications.\n\n**keywords** — Job Title (maxlength: 1000)\n\n**extra1** — Requirements (optional) (maxlength: 1000)",
+                  "value": {
+                    "preset": "job-qualifications-generator",
+                    "keywords": "Customer Service Agent",
+                    "extra1": "educational, work Experience, soft skills, languages spoken",
+                    "outputs": 1
+                  }
+                },
+                "job-responsibilities-generator": {
+                  "summary": "Job Responsibilities Generator",
+                  "description": "Quickly generate job responsibilities.\n\n**keywords** — Job Title (maxlength: 1000)\n\n**extra1** — Responsibilities and Duties (optional) (maxlength: 1000)",
+                  "value": {
+                    "preset": "job-responsibilities-generator",
+                    "keywords": "Customer Service Agent",
+                    "extra1": "Specify core responsibilities, day-to-day activities",
+                    "outputs": 1
+                  }
+                },
+                "interview-questions-generator": {
+                  "summary": "Interview Questions Generator",
+                  "description": "Make your next interview preparation a breeze.\n\n**keywords** — Job Title (maxlength: 1000)",
+                  "value": {
+                    "preset": "interview-questions-generator",
+                    "keywords": "Customer Service Agent",
+                    "outputs": 1
+                  }
+                },
+                "interview-feedback-generator": {
+                  "summary": "Interview Feedback Generator",
+                  "description": "Write Interview Feedback With Ease.\n\n**keywords** — Job Title (maxlength: 1000)\n\n**extra1** — Feedback Notes (maxlength: 1000)",
+                  "value": {
+                    "preset": "interview-feedback-generator",
+                    "keywords": "Lead iOS Developer",
+                    "extra1": "8 years of experience. Knows design patterns, SOLID principles.",
+                    "outputs": 1
+                  }
+                },
+                "performance-review-generator": {
+                  "summary": "Performance Review Generator",
+                  "description": "Make your performance review process easy.\n\n**keywords** — Employee Name (maxlength: 1000)\n\n**extra3** — Employee Job Title (maxlength: 1000)\n\n**extra1** — Key Achievements (optional) (maxlength: 1000)",
+                  "value": {
+                    "preset": "performance-review-generator",
+                    "keywords": "Peter Parker",
+                    "extra3": "Web Developer",
+                    "outputs": 1
+                  }
+                },
+                "smart-goal-generator": {
+                  "summary": "SMART Goal Generator",
+                  "description": "Generate SMART (Specific, Measurable, Achievable, Relevant, Time-bound) goals.\n\n**keywords** — What do you want to achieve? (maxlength: 1000)",
+                  "value": {
+                    "preset": "smart-goal-generator",
+                    "keywords": "Increase online sales",
+                    "outputs": 1,
+                    "language": "English",
+                    "shouldUseGPT4": false
+                  }
+                },
+                "testimonial-and-review-generator": {
+                  "summary": "Testimonial & Review Generator",
+                  "description": "Generate Testimonials & Reviews in Seconds.\n\n**keywords** — Product/Service Name (maxlength: 1000)\n\n**extra1** — What to include (maxlength: 1000)\n\n**tone** — Tone (optional) (maxlength: 1000)\n\n**length** — Output length",
+                  "value": {
+                    "preset": "testimonial-and-review-generator",
+                    "keywords": "Easy-Peasy.AI",
+                    "extra1": "Amazing app. can quickly create content for my blog, social media, job descriptions.",
+                    "tone": "catchy, energetic, clever",
+                    "length": "Medium",
+                    "outputs": 1
+                  }
+                },
+                "press-release-generator": {
+                  "summary": "Press Release Generator",
+                  "description": "Create Professional Press Releases in Seconds.\n\n**keywords** — Product/Service Name (maxlength: 1000)\n\n**extra1** — What is your Press Release about? (maxlength: 1000)\n\n**extra2** — Keywords (optional) (maxlength: 1000)\n\n**tone** — Tone (optional) (maxlength: 1000)",
+                  "value": {
+                    "preset": "press-release-generator",
+                    "keywords": "Easy-Peasy.AI",
+                    "extra1": "Easy-Peasy.AI launches a new product called AI Audio Transcription.",
+                    "extra2": "artificial intelligence, podcast, transcription",
+                    "tone": "professional",
+                    "outputs": 1
+                  }
+                },
+                "amazon-product-description-paragraph": {
+                  "summary": "Amazon Product Description",
+                  "description": "Create Amazon product descriptions that sell.\n\n**keywords** — Product Name (maxlength: 1000)\n\n**extra1** — Key benefits/features (maxlength: 1000)\n\n**tone** — Tone (maxlength: 1000)",
+                  "value": {
+                    "preset": "amazon-product-description-paragraph",
+                    "keywords": "Aveeno",
+                    "extra1": "A baby soap that is gentle and effective. Formulated with natural oat ingredients.",
+                    "tone": "witty, professional",
+                    "outputs": 1
+                  }
+                },
+                "amazon-product-bullets": {
+                  "summary": "Amazon Product Bullets",
+                  "description": "Create key feature and benefit bullet points for Amazon listings.\n\n**keywords** — Product Name (maxlength: 1000)\n\n**extra1** — Key benefits/features (maxlength: 1000)\n\n**tone** — Tone (maxlength: 1000)",
+                  "value": {
+                    "preset": "amazon-product-bullets",
+                    "keywords": "Aveeno",
+                    "extra1": "A baby soap that is gentle and effective. Formulated with natural oat ingredients.",
+                    "tone": "witty, professional",
+                    "outputs": 1
+                  }
+                },
+                "startup-ideas": {
+                  "summary": "Startup Ideas",
+                  "description": "Generate your next startup idea.\n\n**keywords** — Keywords (maxlength: 1000)",
+                  "value": {
+                    "preset": "startup-ideas",
+                    "keywords": "blockchain, ecommerce",
+                    "outputs": 1
+                  }
+                },
+                "user-story": {
+                  "summary": "User Story",
+                  "description": "Get your product features into the hands of users faster with agile user stories.\n\n**keywords** — Feature (maxlength: 1000)",
+                  "value": {
+                    "preset": "user-story",
+                    "keywords": "data syncing with an Apple Watch",
+                    "outputs": 1
+                  }
+                },
+                "acceptance-criteria": {
+                  "summary": "Acceptance Criteria",
+                  "description": "Quickly and easily generate acceptance criteria.\n\n**keywords** — Feature (maxlength: 1000)",
+                  "value": {
+                    "preset": "acceptance-criteria",
+                    "keywords": "data syncing with an Apple Watch",
+                    "outputs": 1
+                  }
+                },
+                "fill-the-gaps": {
+                  "summary": "Fill the Gaps",
+                  "description": "Add contextually relevant text in the middle of existing content.\n\n**keywords** — Start section (maxlength: 1000)\n\n**suffix** — End section (maxlength: 1000)",
+                  "value": {
+                    "preset": "fill-the-gaps",
+                    "keywords": "Hi Peter! Thank you for your offer",
+                    "suffix": "Looking forward working together with you!",
+                    "outputs": 1
+                  }
+                },
+                "business-name": {
+                  "summary": "Business Name Generator",
+                  "description": "Generate business names that are both creative and professional.\n\n**keywords** — What is your business about? (maxlength: 1000)",
+                  "value": {
+                    "preset": "business-name",
+                    "keywords": "A startup that uses AI to help copywriters create human-like text.",
+                    "outputs": 1
+                  }
+                },
+                "eli5": {
+                  "summary": "Explain Like I'm 5",
+                  "description": "Explain a complex or obscure topic in the simplest of terms.\n\n**keywords** — Topic (maxlength: 1000)",
+                  "value": {
+                    "preset": "eli5",
+                    "keywords": "What is an API",
+                    "outputs": 1
+                  }
+                },
+                "translate-to-singlish": {
+                  "summary": "Translate to Singlish",
+                  "description": "Get your message across in Singlish.\n\n**keywords** — Text (maxlength: 1000)",
+                  "value": {
+                    "preset": "translate-to-singlish",
+                    "keywords": "I would like coffee with milk",
+                    "outputs": 1
+                  }
+                },
+                "pick-up-line-generator": {
+                  "summary": "Pick Up Line Generator",
+                  "description": "Never run out of lines.\n\n**keywords** — Keywords (maxlength: 100)\n\n**extra2** — For whom? (maxlength: 1000)",
+                  "value": {
+                    "preset": "pick-up-line-generator",
+                    "keywords": "gym",
+                    "extra2": "Positive",
+                    "outputs": 1
+                  }
+                },
+                "instagram-bio": {
+                  "summary": "Instagram Bio",
+                  "description": "Make your Instagram profile stand out.\n\n**keywords** — Personal Information (maxlength: 1000)",
+                  "value": {
+                    "preset": "instagram-bio",
+                    "keywords": "IT guru from France. Posting about cats.",
+                    "outputs": 1
+                  }
+                },
+                "podcast-episode-title-generator": {
+                  "summary": "Podcast Episode Title Generator",
+                  "description": "Generate podcast episode titles.\n\n**keywords** — Episode Description or Summary (maxlength: 2000)\n\n**tone** — Tone (maxlength: 1000)",
+                  "value": {
+                    "preset": "podcast-episode-title-generator",
+                    "keywords": "Discussion about the future of AI in healthcare",
+                    "tone": "professional, funny, witty",
+                    "outputs": 1
+                  }
+                },
+                "podcast-episode-description-generator": {
+                  "summary": "Podcast Episode Description Generator",
+                  "description": "Generate podcast episode descriptions.\n\n**keywords** — Episode Summary (maxlength: 2000)\n\n**tone** — Tone (maxlength: 1000)",
+                  "value": {
+                    "preset": "podcast-episode-description-generator",
+                    "keywords": "Discussion about the future of AI in healthcare",
+                    "tone": "professional, funny, witty",
+                    "outputs": 1
+                  }
+                },
+                "podcast-show-notes-generator": {
+                  "summary": "Podcast Show Notes Generator",
+                  "description": "Create show notes that will help you grow your podcast audience.\n\n**keywords** — Podcast Transcript or Summary (maxlength: 15000)\n\n**extra1** — Show Notes Example (optional) (maxlength: 1500)",
+                  "value": {
+                    "preset": "podcast-show-notes-generator",
+                    "keywords": "Summary of our episode about AI trends in 2024",
+                    "extra1": "",
+                    "outputs": 1
+                  }
+                },
+                "real-estate-listing-generator": {
+                  "summary": "Real Estate Listing Generator",
+                  "description": "Craft compelling real estate listings.\n\n**keywords** — Information about the home (maxlength: 1000)",
+                  "value": {
+                    "preset": "real-estate-listing-generator",
+                    "keywords": "bungalow, private pool, lift, walk to beach, future mrt. 5 beds. 6 baths. 2 carparks. 4510 sqft. 99 years leasehold. $2.5m. Punggol.",
+                    "outputs": 1
+                  }
+                }
+              }
             }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Returns the generated outputs as an array",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ArrayOfTexts"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid payload or no available word credits",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": "Invalid API key"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/generate-image": {
+      "post": {
+        "summary": "Generate Image",
+        "operationId": "generateImage",
+        "description": "Programmatically generate [AI Images](https://easy-peasy.ai/ai-images) using DALL-E 3, Stable Diffusion XL, or Stable Diffusion 3.0.",
+        "parameters": [
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Your API key",
+            "example": "27feb2bb-aeb4-4a83-9fb6-8f3f2a15885e"
+          }
+        ],
+        "requestBody": {
+          "description": "The prompt and model to generate the image",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ImageGenerationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful image generation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ImageGenerationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - missing required fields or invalid values",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": "Invalid input"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": "Server error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/transcriptions": {
+      "post": {
+        "summary": "Create Transcription",
+        "operationId": "createTranscription",
+        "description": "Programmatically create [AI Transcriptions](https://easy-peasy.ai/audios) from audio files.",
+        "parameters": [
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Your API key",
+            "example": "27feb2bb-aeb4-4a83-9fb6-8f3f2a15885e"
+          }
+        ],
+        "requestBody": {
+          "description": "The audio parameters to create transcriptions",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TranscriptionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful transcription creation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TranscriptionResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - missing required fields or invalid values",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": "Invalid input"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": "Server error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/get-text-to-speech-config": {
+      "get": {
+        "summary": "Get TTS Configuration",
+        "operationId": "getTTSConfig",
+        "description": "Retrieve available filter options for text-to-speech voices.\n\nReturns a list of all available languages, accents, and total number of predefined voices.\n\nThis endpoint helps you understand what filter values you can use when calling the `/api/get-text-to-speech-voices` endpoint.\n\n**Workflow:**\n1. Call without parameters to get all available languages\n2. Choose a language\n3. Call with `language` parameter to get accents available for that language\n4. Use language and accent to filter voices in `/api/get-text-to-speech-voices`\n\n**Note:** This endpoint does not require authentication.",
+        "parameters": [
+          {
+            "name": "language",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter accents by language (e.g., \"English\", \"Spanish\", \"French\")",
+            "example": "English"
           }
         ],
         "responses": {
           "200": {
-            "description": "Plant response",
+            "description": "Successfully retrieved configuration",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Plant"
+                  "$ref": "#/components/schemas/ConfigResponse"
+                },
+                "examples": {
+                  "all-config": {
+                    "summary": "All configuration without filters",
+                    "value": {
+                      "languages": ["English", "Spanish", "French", "German", "Italian", "Portuguese", "Polish", "Dutch", "Hindi", "Japanese", "Chinese"],
+                      "accents": ["American", "British", "Australian", "Indian", "Irish", "Scottish", "Spanish", "French", "German"],
+                      "total_voices": 150,
+                      "filtered_by_language": null,
+                      "filtered_voices_count": null
+                    }
+                  },
+                  "filtered-config": {
+                    "summary": "Configuration filtered by English language",
+                    "value": {
+                      "languages": ["English", "Spanish", "French", "German", "Italian", "Portuguese", "Polish", "Dutch", "Hindi", "Japanese", "Chinese"],
+                      "accents": ["American", "British", "Australian", "Indian", "Irish", "Scottish"],
+                      "total_voices": 150,
+                      "filtered_by_language": "English",
+                      "filtered_voices_count": 85
+                    }
                   }
                 }
               }
             }
           },
-          "400": {
-            "description": "Unexpected error",
+          "405": {
+            "description": "Method not allowed",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": "Method not allowed"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": "Server error. Please try again."
                 }
               }
             }
           }
-        }
-      },
-      "post": {
-        "description": "Creates a new plant in the store",
-        "requestBody": {
-          "description": "Plant to add to the store",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/NewPlant"
-              }
-            }
-          },
-          "required": true
         },
+        "security": []
+      }
+    },
+    "/api/get-text-to-speech-voices": {
+      "get": {
+        "summary": "Get TTS Voices",
+        "operationId": "getTTSVoices",
+        "description": "Retrieve a list of available voices for text-to-speech generation.\n\nReturns all predefined voices (ElevenLabs and OpenAI) and optionally the user's custom cloned voices.\n\n**Filtering:**\n- Filter by language using the `language` query parameter\n- Filter by accent using the `accent` query parameter\n- Both filters can be used together\n\n**Authentication:**\n- Optional: Endpoint works without authentication for public voices\n- Required for custom voices: Include `x-api-key` header",
+        "parameters": [
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Your API key (optional, required for custom voices)",
+            "example": "27feb2bb-aeb4-4a83-9fb6-8f3f2a15885e"
+          },
+          {
+            "name": "language",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter voices by language (e.g., \"English\", \"Spanish\", \"French\")",
+            "example": "English"
+          },
+          {
+            "name": "accent",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter voices by accent (e.g., \"American\", \"British\", \"Australian\")",
+            "example": "American"
+          },
+          {
+            "name": "include_custom",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": true
+            },
+            "description": "Include user's custom cloned voices in the response (requires authentication)",
+            "example": true
+          }
+        ],
         "responses": {
           "200": {
-            "description": "plant response",
+            "description": "Successfully retrieved voices",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Plant"
+                  "$ref": "#/components/schemas/VoicesResponse"
+                },
+                "examples": {
+                  "all-voices": {
+                    "summary": "All voices without filters",
+                    "value": {
+                      "voices": [
+                        {
+                          "id": "21m00Tcm4TlvDq8ikWAM",
+                          "name": "Rachel",
+                          "description": "calm",
+                          "image": "https://media.easy-peasy.ai/voices/rachel.png",
+                          "language": "English",
+                          "accent": "American"
+                        },
+                        {
+                          "id": "alloy",
+                          "name": "Alloy",
+                          "description": "A neutral, balanced voice",
+                          "image": "https://media.easy-peasy.ai/voices/alloy.png",
+                          "language": "English"
+                        }
+                      ],
+                      "total": 2,
+                      "filters": {
+                        "language": null,
+                        "accent": null
+                      },
+                      "available": {
+                        "languages": ["English", "Spanish", "French", "German"],
+                        "accents": ["American", "British", "Australian"]
+                      }
+                    }
+                  },
+                  "filtered-voices": {
+                    "summary": "Filtered by language",
+                    "value": {
+                      "voices": [
+                        {
+                          "id": "21m00Tcm4TlvDq8ikWAM",
+                          "name": "Rachel",
+                          "description": "calm",
+                          "image": "https://media.easy-peasy.ai/voices/rachel.png",
+                          "language": "English",
+                          "accent": "American"
+                        }
+                      ],
+                      "total": 1,
+                      "filters": {
+                        "language": "English",
+                        "accent": null
+                      },
+                      "available": {
+                        "languages": ["English"],
+                        "accents": ["American", "British"]
+                      }
+                    }
+                  }
                 }
               }
             }
           },
-          "400": {
-            "description": "unexpected error",
+          "401": {
+            "description": "Unauthorized - Invalid API key",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": "Your account is blocked. Please contact support."
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Method not allowed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": "Method not allowed"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": "Server error. Please try again."
                 }
               }
             }
@@ -96,57 +1054,115 @@
         }
       }
     },
-    "/plants/{id}": {
-      "delete": {
-        "description": "Deletes a single plant based on the ID supplied",
+    "/api/generate-text-to-speech": {
+      "post": {
+        "summary": "Generate Text-to-Speech",
+        "operationId": "generateTTS",
+        "description": "Convert text to speech using various AI voices. The generated audio is returned as a publicly accessible URL.\n\n**Usage Limits:**\n- Free plan: Limited words per billing period\n- Paid plans: Higher limits based on subscription tier",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "description": "ID of plant to delete",
+            "name": "x-api-key",
+            "in": "header",
             "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
+              "type": "string"
+            },
+            "description": "Your API key",
+            "example": "27feb2bb-aeb4-4a83-9fb6-8f3f2a15885e"
           }
         ],
-        "responses": {
-          "204": {
-            "description": "Plant deleted",
-            "content": {}
-          },
-          "400": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "webhooks": {
-    "/plant/webhook": {
-      "post": {
-        "description": "Information about a new plant added to the store",
         "requestBody": {
-          "description": "Plant added to the store",
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewPlant"
+                "$ref": "#/components/schemas/TextToSpeechRequest"
+              },
+              "examples": {
+                "basic-example": {
+                  "summary": "Generate speech with AI voice",
+                  "value": {
+                    "voiceID": "21m00Tcm4TlvDq8ikWAM",
+                    "text": "Hello! This is a test of the text-to-speech API. It supports multiple languages and custom voice settings."
+                  }
+                }
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "Return a 200 status to indicate that the data was received successfully"
+            "description": "Successfully generated audio",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TextToSpeechResponse"
+                },
+                "example": {
+                  "uuid": "550e8400-e29b-41d4-a716-446655440000",
+                  "url": "https://media.easy-peasy.ai/tts/27feb2bb-aeb4-4a83-9fb6-8f3f2a15885e/6848fb55-48e7-455d-bd56-3cb5ce2cd81e.mp3",
+                  "used_characters": 10,
+                  "status": "completed"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - Missing parameters or usage limit reached",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "missing-parameter": {
+                    "value": {
+                      "error": "Missing parameter"
+                    }
+                  },
+                  "limit-reached": {
+                    "value": {
+                      "error": "You have reached the limit of 10000 characters for your plan. Please upgrade your plan to continue using the service."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or missing API key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "invalid-api-key": {
+                    "value": {
+                      "error": "Invalid API key"
+                    }
+                  },
+                  "blocked-account": {
+                    "value": {
+                      "error": "Your account is blocked. Please contact support."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": "Server error. Please try again."
+                }
+              }
+            }
           }
         }
       }
@@ -154,63 +1170,409 @@
   },
   "components": {
     "schemas": {
-      "Plant": {
-        "required": [
-          "name"
-        ],
+      "GenerateRequest": {
         "type": "object",
+        "required": ["preset", "keywords"],
         "properties": {
-          "name": {
-            "description": "The name of the plant",
-            "type": "string"
+          "preset": {
+            "type": "string",
+            "description": "The template name to use for generation. See [Templates](https://easy-peasy.ai/presets) for the full list."
           },
-          "tag": {
-            "description": "Tag to specify the type",
-            "type": "string"
+          "keywords": {
+            "type": "string",
+            "description": "The main input text or topic for the template.",
+            "maxLength": 5000
+          },
+          "tone": {
+            "type": "string",
+            "description": "The desired tone of the output (e.g. `professional`, `friendly`, `funny`).",
+            "maxLength": 1000
+          },
+          "length": {
+            "type": "string",
+            "description": "The desired output length.",
+            "enum": ["Short", "Medium", "Long"]
+          },
+          "outputs": {
+            "type": "integer",
+            "description": "Number of outputs to generate.",
+            "default": 1
+          },
+          "language": {
+            "type": "string",
+            "description": "Language for the output.",
+            "default": "English"
+          },
+          "shouldUseGPT4": {
+            "type": "boolean",
+            "description": "Whether to use the advanced AI model.",
+            "default": false
+          },
+          "extra1": {
+            "type": "string",
+            "description": "Additional context field. Usage varies by template (e.g. background information, key skills, blog intro).",
+            "maxLength": 1000
+          },
+          "extra2": {
+            "type": "string",
+            "description": "Additional context field. Usage varies by template (e.g. blog post title, reply sentiment).",
+            "maxLength": 1000
+          },
+          "extra3": {
+            "type": "string",
+            "description": "Additional context field. Usage varies by template (e.g. job title).",
+            "maxLength": 1000
+          },
+          "extra4": {
+            "type": "string",
+            "description": "Additional context field. Usage varies by template (e.g. recommendation details).",
+            "maxLength": 500
+          },
+          "suffix": {
+            "type": "string",
+            "description": "End section text for the Fill the Gaps template.",
+            "maxLength": 1000
           }
         }
       },
-      "NewPlant": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/Plant"
-          },
-          {
-            "required": [
-              "id"
-            ],
-            "type": "object",
-            "properties": {
-              "id": {
-                "description": "Identification number of the plant",
-                "type": "integer",
-                "format": "int64"
-              }
+      "ArrayOfTexts": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "string"
             }
           }
+        },
+        "example": [
+          {"id": 10, "name": "Output 1"},
+          {"id": 20, "name": "Output 2"}
         ]
       },
+      "ImageGenerationRequest": {
+        "type": "object",
+        "required": ["prompt", "model"],
+        "properties": {
+          "prompt": {
+            "type": "string",
+            "description": "The textual description of the image to be generated",
+            "example": "neon cat"
+          },
+          "model": {
+            "type": "string",
+            "description": "The model to use for image generation",
+            "enum": ["DALL-E 3", "Stable Diffusion XL", "Stable Diffusion 3.0"],
+            "example": "DALL-E 3"
+          },
+          "style": {
+            "type": "string",
+            "description": "Style for the image (e.g. Cyberpunk, Watercolor)",
+            "example": "Cyberpunk"
+          },
+          "artist": {
+            "type": "string",
+            "description": "Artist style to emulate",
+            "example": "Van Gogh"
+          },
+          "dimensions": {
+            "type": "string",
+            "description": "Dimensions of the generated image",
+            "example": "1024x1024"
+          },
+          "useHD": {
+            "type": "boolean",
+            "description": "Use HD quality",
+            "example": false
+          },
+          "image": {
+            "type": "string",
+            "description": "Image URL for Image-to-Image generations"
+          }
+        }
+      },
+      "ImageGenerationResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "description": "Unique identifier for the generated image",
+              "example": 545135
+            },
+            "image_url": {
+              "type": "string",
+              "description": "URL of the generated image",
+              "example": "https://fdczvxmwwjwpwbeeqcth.supabase.co/storage/v1/object/public/images/27feb2bb-aeb4-4a83-9fb6-8f3f2a15885e/138c3903-2355-4489-8ccf-b4bdade6289a.png"
+            },
+            "model": {
+              "type": "string",
+              "description": "The model used for the image generation",
+              "example": "DALL-E 3"
+            },
+            "used_credits": {
+              "type": "integer",
+              "description": "The number of credits used for the generation",
+              "example": 2
+            },
+            "prompt": {
+              "type": "string",
+              "description": "The prompt used for image generation",
+              "example": "neon cat"
+            }
+          }
+        }
+      },
+      "TranscriptionRequest": {
+        "type": "object",
+        "required": ["url"],
+        "properties": {
+          "audio_type": {
+            "type": "string",
+            "description": "The type of audio (e.g., podcast, meeting)",
+            "example": "podcast"
+          },
+          "language": {
+            "type": "string",
+            "description": "The language of the audio (e.g., English, Chinese, French)",
+            "example": "English"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the transcription",
+            "example": "Interview with John Doe"
+          },
+          "detect_speakers": {
+            "type": "boolean",
+            "description": "Whether to detect multiple speakers",
+            "example": true
+          },
+          "enhanced_quality": {
+            "type": "boolean",
+            "description": "Whether to use enhanced quality for transcription",
+            "example": true
+          },
+          "url": {
+            "type": "string",
+            "description": "The URL of the audio file",
+            "example": "https://example.com/audiofile.mp3"
+          }
+        }
+      },
+      "TranscriptionResponse": {
+        "type": "object",
+        "properties": {
+          "uuid": {
+            "type": "string",
+            "description": "Unique identifier for the created transcription",
+            "example": "4bc4e8ee-f29e-4a53-996e-5da955c42927"
+          },
+          "dashboard_url": {
+            "type": "string",
+            "description": "URL of the generated transcription",
+            "example": "https://easy-peasy.ai/audios/4bc4e8ee-f29e-4a53-996e-5da955c42927"
+          }
+        }
+      },
+      "ConfigResponse": {
+        "type": "object",
+        "required": ["languages", "accents", "total_voices"],
+        "properties": {
+          "languages": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of all available languages (sorted alphabetically)",
+            "example": ["English", "Spanish", "French", "German"]
+          },
+          "accents": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of available accents. If `language` parameter was provided, only accents for that language are returned.",
+            "example": ["American", "British", "Australian", "Indian"]
+          },
+          "total_voices": {
+            "type": "integer",
+            "description": "Total number of predefined voices available",
+            "example": 150
+          },
+          "filtered_by_language": {
+            "type": "string",
+            "nullable": true,
+            "description": "The language filter that was applied, or null if no filter was used",
+            "example": "English"
+          },
+          "filtered_voices_count": {
+            "type": "integer",
+            "nullable": true,
+            "description": "Number of voices available for the filtered language, or null if no filter was used",
+            "example": 85
+          }
+        }
+      },
+      "Voice": {
+        "type": "object",
+        "required": ["id", "name"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique voice identifier",
+            "example": "21m00Tcm4TlvDq8ikWAM"
+          },
+          "name": {
+            "type": "string",
+            "description": "Voice name",
+            "example": "Rachel"
+          },
+          "description": {
+            "type": "string",
+            "description": "Voice description",
+            "example": "calm, warm, professional"
+          },
+          "image": {
+            "type": "string",
+            "format": "uri",
+            "description": "Full URL to voice avatar image",
+            "example": "https://media.easy-peasy.ai/voices/rachel.png"
+          },
+          "language": {
+            "type": "string",
+            "description": "Language supported by the voice",
+            "example": "English"
+          },
+          "accent": {
+            "type": "string",
+            "description": "Voice accent",
+            "example": "American"
+          }
+        }
+      },
+      "VoicesResponse": {
+        "type": "object",
+        "required": ["voices", "total", "filters", "available"],
+        "properties": {
+          "voices": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Voice"
+            },
+            "description": "Array of voice objects"
+          },
+          "total": {
+            "type": "integer",
+            "description": "Total number of voices returned",
+            "example": 50
+          },
+          "filters": {
+            "type": "object",
+            "properties": {
+              "language": {
+                "type": "string",
+                "nullable": true,
+                "description": "Applied language filter",
+                "example": "English"
+              },
+              "accent": {
+                "type": "string",
+                "nullable": true,
+                "description": "Applied accent filter",
+                "example": "American"
+              }
+            },
+            "description": "Filters that were applied to the results"
+          },
+          "available": {
+            "type": "object",
+            "properties": {
+              "languages": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "List of available languages in the filtered results",
+                "example": ["English", "Spanish", "French"]
+              },
+              "accents": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "List of available accents in the filtered results",
+                "example": ["American", "British", "Australian"]
+              }
+            },
+            "description": "Available filter options based on current results"
+          }
+        }
+      },
+      "TextToSpeechRequest": {
+        "type": "object",
+        "required": ["voiceID", "text"],
+        "properties": {
+          "voiceID": {
+            "type": "string",
+            "description": "Voice ID to use for generation (get IDs from the Get TTS Voices endpoint)",
+            "example": "21m00Tcm4TlvDq8ikWAM"
+          },
+          "text": {
+            "type": "string",
+            "description": "The text to convert to speech",
+            "example": "Hello! This is a test of the text-to-speech API."
+          }
+        }
+      },
+      "TextToSpeechResponse": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "Publicly accessible URL of the generated audio file (MP3)",
+            "example": "https://media.easy-peasy.ai/tts/27feb2bb-aeb4-4a83-9fb6-8f3f2a15885e/6848fb55-48e7-455d-bd56-3cb5ce2cd81e.mp3"
+          },
+          "uuid": {
+            "type": "string",
+            "format": "uuid",
+            "description": "ID of the audio",
+            "example": "550e8400-e29b-41d4-a716-446655440000"
+          },
+          "used_characters": {
+            "type": "integer",
+            "description": "Word count of the text (used for billing)",
+            "example": 10
+          },
+          "status": {
+            "type": "string",
+            "enum": ["completed"],
+            "description": "Status of the speech generation",
+            "example": "completed"
+          }
+        }
+      },
       "Error": {
-        "required": [
-          "error",
-          "message"
-        ],
         "type": "object",
         "properties": {
           "error": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "message": {
-            "type": "string"
+            "type": "string",
+            "description": "Error message",
+            "example": "Invalid API key"
           }
         }
       }
     },
     "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer"
+      "apiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "x-api-key",
+        "description": "API key for authentication. Get yours at https://easy-peasy.ai/settings/api"
       }
     }
   }

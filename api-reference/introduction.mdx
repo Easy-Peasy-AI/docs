@@ -1,33 +1,57 @@
 ---
 title: 'Introduction'
-description: 'Example section for showcasing API endpoints'
+description: 'Getting started with the Easy-Peasy.AI API'
 ---
 
-<Note>
-  If you're not looking to build API reference documentation, you can delete
-  this section by removing the api-reference folder.
-</Note>
+## Overview
 
-## Welcome
+The Easy-Peasy.AI API lets you programmatically access our AI-powered tools:
 
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
-
-<Card
-  title="Plant Store Endpoints"
-  icon="leaf"
-  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
->
-  View the OpenAPI specification file
-</Card>
+- **Text Generation** — Generate blog posts, social media captions, emails, marketing copy, and more using 50+ templates
+- **Image Generation** — Create AI images with DALL-E 3, Stable Diffusion XL, or Stable Diffusion 3.0
+- **Transcription** — Transcribe audio files with speaker detection and enhanced quality
+- **Text-to-Speech** — Convert text to natural-sounding speech with 150+ voices
 
 ## Authentication
 
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
+All API requests must include your API key in the `x-api-key` header.
 
-```json
-"security": [
-  {
-    "bearerAuth": []
-  }
-]
+```bash
+curl -X POST https://easy-peasy.ai/api/generate \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: YOUR_API_KEY" \
+  -d '{"preset": "custom-generator", "keywords": "Hello world"}'
 ```
+
+<Card
+  title="Get your API key"
+  icon="key"
+  href="https://easy-peasy.ai/settings/api"
+>
+  Generate an API key from your Easy-Peasy.AI settings page.
+</Card>
+
+## Base URL
+
+All API requests are made to:
+
+```
+https://easy-peasy.ai
+```
+
+## Endpoints
+
+<Columns cols={2}>
+  <Card title="Generate Text" icon="pen" href="/api-reference/endpoint/generate">
+    Generate content using 50+ AI templates.
+  </Card>
+  <Card title="Generate Image" icon="image" href="/api-reference/endpoint/generate-image">
+    Create AI images with multiple models.
+  </Card>
+  <Card title="Create Transcription" icon="microphone" href="/api-reference/endpoint/create-transcription">
+    Transcribe audio files to text.
+  </Card>
+  <Card title="Text-to-Speech" icon="volume-high" href="/api-reference/endpoint/generate-tts">
+    Convert text to natural speech.
+  </Card>
+</Columns>
