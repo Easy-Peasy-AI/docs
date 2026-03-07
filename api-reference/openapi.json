@@ -2486,7 +2486,48 @@
           },
           "image": {
             "type": "string",
-            "description": "Image URL for Image-to-Image generations. Provide a source image to edit or transform."
+            "description": "Image URL for image editing. When provided with a prompt, the image will be edited/transformed using AI. Defaults to using Nano Banana 2 model for editing."
+          },
+          "action": {
+            "type": "string",
+            "description": "Action to perform on the image. If not specified when `image` is provided, defaults to `Edit Image with AI`.",
+            "enum": [
+              "Edit Image with AI",
+              "Remove Background",
+              "Replace Background",
+              "Colorize",
+              "Relight",
+              "Stylization",
+              "Realistic Photos",
+              "Sketch to Image",
+              "Ghiblify",
+              "Caricature",
+              "Professional Headshot"
+            ]
+          },
+          "editModel": {
+            "type": "string",
+            "description": "Model to use for image editing (only used with `action: \"Edit Image with AI\"`). Defaults to `Nano Banana 2`.",
+            "enum": [
+              "Nano Banana 2",
+              "Nano Banana",
+              "Nano Banana Pro",
+              "Flux Kontext Pro",
+              "Flux Kontext Max",
+              "Seedream 4.0",
+              "Seedream 4.5",
+              "Seedream 5.0 Lite",
+              "FLUX.2 [pro]",
+              "FLUX.2 [flex]",
+              "Qwen Image",
+              "Grok",
+              "Grok Pro",
+              "Reve",
+              "Reve Fast",
+              "Ideogram v3 Character",
+              "gpt-image-1"
+            ],
+            "default": "Nano Banana 2"
           },
           "outputs": {
             "type": "integer",
