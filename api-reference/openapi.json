@@ -3264,9 +3264,8 @@
             "example": "Invalid API key"
           }
         }
-      }
-    },
-    "ChatCompletionsRequest": {
+      },
+      "ChatCompletionsRequest": {
         "type": "object",
         "required": ["messages"],
         "properties": {
@@ -3448,8 +3447,9 @@
             }
           }
         }
-      },
-      "securitySchemes": {
+      }
+    },
+    "securitySchemes": {
       "apiKeyAuth": {
         "type": "apiKey",
         "in": "header",
