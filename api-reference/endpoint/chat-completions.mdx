@@ -77,6 +77,100 @@ This endpoint supports two authentication methods:
 - **x-api-key header**: `x-api-key: YOUR_API_KEY`
 - **Authorization header**: `Authorization: Bearer YOUR_API_KEY` (OpenAI SDK default)
 
+## Multimodal Messages
+
+You can send images and audio alongside text using the OpenAI multimodal message format.
+
+### Vision (Image Input)
+
+Send images as URLs or base64 data URIs:
+
+<CodeGroup>
+
+```javascript Node.js
+const response = await client.chat.completions.create({
+  model: 'gemini-3-flash',
+  messages: [
+    {
+      role: 'user',
+      content: [
+        { type: 'text', text: 'What do you see in this image?' },
+        {
+          type: 'image_url',
+          image_url: { url: 'https://example.com/photo.jpg' },
+        },
+      ],
+    },
+  ],
+});
+```
+
+```python Python
+response = client.chat.completions.create(
+    model="gemini-3-flash",
+    messages=[
+        {
+            "role": "user",
+            "content": [
+                {"type": "text", "text": "What do you see in this image?"},
+                {
+                    "type": "image_url",
+                    "image_url": {"url": "https://example.com/photo.jpg"},
+                },
+            ],
+        }
+    ],
+)
+```
+
+```bash cURL
+curl -X POST https://easy-peasy.ai/api/chat/completions \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: YOUR_API_KEY" \
+  -d '{
+    "messages": [{
+      "role": "user",
+      "content": [
+        {"type": "text", "text": "What do you see?"},
+        {"type": "image_url", "image_url": {"url": "https://example.com/photo.jpg"}}
+      ]
+    }]
+  }'
+```
+
+</CodeGroup>
+
+Base64 images are also supported:
+
+```json
+{
+  "type": "image_url",
+  "image_url": {
+    "url": "data:image/png;base64,iVBORw0KGgo..."
+  }
+}
+```
+
+### Audio Input
+
+Send audio as base64-encoded data (mp3, wav, webm, mp4):
+
+```json
+{
+  "role": "user",
+  "content": [
+    { "type": "text", "text": "Transcribe this audio." },
+    {
+      "type": "input_audio",
+      "input_audio": {
+        "data": "base64-encoded-audio-data...",
+        "format": "mp3"
+      }
+    }
+  ]
+}
+```
+
 ## Streaming
 
 When `stream: true`, the response uses Server-Sent Events in OpenAI chunk format:
@@ -88,7 +182,3 @@ data: {"id":"chatcmpl-...","object":"chat.completion.chunk","created":...,"model
 
 data: [DONE]
 ```
-
-## Model
-
-All model names are accepted and mapped to **Gemini 3 Flash** internally. You can pass `gpt-4o`, `claude-3-opus`, or any other model string — the endpoint will use Gemini 3 Flash regardless.

@@ -2013,7 +2013,7 @@
       "post": {
         "summary": "Chat Completions (OpenAI-compatible)",
         "operationId": "chatCompletions",
-        "description": "OpenAI-compatible chat completions endpoint powered by Gemini 3 Flash. Works with the standard OpenAI SDK — just change the base URL and API key.\n\nAccepts any model name (mapped to Gemini 3 Flash internally). Supports both streaming (Server-Sent Events) and non-streaming responses.",
+        "description": "OpenAI-compatible chat completions endpoint. Works with the standard OpenAI SDK — just change the base URL and API key.\n\nSupports text, vision (image URLs and base64), and audio input in the standard OpenAI multimodal message format. Supports both streaming (Server-Sent Events) and non-streaming responses.",
         "parameters": [
           {
             "name": "x-api-key",
@@ -3242,8 +3242,58 @@
                   "description": "The role of the message author"
                 },
                 "content": {
-                  "type": "string",
-                  "description": "The content of the message"
+                  "oneOf": [
+                    {
+                      "type": "string",
+                      "description": "Text content of the message"
+                    },
+                    {
+                      "type": "array",
+                      "description": "Multimodal content array (text, images, audio)",
+                      "items": {
+                        "oneOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "type": { "type": "string", "enum": ["text"] },
+                              "text": { "type": "string" }
+                            },
+                            "required": ["type", "text"]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "type": { "type": "string", "enum": ["image_url"] },
+                              "image_url": {
+                                "type": "object",
+                                "properties": {
+                                  "url": { "type": "string", "description": "Image URL or base64 data URI (data:image/png;base64,...)" }
+                                },
+                                "required": ["url"]
+                              }
+                            },
+                            "required": ["type", "image_url"]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "type": { "type": "string", "enum": ["input_audio"] },
+                              "input_audio": {
+                                "type": "object",
+                                "properties": {
+                                  "data": { "type": "string", "description": "Base64-encoded audio data" },
+                                  "format": { "type": "string", "enum": ["mp3", "wav", "webm", "mp4"], "description": "Audio format" }
+                                },
+                                "required": ["data", "format"]
+                              }
+                            },
+                            "required": ["type", "input_audio"]
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "description": "Message content — a string for text, or an array for multimodal (text, images, audio)"
                 }
               }
             }
@@ -3251,7 +3301,7 @@
           "model": {
             "type": "string",
             "default": "gemini-3-flash",
-            "description": "Model name. Accepts any OpenAI model name (mapped to Gemini 3 Flash internally)"
+            "description": "Model name"
           },
           "stream": {
             "type": "boolean",
