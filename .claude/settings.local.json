@@ -7,7 +7,9 @@
       "Bash(git push origin main)",
       "Bash(gh auth status)",
       "Bash(curl -sL \"https://easy-peasy.ai/images/marky.png\" -o /Users/dmytroolefyrenko/Projects/docs/logo/marky.png)",
-      "Bash(ls /Users/dmytroolefyrenko/Projects/kopi/src/pages/api/generate*)"
+      "Bash(ls /Users/dmytroolefyrenko/Projects/kopi/src/pages/api/generate*)",
+      "WebFetch(domain:mintlify.com)",
+      "WebFetch(domain:www.mintlify.com)"
     ]
   }
 }

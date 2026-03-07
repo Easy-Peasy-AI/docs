@@ -2008,6 +2008,151 @@
           }
         }
       }
+    },
+    "/api/chat/completions": {
+      "post": {
+        "summary": "Chat Completions (OpenAI-compatible)",
+        "operationId": "chatCompletions",
+        "description": "OpenAI-compatible chat completions endpoint powered by Gemini 3 Flash. Works with the standard OpenAI SDK — just change the base URL and API key.\n\nAccepts any model name (mapped to Gemini 3 Flash internally). Supports both streaming (Server-Sent Events) and non-streaming responses.",
+        "parameters": [
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Your API key. Alternatively, use the `Authorization: Bearer` header.",
+            "example": "27feb2bb-aeb4-4a83-9fb6-8f3f2a15885e"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Bearer token authentication (alternative to x-api-key). Format: `Bearer YOUR_API_KEY`",
+            "example": "Bearer 27feb2bb-aeb4-4a83-9fb6-8f3f2a15885e"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChatCompletionsRequest"
+              },
+              "example": {
+                "messages": [
+                  { "role": "system", "content": "You are a helpful assistant." },
+                  { "role": "user", "content": "Explain quantum computing in simple terms." }
+                ],
+                "model": "gemini-3-flash",
+                "temperature": 0.7,
+                "max_tokens": 1000
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Chat completion response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChatCompletionsResponse"
+                },
+                "example": {
+                  "id": "chatcmpl-1741234567890",
+                  "object": "chat.completion",
+                  "created": 1741234567,
+                  "model": "gemini-3-flash",
+                  "choices": [
+                    {
+                      "index": 0,
+                      "message": {
+                        "role": "assistant",
+                        "content": "Quantum computing is..."
+                      },
+                      "finish_reason": "stop"
+                    }
+                  ],
+                  "usage": {
+                    "prompt_tokens": 25,
+                    "completion_tokens": 150,
+                    "total_tokens": 175
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request — messages is missing or empty",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAIError"
+                },
+                "example": {
+                  "error": {
+                    "message": "messages is required and must be a non-empty array",
+                    "type": "server_error"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid or missing API key, or account blocked",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAIError"
+                },
+                "example": {
+                  "error": {
+                    "message": "Invalid API key",
+                    "type": "server_error"
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Token limit reached for subscription",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAIError"
+                },
+                "example": {
+                  "error": {
+                    "message": "Token limit reached for your subscription plan",
+                    "type": "server_error"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAIError"
+                },
+                "example": {
+                  "error": {
+                    "message": "Internal server error",
+                    "type": "server_error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -3080,7 +3225,140 @@
         }
       }
     },
-    "securitySchemes": {
+    "ChatCompletionsRequest": {
+        "type": "object",
+        "required": ["messages"],
+        "properties": {
+          "messages": {
+            "type": "array",
+            "description": "Array of message objects for the conversation",
+            "items": {
+              "type": "object",
+              "required": ["role", "content"],
+              "properties": {
+                "role": {
+                  "type": "string",
+                  "enum": ["system", "user", "assistant"],
+                  "description": "The role of the message author"
+                },
+                "content": {
+                  "type": "string",
+                  "description": "The content of the message"
+                }
+              }
+            }
+          },
+          "model": {
+            "type": "string",
+            "default": "gemini-3-flash",
+            "description": "Model name. Accepts any OpenAI model name (mapped to Gemini 3 Flash internally)"
+          },
+          "stream": {
+            "type": "boolean",
+            "default": false,
+            "description": "Enable Server-Sent Events streaming"
+          },
+          "temperature": {
+            "type": "number",
+            "description": "Sampling temperature (0-2)"
+          },
+          "max_tokens": {
+            "type": "integer",
+            "description": "Maximum tokens to generate"
+          },
+          "top_p": {
+            "type": "number",
+            "description": "Nucleus sampling parameter"
+          },
+          "stop": {
+            "oneOf": [
+              { "type": "string" },
+              { "type": "array", "items": { "type": "string" } }
+            ],
+            "description": "Stop sequences"
+          }
+        }
+      },
+      "ChatCompletionsResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the completion"
+          },
+          "object": {
+            "type": "string",
+            "enum": ["chat.completion"],
+            "description": "Object type"
+          },
+          "created": {
+            "type": "integer",
+            "description": "Unix timestamp of creation"
+          },
+          "model": {
+            "type": "string",
+            "description": "Model used for the completion"
+          },
+          "choices": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "index": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "object",
+                  "properties": {
+                    "role": {
+                      "type": "string"
+                    },
+                    "content": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "finish_reason": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "usage": {
+            "type": "object",
+            "properties": {
+              "prompt_tokens": {
+                "type": "integer"
+              },
+              "completion_tokens": {
+                "type": "integer"
+              },
+              "total_tokens": {
+                "type": "integer"
+              }
+            }
+          }
+        }
+      },
+      "OpenAIError": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "object",
+            "properties": {
+              "message": {
+                "type": "string",
+                "description": "Error description"
+              },
+              "type": {
+                "type": "string",
+                "description": "Error type"
+              }
+            }
+          }
+        }
+      },
+      "securitySchemes": {
       "apiKeyAuth": {
         "type": "apiKey",
         "in": "header",
