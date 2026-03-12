@@ -77,6 +77,27 @@ This endpoint supports two authentication methods:
 - **x-api-key header**: `x-api-key: YOUR_API_KEY`
 - **Authorization header**: `Authorization: Bearer YOUR_API_KEY` (OpenAI SDK default)
 
+## Supported Models
+
+| Provider | Model ID | Description |
+|----------|----------|-------------|
+| **Google** | `gemini-3-flash` | Gemini 3 Flash — fast and efficient (default) |
+| **Google** | `gemini-3-pro` | Gemini 3 Pro — advanced reasoning |
+| **Google** | `gemini-3.1-pro` | Gemini 3.1 Pro — latest Gemini |
+| **Anthropic** | `claude-opus-4-6` | Claude Opus 4.6 — most capable |
+| **Anthropic** | `claude-sonnet-4-6` | Claude Sonnet 4.6 — balanced |
+| **Anthropic** | `claude-haiku-4-5` | Claude Haiku 4.5 — fast |
+| **OpenAI** | `gpt-5` | GPT-5 — latest flagship |
+| **OpenAI** | `gpt-5-mini` | GPT-5 Mini — smaller, fast |
+| **OpenAI** | `gpt-5.4-instant` | GPT-5.4 Instant — fast |
+| **OpenAI** | `gpt-5.4-thinking` | GPT-5.4 Thinking — reasoning |
+| **OpenAI** | `gpt-5.4-pro` | GPT-5.4 Pro — most capable |
+| **DeepSeek** | `deepseek-v3` | DeepSeek V3 |
+| **Kimi** | `kimi-k2.5` | Kimi K2.5 |
+| **GLM** | `glm-5` | GLM-5 |
+| **MiniMax** | `minimax-m2p5` | MiniMax M2.5 |
+| **xAI** | `grok-4` | Grok 4 |
+
 ## Multimodal Messages
 
 You can send images and audio alongside text using the OpenAI multimodal message format.
