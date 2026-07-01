@@ -18,8 +18,60 @@ Video generation typically takes **1–5 minutes** depending on the model, durat
 
 ## Input types
 
-- **Text-to-video** — Provide only a `prompt` (no `image` field)
-- **Image-to-video** — Provide both `prompt` and `image` URL. Use models with "Image" in the name (e.g., `Veo 3.1 Fast Image`, `Kling 3.0 Pro Image`)
+The `model` value must **exactly match** one of the titles in the `model` enum, and each mode is a **separate model variant** — the title's suffix tells you which image inputs it accepts:
+
+- **Text-to-video** — Provide only a `prompt` (no image fields). Use the base title, e.g. `Seedance 2.0`, `Veo 3.1`.
+- **Image-to-video (first frame)** — Provide `prompt` + `image` (a start-frame URL). Use a title ending in **"Image"**, e.g. `Seedance 2.0 Image`, `Veo 3.1 Fast Image`, `Kling 3.0 Pro Image`.
+- **First & last frame** — Provide `prompt` + `image` (first) + `tailImage` (last). Use a **"First-Last Frame"** title (e.g. `Veo 3.1 First-Last Frame`), or `Seedance 2.0 Image`, which also accepts a `tailImage` end frame.
+- **Reference-to-video (multiple references)** — Provide `prompt` + `referenceImages` (an array of `{ "url": ... }`, up to 9) to keep characters/objects/style consistent. Use a title ending in **"Reference"**, e.g. `Seedance 2.0 Reference`, `Kling O1 Reference`, `Kling O3 Reference`.
+
+<Note>
+For Seedance 2.0 these are distinct models: `Seedance 2.0` (text), `Seedance 2.0 Image` (first frame, optional last frame), and `Seedance 2.0 Reference` (up to 9 reference images). A single request cannot combine a start frame **and** reference images — pick the variant that matches your input.
+</Note>
+
+Image URLs for `image`, `tailImage`, and `referenceImages[].url` do not need to be hosted on Easy-Peasy, but they **must be downloadable server-side by our video provider**. Some hosts (e.g. Wikimedia, or sites that block hotlinking / non-browser requests) return **HTTP 403** to automated downloads — these fail with a `Could not download the input (HTTP 403)` error. If in doubt, host the image on your own public CDN/bucket or on Easy-Peasy.
+
+### First frame (image-to-video)
+
+```bash
+curl -X POST https://easy-peasy.ai/api/generate-video \
+  -H "x-api-key: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "prompt": "The subject slowly turns toward the camera, cinematic lighting",
+    "model": "Seedance 2.0 Image",
+    "image": "https://yourcdn.com/first-frame.png",
+    "duration": "5",
+    "aspectRatio": "16:9",
+    "resolution": "1080p"
+  }'
+```
+
+Add `"tailImage": "https://yourcdn.com/last-frame.png"` to interpolate between a first and last frame.
+
+### Multiple reference images (reference-to-video)
+
+```bash
+curl -X POST https://easy-peasy.ai/api/generate-video \
+  -H "x-api-key: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "prompt": "The character walks through a neon-lit market at night",
+    "model": "Seedance 2.0 Reference",
+    "referenceImages": [
+      { "url": "https://yourcdn.com/character.png" },
+      { "url": "https://yourcdn.com/outfit.png" },
+      { "url": "https://yourcdn.com/environment.png" }
+    ],
+    "duration": "5",
+    "aspectRatio": "16:9",
+    "resolution": "1080p"
+  }'
+```
+
+<Note>
+`referenceImages[].type` (`character` / `object` / `style`) is optional and only used by the Kling O1/O3 Reference models to separate character/object references from style references. Seedance 2.0 Reference treats every entry as a general reference, so you can send just `{ "url": ... }`.
+</Note>
 
 ## Polling example
 

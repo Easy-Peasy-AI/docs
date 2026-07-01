@@ -2,3 +2,54 @@
 title: 'Generate Image'
 openapi: 'POST /api/generate-image'
 ---
+
+## Text-to-image vs. editing with a reference image
+
+- **Text-to-image** — Provide `prompt` + `model`. The `model` picks the generator (e.g. `DALL-E 3`, `Seedream 4.5`).
+- **Editing / reference image** — Provide `prompt` + `image` (or `images`). The request switches to image-to-image mode and the image is processed by **`editModel`**, **not** `model`. The `model` field is ignored once an image is supplied.
+
+<Note>
+The two model lists are different. When you send an `image`, choose the model with **`editModel`** (default `Nano Banana 2`). Setting `model` alongside an `image` has no effect on which model edits the image.
+</Note>
+
+The reference image does not need to be hosted on Easy-Peasy, but it **must be downloadable server-side** — some hosts (e.g. Wikimedia, or sites that block hotlinking / non-browser requests) return **HTTP 403** to automated fetches and will fail. If in doubt, host it on your own public CDN/bucket. Write the `prompt` as an instruction about the image (e.g. "change the color to yellow", "place this product on a marble counter").
+
+### One reference image
+
+```bash
+curl -X POST https://easy-peasy.ai/api/generate-image \
+  -H "x-api-key: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "prompt": "Place this product on a marble kitchen counter with soft morning light",
+    "image": "https://yourcdn.com/product.png",
+    "editModel": "Nano Banana 2",
+    "dimensions": "1:1"
+  }'
+```
+
+### Multiple reference images
+
+Pass `images` as a **JSON-encoded string array** (not a JSON array):
+
+```bash
+curl -X POST https://easy-peasy.ai/api/generate-image \
+  -H "x-api-key: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "prompt": "Put the person from the first image into the room in the second image",
+    "images": "[\"https://yourcdn.com/person.png\", \"https://yourcdn.com/room.png\"]",
+    "editModel": "Nano Banana 2",
+    "dimensions": "1:1"
+  }'
+```
+
+## Model naming notes
+
+- **GPT Image 2** is exposed as three quality tiers — use the exact strings `OpenAI GPT Image 2 Low`, `OpenAI GPT Image 2 Medium`, or `OpenAI GPT Image 2 High`. There is no bare `"GPT Image 2"` value.
+- **Reve** is `REVE` for text-to-image (`model`), and `Reve` / `Reve Fast` for editing (`editModel`). There is no `"Reve 2.0"`.
+- Model names are matched **exactly** — always send a value as listed in the schema enums below. An unrecognized `editModel` returns a `400` error; an unrecognized `model` may fall back to a default generator, so a typo can silently produce the wrong model.
+
+<Note>
+When authenticated with an API key, image generation is **synchronous** — the finished image comes back in the response, so you don't need to poll.
+</Note>
