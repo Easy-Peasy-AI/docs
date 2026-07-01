@@ -2852,7 +2852,7 @@
       },
       "GenerateVideoRequest": {
         "type": "object",
-        "required": ["prompt"],
+        "required": ["prompt", "model"],
         "properties": {
           "prompt": {
             "type": "string",
@@ -2866,8 +2866,7 @@
           },
           "model": {
             "type": "string",
-            "default": "Kling 1.0",
-            "description": "The video model to use. The value must exactly match one of the enum titles below. Titles ending in \"Image\" take a start-frame `image`; titles ending in \"Reference\" take `referenceImages`; \"First-Last Frame\" titles take both `image` and `tailImage`; all others are text-to-video.",
+            "description": "The video model to use (required). The value must exactly match one of the enum titles below. Titles ending in \"Image\" take a start-frame `image`; titles ending in \"Reference\" take `referenceImages`; \"First-Last Frame\" titles take both `image` and `tailImage`; all others are text-to-video.",
             "enum": [
               "Veo 3.1 Fast",
               "Grok Imagine",
