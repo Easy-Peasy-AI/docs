@@ -16,6 +16,10 @@ The Easy-Peasy.AI API lets you programmatically access our AI-powered tools:
 - **Chat Completions** — OpenAI-compatible chat completions endpoint (works with OpenAI SDK)
 - **Bots** — Chat with your custom AI bots via API
 
+<Card title="Using an AI agent?" icon="plug" href="/mcp/introduction">
+  Easy-Peasy.AI also runs an [MCP server](/mcp/introduction) at `https://easy-peasy.ai/mcp` — connect Claude, Cursor, Windsurf, or any MCP client without writing API code.
+</Card>
+
 ## Authentication
 
 All API requests require your API key in the `x-api-key` header (except TTS Config/Voices which are public).
@@ -84,5 +88,8 @@ https://bots.easy-peasy.ai
   </Card>
   <Card title="Chat with Bot" icon="robot" href="/api-reference/endpoint/chat-with-bot">
     Interact with your custom AI bots via API.
+  </Card>
+  <Card title="MCP Server" icon="plug" href="/mcp/introduction">
+    Connect AI agents with the Model Context Protocol.
   </Card>
 </Columns>

@@ -1,0 +1,112 @@
+---
+title: 'MCP Server'
+description: 'Connect Claude, Cursor, Windsurf, and other AI agents to Easy-Peasy.AI with the Model Context Protocol'
+---
+
+## Overview
+
+Easy-Peasy.AI runs a remote [MCP (Model Context Protocol)](https://modelcontextprotocol.io) server, so AI agents can use the platform directly — generate text from templates, create images and videos, synthesize speech, and transcribe audio.
+
+Any MCP-capable client works: Claude, Claude Code, Cursor, Windsurf, ChatGPT connectors, or your own agent.
+
+<Columns cols={2}>
+  <Card title="Endpoint" icon="link">
+    `https://easy-peasy.ai/mcp`
+  </Card>
+  <Card title="Transport" icon="bolt">
+    Streamable HTTP (stateless)
+  </Card>
+</Columns>
+
+<Note>
+All usage is billed to your account exactly like the [REST API](/api-reference/introduction) — same credits, word quotas, and plan limits.
+</Note>
+
+## Authentication
+
+You can connect in one of two ways.
+
+<AccordionGroup>
+  <Accordion title="OAuth sign-in (recommended)" icon="right-to-bracket">
+    The server implements the MCP authorization spec, so clients like claude.ai and Claude Desktop discover the flow automatically. Paste the URL, click **Connect**, sign in to Easy-Peasy.AI, and approve. No key handling.
+  </Accordion>
+  <Accordion title="API key" icon="key">
+    Send your API key — the same one used by the REST API — as an `x-api-key` header or as `Authorization: Bearer YOUR_API_KEY`. Use this for clients that read headers from a config file.
+
+    <Card title="Get your API key" icon="key" href="https://easy-peasy.ai/settings/api">
+      Generate an API key from your Easy-Peasy.AI settings page.
+    </Card>
+  </Accordion>
+</AccordionGroup>
+
+## Connect your client
+
+### Claude (claude.ai and Claude Desktop)
+
+1. Go to **Settings → Connectors → Add custom connector**.
+2. Paste `https://easy-peasy.ai/mcp` and click **Add**.
+3. Click **Connect**, sign in to Easy-Peasy.AI, and approve access.
+
+### Claude Code
+
+```bash
+claude mcp add easy-peasy --transport http https://easy-peasy.ai/mcp \
+  --header "x-api-key: YOUR_API_KEY"
+```
+
+### Cursor, Windsurf, and generic `mcp.json`
+
+```json
+{
+  "mcpServers": {
+    "easy-peasy": {
+      "url": "https://easy-peasy.ai/mcp",
+      "headers": {
+        "x-api-key": "YOUR_API_KEY"
+      }
+    }
+  }
+}
+```
+
+### Claude Desktop config file
+
+Claude Desktop connects best through **Settings → Connectors** (OAuth, above). If you prefer the config file with an API key, bridge the connection with [`mcp-remote`](https://www.npmjs.com/package/mcp-remote):
+
+```json
+{
+  "mcpServers": {
+    "easy-peasy": {
+      "command": "npx",
+      "args": [
+        "mcp-remote",
+        "https://easy-peasy.ai/mcp",
+        "--header",
+        "x-api-key: YOUR_API_KEY"
+      ]
+    }
+  }
+}
+```
+
+## Verify the connection
+
+Ask your agent to call the `get_account` tool. It returns the id, email, and name of the authenticated account — the quickest way to confirm auth works before spending credits.
+
+<Card title="Browse the tools" icon="wrench" href="/mcp/tools">
+  See all 12 tools, their parameters, and the async polling pattern.
+</Card>
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="401 Unauthorized">
+    The API key is missing or invalid, or the OAuth token expired. Check the header name (`x-api-key`), or reconnect the connector to refresh the OAuth token.
+  </Accordion>
+  <Accordion title="A tool returns a plan error">
+    `generate_image` and `transcribe_audio` require a paid plan for API access. Free accounts can still use `generate_text`, `generate_speech`, and the read-only tools.
+  </Accordion>
+  <Accordion title="Video or transcription never finishes">
+    Both are asynchronous. The agent must poll `get_video` or `get_transcription` until the result is ready — see [Tools](/mcp/tools).
+  </Accordion>
+</AccordionGroup>

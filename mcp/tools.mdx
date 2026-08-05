@@ -1,0 +1,163 @@
+---
+title: 'Tools'
+description: 'The 12 tools exposed by the Easy-Peasy.AI MCP server'
+---
+
+Every tool maps to a documented [REST API](/api-reference/introduction) endpoint and is billed the same way.
+
+| Tool | Mode | Description |
+| --- | --- | --- |
+| `get_account` | sync | Verify the connection; returns account id, email, and name. |
+| `list_templates` | sync | List text templates (presets) with slugs and categories. |
+| `get_template` | sync | Input fields of one template (`keywords`, `extra1`…`extra14`). |
+| `generate_text` | sync | Run a template; returns the generated text. |
+| `generate_image` | sync | Generate or edit an image; returns URL(s). Paid plans only. |
+| `get_image` | sync | Fetch a generated image record by id. |
+| `generate_video` | **async** | Start a video generation; returns an `id`. |
+| `get_video` | sync | Poll a video by `video_id` until `status` is `completed`. |
+| `list_voices` | sync | Text-to-speech voices, including your custom and cloned voices. |
+| `generate_speech` | sync | Text-to-speech; returns the audio URL. |
+| `transcribe_audio` | **async** | Start transcription of an audio or video URL; returns a `uuid`. Paid plans only. |
+| `get_transcription` | sync | Poll a transcription by `audio_id`. |
+
+Expand a tool below for its parameters. Parameters marked with `*` are required.
+
+## Text generation
+
+<AccordionGroup>
+  <Accordion title="list_templates" icon="list">
+    Lists the available templates plus the list of categories.
+
+    | Parameter | Type | Description |
+    | --- | --- | --- |
+    | `category` | string | Optional category name to filter by. |
+  </Accordion>
+  <Accordion title="get_template" icon="circle-info">
+    Returns one template with its input fields (name, label, type, options). Field names such as `keywords` and `extra1`…`extra14` map directly onto `generate_text` parameters.
+
+    | Parameter | Type | Description |
+    | --- | --- | --- |
+    | `slug` * | string | Template slug from `list_templates`. |
+  </Accordion>
+  <Accordion title="generate_text" icon="pen">
+    Runs a template and returns the generated text. Uses the account word quota.
+
+    | Parameter | Type | Description |
+    | --- | --- | --- |
+    | `preset` * | string | Template slug, for example `blog-post-intro`. |
+    | `keywords` | string | Main topic or input text. Required by almost every template. |
+    | `tone` | string | Tone of voice, for example `Friendly`. |
+    | `language` | string | Output language name in English, for example `Spanish`. |
+    | `outputs` | number | How many variations to generate (default `1`). |
+    | `extra_fields` | object | Template-specific fields keyed by field name, for example `{"extra1": "value"}`. |
+  </Accordion>
+</AccordionGroup>
+
+<Tip>
+Call `get_template` before `generate_text` so the agent knows which `extra_fields` a template expects.
+</Tip>
+
+## Images
+
+<AccordionGroup>
+  <Accordion title="generate_image" icon="image">
+    Generates or edits an image and waits for the result — this can take a few minutes. Uses image credits and requires a paid plan.
+
+    | Parameter | Type | Description |
+    | --- | --- | --- |
+    | `prompt` * | string | Description of the image. |
+    | `model` | string | Model name, for example `Nano Banana 2`, `FLUX.2 [max]`, `Seedream 5.0 Pro`. |
+    | `dimensions` | string | Size as `WIDTHxHEIGHT`, for example `1024x1024` (default). |
+    | `outputs` | number | Number of images (default `1`). |
+    | `style` | string | Optional style preset name. |
+    | `resolution` | string | `1K` or `2K`, for models that support it. |
+    | `source_images` | string[] | Up to 10 image URLs to edit or transform (image-to-image). |
+  </Accordion>
+  <Accordion title="get_image" icon="magnifying-glass">
+    | Parameter | Type | Description |
+    | --- | --- | --- |
+    | `image_id` * | number | Numeric image id returned by `generate_image`. |
+  </Accordion>
+</AccordionGroup>
+
+## Video
+
+<AccordionGroup>
+  <Accordion title="generate_video" icon="video">
+    Starts a generation and returns an id immediately. Billed per second of output.
+
+    | Parameter | Type | Description |
+    | --- | --- | --- |
+    | `prompt` * | string | Description of the video. |
+    | `model` * | string | Model name, for example `Veo 3.1`, `Seedance 2.0`, `Kling 2.5`. |
+    | `duration` | string | Clip length in seconds as a string, for example `"5"` (default). |
+    | `aspect_ratio` | string | For example `16:9` (default), `9:16`, `1:1`. |
+    | `resolution` | string | `480p`, `720p`, or `1080p` (model-dependent). |
+    | `image` | string | Image URL used as the first frame (image-to-video). |
+    | `generate_audio` | boolean | Generate a soundtrack, on models that support audio. |
+  </Accordion>
+  <Accordion title="get_video" icon="clock">
+    Returns `{ video: { id, url, status } }`. `status` stays `processing` until the video is ready, then becomes `completed` with a download `url`.
+
+    | Parameter | Type | Description |
+    | --- | --- | --- |
+    | `video_id` * | number | Id returned by `generate_video`. |
+  </Accordion>
+</AccordionGroup>
+
+## Speech
+
+<AccordionGroup>
+  <Accordion title="list_voices" icon="microphone-lines">
+    Returns voices with id, name, language, and accent, including your custom and cloned voices.
+
+    | Parameter | Type | Description |
+    | --- | --- | --- |
+    | `language` | string | Optional language filter, for example `Dutch`. |
+    | `accent` | string | Optional accent filter. |
+  </Accordion>
+  <Accordion title="generate_speech" icon="volume-high">
+    Converts text to speech and returns the audio file URL. Billed against the monthly text-to-speech character quota.
+
+    | Parameter | Type | Description |
+    | --- | --- | --- |
+    | `text` * | string | Text to speak. |
+    | `voice_id` * | string | Voice id from `list_voices`. |
+    | `speed` | number | Playback speed between `0.7` and `1.2` (default `1.0`). |
+    | `output_format` | string | For example `mp3_44100_128` (default) or `wav`. |
+  </Accordion>
+</AccordionGroup>
+
+## Transcription
+
+<AccordionGroup>
+  <Accordion title="transcribe_audio" icon="waveform">
+    Starts a transcription of an audio or video file and returns a uuid immediately. Requires a paid plan.
+
+    | Parameter | Type | Description |
+    | --- | --- | --- |
+    | `url` * | string | Public URL of the audio or video file. |
+    | `language` | string | Spoken language name in English, for example `English`. Improves accuracy. |
+    | `detect_speakers` | boolean | Label different speakers (default `true`). |
+    | `name` | string | Optional name for the transcription. |
+  </Accordion>
+  <Accordion title="get_transcription" icon="file-lines">
+    The `content` field stays empty until the transcription finishes.
+
+    | Parameter | Type | Description |
+    | --- | --- | --- |
+    | `audio_id` * | string | Transcription uuid from `transcribe_audio`. |
+  </Accordion>
+</AccordionGroup>
+
+## Async tools
+
+`generate_video` and `transcribe_audio` return an id immediately instead of waiting for the result. Poll the matching `get_video` or `get_transcription` tool every 15–30 seconds until the result is ready.
+
+Videos typically take 1–5 minutes depending on model, duration, and resolution.
+
+## Account
+
+<Accordion title="get_account" icon="user">
+  Takes no parameters. Returns the authenticated account id, email, and name — use it to confirm the connection works.
+</Accordion>
