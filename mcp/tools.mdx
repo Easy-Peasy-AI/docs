@@ -1,9 +1,9 @@
 ---
 title: 'Tools'
-description: 'The 12 tools exposed by the Easy-Peasy.AI MCP server'
+description: 'The 13 tools exposed by the Easy-Peasy.AI MCP server'
 ---
 
-Every tool maps to a documented [REST API](/api-reference/introduction) endpoint and is billed the same way.
+Generation tools use the documented [REST API](/api-reference/introduction) and the same account credits and quotas. Viewing saved media and checking video status do not spend generation credits.
 
 | Tool | Mode | Description |
 | --- | --- | --- |
@@ -15,6 +15,7 @@ Every tool maps to a documented [REST API](/api-reference/introduction) endpoint
 | `get_image` | sync | Fetch a generated image record by id. |
 | `generate_video` | **async** | Start a video generation; returns an `id`. |
 | `get_video` | sync | Poll a video by `video_id` until `status` is `completed`. |
+| `display_media` | sync | Show existing images or videos in an embedded gallery or player. |
 | `list_voices` | sync | Text-to-speech voices, including your custom and cloned voices. |
 | `generate_speech` | sync | Text-to-speech; returns the audio URL. |
 | `transcribe_audio` | **async** | Start transcription of an audio or video URL; returns a `uuid`. Paid plans only. |
@@ -86,17 +87,17 @@ Call `get_template` before `generate_text` so the agent knows which `extra_field
 
 <AccordionGroup>
   <Accordion title="generate_video" icon="video">
-    Starts a generation and returns an id immediately. Billed per second of output.
+    Starts a generation and returns an id immediately. Defaults to MiniMax H3 Max, the same video model used by Marky Agent: 5 seconds at 768p with native audio, billed at 4 credits per second at 768p. With a first-frame image and no model, uses MiniMax H3 Max Image.
 
     | Parameter | Type | Description |
     | --- | --- | --- |
     | `prompt` * | string | Description of the video. |
-    | `model` * | string | Model name, for example `Veo 3.1`, `Seedance 2.0`, `Kling 2.5`. |
-    | `duration` | string | Supported clip length as a string. Veo 3.1 text models accept `"4"`, `"6"`, or `"8"`; their Image variants accept only `"8"`. A trailing `s` is also accepted. If omitted, uses a supported model default. |
+    | `model` | string | Omit for `MiniMax H3 Max`, or `MiniMax H3 Max Image` when `image` is supplied. You can explicitly select another model, for example `Veo 3.1`, `Veo 3.1 Fast`, or `Seedance 2.5`. |
+    | `duration` | string | MiniMax H3 Max accepts `"5"` through `"15"` (default `"5"`). Veo 3.1 text models accept `"4"`, `"6"`, or `"8"`; their Image variants accept only `"8"`. A trailing `s` is also accepted. If omitted, uses a supported model default. |
     | `aspect_ratio` | string | For example `16:9` (default), `9:16`, `1:1`. |
-    | `resolution` | string | `480p`, `720p`, or `1080p` (model-dependent). |
-    | `image` | string | First-frame URL. Select an Image variant such as `Veo 3.1 Fast Image`; the server does not switch models automatically. |
-    | `generate_audio` | boolean | Generate a soundtrack, on models that support audio. |
+    | `resolution` | string | MiniMax H3 Max supports `768p` (default) or `480p`. Other models may support `720p`, `1080p`, or `2k`. |
+    | `image` | string | First-frame URL. With no `model`, selects MiniMax H3 Max Image. When you supply a model, choose its Image variant, such as `Veo 3.1 Fast Image`. |
+    | `generate_audio` | boolean | Controls sound on models with an audio toggle. MiniMax H3 Max always generates audio; `false` returns an error before generation. For a silent video, explicitly select a model with an audio toggle, such as Veo 3.1 Fast. |
   </Accordion>
   <Accordion title="get_video" icon="clock">
     Returns `{ video: { id, url, status } }`. `status` stays `processing` until the video is ready, then becomes `completed` with a download `url`.
@@ -106,6 +107,23 @@ Call `get_template` before `generate_text` so the agent knows which `extra_field
     | `video_id` * | number | Id returned by `generate_video`. |
   </Accordion>
 </AccordionGroup>
+
+## Display images and videos
+
+<Accordion title="display_media" icon="images">
+  Shows saved images in a gallery or videos in a player in clients that support MCP Apps. Use IDs returned by `generate_image`, `get_image`, `generate_video`, or `get_video`.
+
+  | Parameter | Type | Description |
+  | --- | --- | --- |
+  | `media_type` * | string | `image` or `video`. |
+  | `ids` * | integer[] | One to eight existing IDs owned by your connected account. Duplicate IDs are displayed once. |
+
+  The viewer includes an original-file link. For processing videos, it checks the same ID every 15 seconds for up to five minutes, then offers **Check status**. It never starts a new generation or spends generation credits.
+
+  Clients without embedded UI support still receive the media URLs. Refresh your connector's tool list if `display_media` is missing.
+</Accordion>
+
+Image and video tools also return `structuredContent.media`, an array with each result's `id`, `type`, `url`, and `status`. Optional fields include `prompt`, `model`, and `used_credits` when available. Text results remain available for other MCP clients.
 
 ## Speech
 
@@ -156,7 +174,7 @@ Call `get_template` before `generate_text` so the agent knows which `extra_field
 
 ## Async tools
 
-`generate_video` and `transcribe_audio` return an id immediately instead of waiting for the result. Poll the matching `get_video` or `get_transcription` tool every 15–30 seconds until the result is ready.
+`generate_video` and `transcribe_audio` return an id immediately instead of waiting for the result. Use `display_media` for a video viewer that checks progress, or poll the matching `get_video` or `get_transcription` tool every 15–30 seconds until the result is ready. Always reuse the original ID.
 
 Videos typically take 1–5 minutes depending on model, duration, and resolution.
 
