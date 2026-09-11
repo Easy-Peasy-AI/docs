@@ -86,17 +86,17 @@ Call `get_template` before `generate_text` so the agent knows which `extra_field
 
 <AccordionGroup>
   <Accordion title="generate_video" icon="video">
-    Starts a generation and returns an id immediately. Billed per second of output.
+    Starts a generation and returns an id immediately. Defaults to MiniMax H3 Max, the same video model used by Marky Agent: 5 seconds at 768p with native audio, billed at 4 credits per second at 768p. With a first-frame image and no model, uses MiniMax H3 Max Image.
 
     | Parameter | Type | Description |
     | --- | --- | --- |
     | `prompt` * | string | Description of the video. |
-    | `model` * | string | Model name, for example `Veo 3.1`, `Seedance 2.0`, `Kling 2.5`. |
-    | `duration` | string | Supported clip length as a string. Veo 3.1 text models accept `"4"`, `"6"`, or `"8"`; their Image variants accept only `"8"`. A trailing `s` is also accepted. If omitted, uses a supported model default. |
+    | `model` | string | Omit for `MiniMax H3 Max`, or `MiniMax H3 Max Image` when `image` is supplied. You can explicitly select another model, for example `Veo 3.1`, `Veo 3.1 Fast`, or `Seedance 2.5`. |
+    | `duration` | string | MiniMax H3 Max accepts `"5"` through `"15"` (default `"5"`). Veo 3.1 text models accept `"4"`, `"6"`, or `"8"`; their Image variants accept only `"8"`. A trailing `s` is also accepted. If omitted, uses a supported model default. |
     | `aspect_ratio` | string | For example `16:9` (default), `9:16`, `1:1`. |
-    | `resolution` | string | `480p`, `720p`, or `1080p` (model-dependent). |
-    | `image` | string | First-frame URL. Select an Image variant such as `Veo 3.1 Fast Image`; the server does not switch models automatically. |
-    | `generate_audio` | boolean | Generate a soundtrack, on models that support audio. |
+    | `resolution` | string | MiniMax H3 Max supports `768p` (default) or `480p`. Other models may support `720p`, `1080p`, or `2k`. |
+    | `image` | string | First-frame URL. With no `model`, selects MiniMax H3 Max Image. When you supply a model, choose its Image variant, such as `Veo 3.1 Fast Image`. |
+    | `generate_audio` | boolean | Controls sound on models with an audio toggle. MiniMax H3 Max always generates audio; `false` returns an error before generation. For a silent video, explicitly select a model with an audio toggle, such as Veo 3.1 Fast. |
   </Accordion>
   <Accordion title="get_video" icon="clock">
     Returns `{ video: { id, url, status } }`. `status` stays `processing` until the video is ready, then becomes `completed` with a download `url`.
