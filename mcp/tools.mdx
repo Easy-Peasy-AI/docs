@@ -7,7 +7,7 @@ Every tool maps to a documented [REST API](/api-reference/introduction) endpoint
 
 | Tool | Mode | Description |
 | --- | --- | --- |
-| `get_account` | sync | Verify the connection; returns account id, email, and name. |
+| `get_account` | sync | Verify an explicitly requested connection check; returns only `connected: true`. |
 | `list_templates` | sync | List text templates (presets) with slugs and categories. |
 | `get_template` | sync | Input fields of one template (`keywords`, `extra1`…`extra14`). |
 | `generate_text` | sync | Run a template; returns the generated text. |
@@ -26,11 +26,13 @@ Expand a tool below for its parameters. Parameters marked with `*` are required.
 
 <AccordionGroup>
   <Accordion title="list_templates" icon="list">
-    Lists the available templates plus the list of categories.
+    Lists a page of templates plus the list of categories. Returns `total`, `offset`, and `next_offset` (`null` on the final page).
 
     | Parameter | Type | Description |
     | --- | --- | --- |
     | `category` | string | Optional category name to filter by. |
+    | `limit` | integer | Maximum results, default `20`, maximum `50`. |
+    | `offset` | integer | Start position, default `0`. Use the previous page's `next_offset`. |
   </Accordion>
   <Accordion title="get_template" icon="circle-info">
     Returns one template with its input fields (name, label, type, options). Field names such as `keywords` and `extra1`…`extra14` map directly onto `generate_text` parameters.
@@ -40,7 +42,7 @@ Expand a tool below for its parameters. Parameters marked with `*` are required.
     | `slug` * | string | Template slug from `list_templates`. |
   </Accordion>
   <Accordion title="generate_text" icon="pen">
-    Runs a template and returns the generated text. Uses the account word quota.
+    Runs a template and returns the generated text. Uses the account word quota and API token allowance.
 
     | Parameter | Type | Description |
     | --- | --- | --- |
@@ -90,10 +92,10 @@ Call `get_template` before `generate_text` so the agent knows which `extra_field
     | --- | --- | --- |
     | `prompt` * | string | Description of the video. |
     | `model` * | string | Model name, for example `Veo 3.1`, `Seedance 2.0`, `Kling 2.5`. |
-    | `duration` | string | Clip length in seconds as a string, for example `"5"` (default). |
+    | `duration` | string | Supported clip length as a string. Veo 3.1 text models accept `"4"`, `"6"`, or `"8"`; their Image variants accept only `"8"`. A trailing `s` is also accepted. If omitted, uses a supported model default. |
     | `aspect_ratio` | string | For example `16:9` (default), `9:16`, `1:1`. |
     | `resolution` | string | `480p`, `720p`, or `1080p` (model-dependent). |
-    | `image` | string | Image URL used as the first frame (image-to-video). |
+    | `image` | string | First-frame URL. Select an Image variant such as `Veo 3.1 Fast Image`; the server does not switch models automatically. |
     | `generate_audio` | boolean | Generate a soundtrack, on models that support audio. |
   </Accordion>
   <Accordion title="get_video" icon="clock">
@@ -109,12 +111,14 @@ Call `get_template` before `generate_text` so the agent knows which `extra_field
 
 <AccordionGroup>
   <Accordion title="list_voices" icon="microphone-lines">
-    Returns voices with id, name, language, and accent, including your custom and cloned voices.
+    Returns a page of voices with id, name, language, and accent, including your custom and cloned voices. Returns `total`, `offset`, and `next_offset` (`null` on the final page).
 
     | Parameter | Type | Description |
     | --- | --- | --- |
     | `language` | string | Optional language filter, for example `Dutch`. |
     | `accent` | string | Optional accent filter. |
+    | `limit` | integer | Maximum results, default `20`, maximum `50`. |
+    | `offset` | integer | Start position, default `0`. Use the previous page's `next_offset`. |
   </Accordion>
   <Accordion title="generate_speech" icon="volume-high">
     Converts text to speech and returns the audio file URL. Billed against the monthly text-to-speech character quota.
@@ -142,7 +146,7 @@ Call `get_template` before `generate_text` so the agent knows which `extra_field
     | `name` | string | Optional name for the transcription. |
   </Accordion>
   <Accordion title="get_transcription" icon="file-lines">
-    The `content` field stays empty until the transcription finishes.
+    The `content` field stays empty until the transcription finishes. Reuse the exact UUID and the same connected account. Report a missing or failed job; do not create a replacement unless the user asks for a new transcription.
 
     | Parameter | Type | Description |
     | --- | --- | --- |
@@ -159,5 +163,5 @@ Videos typically take 1–5 minutes depending on model, duration, and resolution
 ## Account
 
 <Accordion title="get_account" icon="user">
-  Takes no parameters. Returns the authenticated account id, email, and name — use it to confirm the connection works.
+  Takes no parameters and returns `{ "connected": true }`. Use it only when the user asks to verify their connection. It does not return an account ID, email, name, API key, or OAuth token, and it does not check quota or support account deletion.
 </Accordion>
