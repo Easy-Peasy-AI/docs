@@ -13,8 +13,23 @@ Video generation is asynchronous. Here's the typical flow:
 4. **Download** the video from the `url` field
 
 <Note>
-Video generation typically takes **1–5 minutes** depending on the model, duration, and resolution. A paid plan is required.
+Video generation typically takes **1–5 minutes** depending on the model, duration, and resolution. Paid plans can use the video catalog subject to available credits. Free accounts can use selected Veo and Seedance Mini variants with model-specific limits.
 </Note>
+
+## Duration values
+
+Send `duration` as a string supported by the **exact model variant**. Adding or removing a trailing `s` does not change the requested length: both `"8"` and `"8s"` are accepted for an eight-second Veo clip. Unsupported lengths still return HTTP 400.
+
+| Model value | Supported durations | Example resolution |
+| --- | --- | --- |
+| `Veo 3.1`, `Veo 3.1 Fast`, `Veo 3.1 Lite` | `"4s"`, `"6s"`, `"8s"` | `"720p"` |
+| `Veo 3.1 Image`, `Veo 3.1 Fast Image`, `Veo 3.1 Lite Image` | `"8s"` only | `"720p"` |
+| `Veo 3.1 First-Last Frame`, `Veo 3.1 Fast First-Last Frame` | `"8s"` only | `"720p"` |
+| `Seedance 2.0 Mini`, `Seedance 2.0 Mini Image` | `"4"` through `"15"` | `"480p"` |
+
+Veo 3.1 does **not** support five seconds. There is no universal five-second default: when you omit `duration`, the API chooses a supported model default. Set it explicitly when you need to control clip length and credit usage.
+
+For a short text-to-video check, use `"model": "Veo 3.1 Fast"`, `"duration": "4s"`, and `"resolution": "720p"`.
 
 ## Input types
 
@@ -29,9 +44,31 @@ The `model` value must **exactly match** one of the titles in the `model` enum, 
 For Seedance 2.0 these are distinct models: `Seedance 2.0` (text), `Seedance 2.0 Image` (first frame, optional last frame), and `Seedance 2.0 Reference` (up to 9 reference images). A single request cannot combine a start frame **and** reference images — pick the variant that matches your input.
 </Note>
 
+The API does not automatically switch model variants when you add an `image`. For example, `Veo 3.1 Fast` is text-to-video; use `Veo 3.1 Fast Image` with a first-frame image.
+
 Image URLs for `image`, `tailImage`, and `referenceImages[].url` do not need to be hosted on Easy-Peasy, but they **must be downloadable server-side by our video provider**. Some hosts (e.g. Wikimedia, or sites that block hotlinking / non-browser requests) return **HTTP 403** to automated downloads — these fail with a `Could not download the input (HTTP 403)` error. If in doubt, host the image on your own public CDN/bucket or on Easy-Peasy.
 
-### First frame (image-to-video)
+Signed URLs are supported, but their expiry must allow time for the server or provider to download the input, including queue delays. A URL that expires before that download can fail even if the initial request was accepted.
+
+### Veo 3.1 Fast image-to-video
+
+```bash
+curl -X POST https://easy-peasy.ai/api/generate-video \
+  -H "x-api-key: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "prompt": "The subject slowly turns toward the camera, cinematic lighting",
+    "model": "Veo 3.1 Fast Image",
+    "image": "https://yourcdn.com/first-frame.png",
+    "duration": "8s",
+    "aspectRatio": "16:9",
+    "resolution": "720p"
+  }'
+```
+
+The Image variant accepts eight seconds only. Keep the returned `id` and poll it with the same API key. If submission returns an error without an `id`, inspect the response body's `error` before sending another generation request.
+
+### Seedance first frame (image-to-video)
 
 ```bash
 curl -X POST https://easy-peasy.ai/api/generate-video \

@@ -91,7 +91,7 @@ Claude Desktop connects best through **Settings → Connectors** (OAuth, above).
 
 ## Verify the connection
 
-Ask your agent to call the `get_account` tool. It returns the id, email, and name of the authenticated account — the quickest way to confirm auth works before spending credits.
+Ask your agent to call the `get_account` tool. It returns `{ "connected": true }` to confirm authentication without spending generation credits. It does not expose account details or check your remaining quota.
 
 <Card title="Browse the tools" icon="wrench" href="/mcp/tools">
   See all 12 tools, their parameters, and the async polling pattern.

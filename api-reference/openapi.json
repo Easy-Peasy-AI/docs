@@ -1242,7 +1242,7 @@
       "post": {
         "summary": "Generate Video",
         "operationId": "generateVideo",
-        "description": "Generate AI videos from text prompts or images using 40+ models including Veo 3.1, Kling 3.0, Sora 2, Hailuo, and more.\n\nVideo generation is asynchronous — the response returns a video ID immediately. Use the [Get Video](/api-reference/endpoint/get-video) endpoint to poll for the result.\n\n**Input types:**\n- **Text-to-video** — Provide only a `prompt`\n- **Image-to-video** — Provide both `prompt` and `image` URL\n\n**Note:** Video generation requires a paid plan.",
+        "description": "Generate AI videos from text prompts or images using 40+ models including Veo 3.1, Kling 3.0, Sora 2, Hailuo, and more.\n\nVideo generation is asynchronous — the response returns a video ID immediately. Use the [Get Video](/api-reference/endpoint/get-video) endpoint to poll for the result.\n\n**Input types:**\n- **Text-to-video** — Provide only a `prompt`\n- **Image-to-video** — Provide both `prompt` and `image` URL, and select an image model such as `Veo 3.1 Fast Image`. Supplying an image does not switch `Veo 3.1 Fast` to its Image variant.\n\n**Access:** Paid plans can use the video catalog subject to available credits. Free accounts can use selected Veo and Seedance Mini variants with model-specific limits.",
         "parameters": [
           {
             "name": "x-api-key",
@@ -1268,8 +1268,9 @@
                   "value": {
                     "prompt": "A cat walking on the beach at sunset, cinematic lighting",
                     "model": "Veo 3.1 Fast",
-                    "duration": "5",
-                    "aspectRatio": "16:9"
+                    "duration": "4s",
+                    "aspectRatio": "16:9",
+                    "resolution": "720p"
                   }
                 },
                 "image_to_video": {
@@ -1277,9 +1278,10 @@
                   "value": {
                     "prompt": "The subject slowly turns and smiles at the camera",
                     "image": "https://example.com/photo.jpg",
-                    "model": "Kling 3.0 Pro Image",
-                    "duration": "5",
-                    "aspectRatio": "16:9"
+                    "model": "Veo 3.1 Fast Image",
+                    "duration": "8s",
+                    "aspectRatio": "16:9",
+                    "resolution": "720p"
                   }
                 }
               }
@@ -1332,14 +1334,14 @@
             }
           },
           "403": {
-            "description": "Plan limit reached or free plan",
+            "description": "Credit limit reached or model/settings unavailable on the current plan",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
                 },
                 "example": {
-                  "error": "Video generation is not available on the Free plan. Please upgrade to a paid plan to generate videos."
+                  "error": "This model is not available on the Free plan. Try Veo 3.1 or Seedance 2.0 Mini, or upgrade to unlock all models."
                 }
               }
             }
@@ -1393,7 +1395,7 @@
                         "status": "processing",
                         "created_at": "2025-01-15T10:30:00.000Z",
                         "request": {
-                          "duration": "5",
+                          "duration": "4s",
                           "aspectRatio": "16:9",
                           "isTextToVideo": true,
                           "isImageToVideo": false
@@ -1412,7 +1414,7 @@
                         "status": "completed",
                         "created_at": "2025-01-15T10:30:00.000Z",
                         "request": {
-                          "duration": "5",
+                          "duration": "4s",
                           "aspectRatio": "16:9",
                           "isTextToVideo": true,
                           "isImageToVideo": false
@@ -2862,7 +2864,7 @@
           "image": {
             "type": "string",
             "format": "uri",
-            "description": "URL of a start/first-frame image for image-to-video generation. Use a model whose title ends in \"Image\" (e.g. \"Seedance 2.0 Image\", \"Veo 3.1 Image\"). If omitted, text-to-video mode is used. Any publicly reachable URL is accepted."
+            "description": "URL of a start/first-frame image for image-to-video generation. Use a model whose title ends in \"Image\" (e.g. \"Seedance 2.0 Image\", \"Veo 3.1 Image\"). Omit this field for a text-to-video model; supplying an image does not switch the model variant automatically. The URL must remain reachable without browser cookies until the input has been downloaded, including any provider queue delay."
           },
           "model": {
             "type": "string",
@@ -2946,9 +2948,8 @@
           },
           "duration": {
             "type": "string",
-            "default": "5",
-            "description": "Duration of the video in seconds. Available values depend on the model.",
-            "example": "5"
+            "description": "Video length as a string. Use a duration supported by the exact model variant. Veo 3.1, Veo 3.1 Fast, and Veo 3.1 Lite text models accept 4s, 6s, or 8s; their Image variants accept only 8s. Equivalent bare-second strings (for example 8) are also accepted. Seedance 2.0 Mini and Mini Image accept 4 through 15 seconds. Five seconds is not supported by Veo 3.1. If omitted, the API chooses a supported model default.",
+            "example": "8s"
           },
           "aspectRatio": {
             "type": "string",
