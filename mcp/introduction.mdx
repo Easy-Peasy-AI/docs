@@ -94,12 +94,21 @@ Claude Desktop connects best through **Settings → Connectors** (OAuth, above).
 Ask your agent to call the `get_account` tool. It returns `{ "connected": true }` to confirm authentication without spending generation credits. It does not expose account details or check your remaining quota.
 
 <Card title="Browse the tools" icon="wrench" href="/mcp/tools">
-  See all 12 tools, their parameters, and the async polling pattern.
+  See all 13 tools, their parameters, and the async polling pattern.
 </Card>
+
+## Inline media previews
+
+Ask your agent to show a saved image or video with `display_media`. Clients that support MCP Apps can show an image gallery or a playable video inside the conversation. Other clients receive the result links.
+
+Viewing an existing result does not consume generation credits. The video viewer can check a processing job without creating another video.
 
 ## Troubleshooting
 
 <AccordionGroup>
+  <Accordion title="I see links but no image or video viewer">
+    Refresh the connector's tool list and ask your agent to use `display_media` with an existing image or video ID. In Claude, open **Customize → Connectors → Yours → Easy-Peasy.AI**, then choose **Refresh tools list** from the menu. Your client must support MCP Apps to render the viewer; links remain available otherwise.
+  </Accordion>
   <Accordion title="401 Unauthorized">
     The API key is missing or invalid, or the OAuth token expired. Check the header name (`x-api-key`), or reconnect the connector to refresh the OAuth token.
   </Accordion>
