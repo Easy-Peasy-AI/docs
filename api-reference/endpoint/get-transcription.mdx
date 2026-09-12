@@ -2,3 +2,14 @@
 title: 'Get Transcription Result'
 openapi: 'POST /api/audios'
 ---
+
+Send `{ "audio_id": "YOUR_AUDIO_UUID" }` with the same account's API key used to create the transcription. The response fields are at the top level: read `content` and `transcription_status`, rather than `audio.content`.
+
+| Status | Meaning |
+| --- | --- |
+| `processing` | Still running; check again in 15–30 seconds. |
+| `done` | Complete, including recordings with no speech and empty content. |
+| `failed` | Processing failed; stop polling. |
+| Missing or `null` | Older record; non-empty content indicates an available transcript. |
+
+See the [complete polling example](/api-reference/endpoint/create-transcription#step-2-poll-for-results). Retain the UUID on timeout. HTTP 404 means the record is unavailable to this account.

@@ -2,3 +2,9 @@
 title: 'Get Video'
 openapi: 'GET /api/get-video'
 ---
+
+Pass the `id` returned by Generate Video or Generate Talking Video as the `video_id` query parameter. Use the same account's API key.
+
+Read `video.status` and `video.url`. The endpoint exposes `processing` and `completed`; it does not expose a `failed` status. HTTP 404 means the job is missing, deleted, or unavailable to this account, including some failed jobs.
+
+See the [bounded polling example](/api-reference/endpoint/generate-video#poll-for-the-result). A client timeout does not cancel the job.

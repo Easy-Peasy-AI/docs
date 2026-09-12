@@ -2,8 +2,8 @@
   "openapi": "3.0.1",
   "info": {
     "title": "Easy-Peasy.AI API",
-    "description": "OpenAPI Specifications for the Easy-Peasy.AI API.\n\nAll API requests must be authenticated with an API key. Include the `x-api-key` API key in the request header with all requests. You can get the API key [here](https://easy-peasy.ai/settings/api).",
-    "version": "1.0.4"
+    "description": "API for Easy-Peasy.AI text, image, video, audio, and chat features. Authenticate with an API key from https://easy-peasy.ai/settings/api. Individual endpoints document public access and alternative authentication methods.",
+    "version": "1.0.5"
   },
   "servers": [
     {
@@ -21,18 +21,6 @@
         "summary": "Generate Text",
         "operationId": "generateText",
         "description": "Programmatically generate outputs for any of the [Templates](https://easy-peasy.ai/presets). Each template (preset) accepts different parameters — see the request body schema and examples below.",
-        "parameters": [
-          {
-            "name": "x-api-key",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "Your API key",
-            "example": "27feb2bb-aeb4-4a83-9fb6-8f3f2a15885e"
-          }
-        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -687,22 +675,23 @@
         "description": "Retrieve a list of all available text generation presets (templates). Use this to discover which presets you can pass to the `/api/generate` endpoint.\n\nOptionally filter by category. Only presets with input fields are returned.",
         "parameters": [
           {
-            "name": "x-api-key",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "Your API key",
-            "example": "27feb2bb-aeb4-4a83-9fb6-8f3f2a15885e"
-          },
-          {
             "name": "category",
             "in": "query",
             "required": false,
             "schema": {
               "type": "string",
-              "enum": ["Social Media", "Content", "Business", "HR", "Marketing", "Resume", "Education", "Project Management", "Tools", "Other"]
+              "enum": [
+                "Social Media",
+                "Content",
+                "Business",
+                "HR",
+                "Marketing",
+                "Resume",
+                "Education",
+                "Project Management",
+                "Tools",
+                "Other"
+              ]
             },
             "description": "Filter presets by category",
             "example": "Marketing"
@@ -722,19 +711,44 @@
                       "slug": "custom-generator",
                       "title": "Custom Generator",
                       "description": "Generate custom text for any purpose.",
-                      "category": ["Tools", "Content", "Marketing", "Other", "Social Media", "Business", "Resume"],
+                      "category": [
+                        "Tools",
+                        "Content",
+                        "Marketing",
+                        "Other",
+                        "Social Media",
+                        "Business",
+                        "Resume"
+                      ],
                       "isFree": false
                     },
                     {
                       "slug": "paragraph-writer",
                       "title": "Paragraph Writer",
                       "description": "Generate paragraphs with the click of a button!",
-                      "category": ["Tools", "Content", "Social Media", "Marketing", "Business"],
+                      "category": [
+                        "Tools",
+                        "Content",
+                        "Social Media",
+                        "Marketing",
+                        "Business"
+                      ],
                       "isFree": true
                     }
                   ],
                   "total": 2,
-                  "categories": ["Social Media", "Content", "Business", "HR", "Marketing", "Resume", "Education", "Project Management", "Tools", "Other"]
+                  "categories": [
+                    "Social Media",
+                    "Content",
+                    "Business",
+                    "HR",
+                    "Marketing",
+                    "Resume",
+                    "Education",
+                    "Project Management",
+                    "Tools",
+                    "Other"
+                  ]
                 }
               }
             }
@@ -772,16 +786,6 @@
         "description": "Retrieve the full configuration for a specific preset, including all input fields and their constraints.\n\nUse this to understand exactly which parameters to pass when calling `/api/generate` with this preset.",
         "parameters": [
           {
-            "name": "x-api-key",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "Your API key",
-            "example": "27feb2bb-aeb4-4a83-9fb6-8f3f2a15885e"
-          },
-          {
             "name": "slug",
             "in": "path",
             "required": true,
@@ -804,7 +808,13 @@
                   "slug": "paragraph-writer",
                   "title": "Paragraph Writer",
                   "description": "Generate paragraphs with the click of a button!",
-                  "category": ["Tools", "Content", "Social Media", "Marketing", "Business"],
+                  "category": [
+                    "Tools",
+                    "Content",
+                    "Social Media",
+                    "Marketing",
+                    "Business"
+                  ],
                   "isFree": true,
                   "fields": [
                     {
@@ -837,9 +847,18 @@
                       "type": "radio",
                       "required": false,
                       "radioOptions": [
-                        {"value": "Short", "default": false},
-                        {"value": "Medium", "default": true},
-                        {"value": "Long", "default": false}
+                        {
+                          "value": "Short",
+                          "default": false
+                        },
+                        {
+                          "value": "Medium",
+                          "default": true
+                        },
+                        {
+                          "value": "Long",
+                          "default": false
+                        }
                       ]
                     }
                   ]
@@ -903,19 +922,7 @@
       "post": {
         "summary": "Generate Image",
         "operationId": "generateImage",
-        "description": "Programmatically generate [AI Images](https://easy-peasy.ai/ai-images) using 40+ models including DALL-E 3, Midjourney, FLUX.2, Imagen 4, Stable Diffusion, Seedream, and more.",
-        "parameters": [
-          {
-            "name": "x-api-key",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "Your API key",
-            "example": "27feb2bb-aeb4-4a83-9fb6-8f3f2a15885e"
-          }
-        ],
+        "description": "Generate images from a prompt, or edit supplied images. model selects the text-to-image generator; editModel selects the editor for Edit Image with AI. API-key requests wait for standard generation results. Check every returned image_url. Premium models and available credits depend on the account plan.",
         "requestBody": {
           "description": "The prompt and model to generate the image",
           "required": true,
@@ -951,6 +958,26 @@
               }
             }
           },
+          "401": {
+            "description": "Missing or invalid authentication, or blocked account.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Insufficient credits or model unavailable on the current plan.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Internal server error",
             "content": {
@@ -972,18 +999,6 @@
         "summary": "Create Transcription",
         "operationId": "createTranscription",
         "description": "Programmatically create [AI Transcriptions](https://easy-peasy.ai/audios) from audio files.",
-        "parameters": [
-          {
-            "name": "x-api-key",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "Your API key",
-            "example": "27feb2bb-aeb4-4a83-9fb6-8f3f2a15885e"
-          }
-        ],
         "requestBody": {
           "description": "The audio parameters to create transcriptions",
           "required": true,
@@ -1019,6 +1034,26 @@
               }
             }
           },
+          "401": {
+            "description": "Missing or invalid API key, or blocked account.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Paid subscription required or monthly transcription limit reached.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Internal server error",
             "content": {
@@ -1039,19 +1074,7 @@
       "post": {
         "summary": "Get Transcription Result",
         "operationId": "getTranscriptionResult",
-        "description": "Retrieve the result of a transcription by its UUID. Since transcription is asynchronous (typically 1–5 minutes), poll this endpoint every 15–30 seconds until the `content` field is populated.\n\nOnce the transcription is complete, the response includes the full text, timestamped segments, and any previously generated AI content (summary, title, etc.).",
-        "parameters": [
-          {
-            "name": "x-api-key",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "Your API key",
-            "example": "27feb2bb-aeb4-4a83-9fb6-8f3f2a15885e"
-          }
-        ],
+        "description": "Retrieve a transcription by its UUID using the same account’s API key. Fields are returned at the top level (no audio wrapper). Poll every 15–30 seconds while processing. transcription_status: done means complete, including no-speech results with empty content; failed means stop. Older records can have content without a status.",
         "requestBody": {
           "required": true,
           "content": {
@@ -1074,38 +1097,46 @@
                   "processing": {
                     "summary": "Transcription still processing",
                     "value": {
-                      "audio": {
-                        "uuid": "4bc4e8ee-f29e-4a53-996e-5da955c42927",
-                        "name": "Team Meeting",
-                        "content": "",
-                        "created_at": "2025-01-15T10:30:00.000Z",
-                        "segments": [],
-                        "audio_type": "Meeting",
-                        "language": "English"
-                      }
+                      "uuid": "4bc4e8ee-f29e-4a53-996e-5da955c42927",
+                      "name": "Team Meeting",
+                      "content": "",
+                      "created_at": "2025-01-15T10:30:00.000Z",
+                      "segments": [],
+                      "audio_type": "Meeting",
+                      "language": "English",
+                      "transcription_status": "processing"
                     }
                   },
                   "completed": {
                     "summary": "Transcription complete",
                     "value": {
-                      "audio": {
-                        "uuid": "4bc4e8ee-f29e-4a53-996e-5da955c42927",
-                        "name": "Team Meeting",
-                        "content": "Speaker 1: Good morning everyone. Let's start with the project update...",
-                        "created_at": "2025-01-15T10:30:00.000Z",
-                        "segments": [
-                          {
-                            "start": "0.00",
-                            "end": "3.50",
-                            "text": "Good morning everyone.",
-                            "speaker": "Speaker 1"
-                          }
-                        ],
-                        "audio_type": "Meeting",
-                        "language": "English"
-                      }
+                      "uuid": "4bc4e8ee-f29e-4a53-996e-5da955c42927",
+                      "name": "Team Meeting",
+                      "content": "Speaker 1: Good morning everyone. Let's start with the project update...",
+                      "created_at": "2025-01-15T10:30:00.000Z",
+                      "segments": [
+                        {
+                          "start": "0.00",
+                          "end": "3.50",
+                          "text": "Good morning everyone.",
+                          "speaker": "Speaker 1"
+                        }
+                      ],
+                      "audio_type": "Meeting",
+                      "language": "English",
+                      "transcription_status": "done"
                     }
                   }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Missing audio_id.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
                 }
               }
             }
@@ -1135,6 +1166,16 @@
                 }
               }
             }
+          },
+          "500": {
+            "description": "Could not check transcription status.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
           }
         }
       }
@@ -1144,18 +1185,6 @@
         "summary": "Generate Audio Content",
         "operationId": "generateAudioContent",
         "description": "Generate AI-powered content from a completed transcription. Produces summaries, titles, action items, and more depending on the audio type.\n\n**Content generated by audio type:**\n- **Meeting**: summary, title, description, action items, keywords, timestamped overview, topics & bullets, LinkedIn post\n- **Podcast**: summary, title, description, show notes, Twitter thread, article, newsletter, keywords, questions, LinkedIn post, timestamped overview, topics & bullets\n- **Therapy Session**: summary, title, description, progress note, SOAP note, DAP note, keywords, timestamped overview, topics & bullets, LinkedIn post\n\nYou can generate all fields at once or specify individual fields with the `fields` parameter.",
-        "parameters": [
-          {
-            "name": "x-api-key",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "Your API key",
-            "example": "27feb2bb-aeb4-4a83-9fb6-8f3f2a15885e"
-          }
-        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -1174,14 +1203,20 @@
                   "summary": "Generate specific fields only",
                   "value": {
                     "audio_id": "4bc4e8ee-f29e-4a53-996e-5da955c42927",
-                    "fields": ["summary", "title", "keywords"]
+                    "fields": [
+                      "summary",
+                      "title",
+                      "keywords"
+                    ]
                   }
                 },
                 "force_regenerate": {
                   "summary": "Force regenerate existing content",
                   "value": {
                     "audio_id": "4bc4e8ee-f29e-4a53-996e-5da955c42927",
-                    "fields": ["summary"],
+                    "fields": [
+                      "summary"
+                    ],
                     "force": true
                   }
                 }
@@ -1242,19 +1277,7 @@
       "post": {
         "summary": "Generate Video",
         "operationId": "generateVideo",
-        "description": "Generate AI videos from text prompts or images using 40+ models including Veo 3.1, Kling 3.0, Sora 2, Hailuo, and more.\n\nVideo generation is asynchronous — the response returns a video ID immediately. Use the [Get Video](/api-reference/endpoint/get-video) endpoint to poll for the result.\n\n**Input types:**\n- **Text-to-video** — Provide only a `prompt`\n- **Image-to-video** — Provide both `prompt` and `image` URL, and select an image model such as `Veo 3.1 Fast Image`. Supplying an image does not switch `Veo 3.1 Fast` to its Image variant.\n\n**Access:** Paid plans can use the video catalog subject to available credits. Free accounts can use selected Veo and Seedance Mini variants with model-specific limits.",
-        "parameters": [
-          {
-            "name": "x-api-key",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "Your API key",
-            "example": "27feb2bb-aeb4-4a83-9fb6-8f3f2a15885e"
-          }
-        ],
+        "description": "Generate videos from text, first/last frames, or reference media with MiniMax H3 Max, Seedance 2.5, Gemini Omni Flash 1.1, FLUX 3, WAN 3.0, Veo, Kling, and other models. The exact model title is required. See the [video model reference](/api-reference/video-models) for supported settings.\n\nGeneration is asynchronous. Save the returned id and poll [Get Video](/api-reference/endpoint/get-video) with the same account’s API key. Paid plans require sufficient credits; free access is limited to selected variants and settings.",
         "requestBody": {
           "required": true,
           "content": {
@@ -1263,6 +1286,52 @@
                 "$ref": "#/components/schemas/GenerateVideoRequest"
               },
               "examples": {
+                "minimax_text": {
+                  "summary": "MiniMax H3 Max text-to-video",
+                  "value": {
+                    "prompt": "A cat walks on the beach at sunset, cinematic lighting",
+                    "model": "MiniMax H3 Max",
+                    "duration": "5",
+                    "aspectRatio": "16:9",
+                    "resolution": "768p"
+                  }
+                },
+                "minimax_image": {
+                  "summary": "MiniMax H3 Max image-to-video",
+                  "value": {
+                    "prompt": "The subject slowly turns toward the camera",
+                    "model": "MiniMax H3 Max Image",
+                    "image": "https://yourcdn.com/first-frame.png",
+                    "duration": "5",
+                    "aspectRatio": "16:9",
+                    "resolution": "768p"
+                  }
+                },
+                "seedance_references": {
+                  "summary": "Seedance 2.5 with references",
+                  "value": {
+                    "prompt": "The character walks through a neon-lit market",
+                    "model": "Seedance 2.5 Reference",
+                    "referenceImages": [
+                      {
+                        "url": "https://yourcdn.com/character.png"
+                      }
+                    ],
+                    "referenceVideos": [
+                      {
+                        "url": "https://yourcdn.com/motion.mp4"
+                      }
+                    ],
+                    "referenceAudios": [
+                      {
+                        "url": "https://yourcdn.com/voice.mp3"
+                      }
+                    ],
+                    "duration": "5",
+                    "aspectRatio": "16:9",
+                    "resolution": "720p"
+                  }
+                },
                 "text_to_video": {
                   "summary": "Text-to-video",
                   "value": {
@@ -1345,6 +1414,26 @@
                 }
               }
             }
+          },
+          "405": {
+            "description": "Method not allowed. Use POST.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Provider or server error. Preserve any existing job ID before deciding to submit another generation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
           }
         }
       }
@@ -1355,16 +1444,6 @@
         "operationId": "getVideo",
         "description": "Retrieve the status and result of a video generation request. Since video generation is asynchronous (typically 1–5 minutes), poll this endpoint every 15–30 seconds until the `status` is `completed` and the `url` field contains the video URL.",
         "parameters": [
-          {
-            "name": "x-api-key",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "Your API key",
-            "example": "27feb2bb-aeb4-4a83-9fb6-8f3f2a15885e"
-          },
           {
             "name": "video_id",
             "in": "query",
@@ -1426,6 +1505,16 @@
               }
             }
           },
+          "400": {
+            "description": "Missing video_id.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
           "401": {
             "description": "Unauthorized",
             "content": {
@@ -1440,7 +1529,7 @@
             }
           },
           "404": {
-            "description": "Video not found",
+            "description": "Video missing, deleted, or not accessible to this account. Some failed jobs are deleted and return 404.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1448,6 +1537,16 @@
                 },
                 "example": {
                   "error": "Video not found"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Method not allowed. Use GET.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
                 }
               }
             }
@@ -1460,18 +1559,6 @@
         "summary": "Generate Talking Video",
         "operationId": "generateTalkingVideo",
         "description": "Generate a talking video by animating a face image or video with speech. Provide either text + voice to generate audio, or supply your own audio file.\n\n**Input combinations:**\n- **Image + text + voice** — Generates speech from text using the specified voice, then animates the face in the image\n- **Image + audio** — Uses the provided audio to animate the face in the image\n- **Video + text + voice** — Generates speech from text, then lip-syncs the video\n- **Video + audio** — Lip-syncs the video with the provided audio\n\n**Models:**\n- `premium` — High-quality avatar generation (VEED Fabric). Supports 480p and 720p.\n- `standard` — Faster generation (WaveSpeed InfiniteTalk). Supports 480p and 720p.\n\nVideo generation is asynchronous. Use the [Get Video](/api-reference/endpoint/get-video) endpoint to poll for results.\n\n**Note:** Requires a paid plan. Image must be at least 512x512 pixels. Audio/video max 5 minutes.",
-        "parameters": [
-          {
-            "name": "x-api-key",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "Your API key",
-            "example": "27feb2bb-aeb4-4a83-9fb6-8f3f2a15885e"
-          }
-        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -1575,18 +1662,6 @@
         "summary": "Generate Sound Effect",
         "operationId": "generateSoundEffect",
         "description": "Generate AI sound effects from a text description using ElevenLabs. Returns the audio URL immediately (synchronous).\n\nUsage is counted against your plan's character limit.",
-        "parameters": [
-          {
-            "name": "x-api-key",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "Your API key",
-            "example": "27feb2bb-aeb4-4a83-9fb6-8f3f2a15885e"
-          }
-        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -1689,8 +1764,30 @@
                   "all-config": {
                     "summary": "All configuration without filters",
                     "value": {
-                      "languages": ["English", "Spanish", "French", "German", "Italian", "Portuguese", "Polish", "Dutch", "Hindi", "Japanese", "Chinese"],
-                      "accents": ["American", "British", "Australian", "Indian", "Irish", "Scottish", "Spanish", "French", "German"],
+                      "languages": [
+                        "English",
+                        "Spanish",
+                        "French",
+                        "German",
+                        "Italian",
+                        "Portuguese",
+                        "Polish",
+                        "Dutch",
+                        "Hindi",
+                        "Japanese",
+                        "Chinese"
+                      ],
+                      "accents": [
+                        "American",
+                        "British",
+                        "Australian",
+                        "Indian",
+                        "Irish",
+                        "Scottish",
+                        "Spanish",
+                        "French",
+                        "German"
+                      ],
                       "total_voices": 150,
                       "filtered_by_language": null,
                       "filtered_voices_count": null
@@ -1699,8 +1796,27 @@
                   "filtered-config": {
                     "summary": "Configuration filtered by English language",
                     "value": {
-                      "languages": ["English", "Spanish", "French", "German", "Italian", "Portuguese", "Polish", "Dutch", "Hindi", "Japanese", "Chinese"],
-                      "accents": ["American", "British", "Australian", "Indian", "Irish", "Scottish"],
+                      "languages": [
+                        "English",
+                        "Spanish",
+                        "French",
+                        "German",
+                        "Italian",
+                        "Portuguese",
+                        "Polish",
+                        "Dutch",
+                        "Hindi",
+                        "Japanese",
+                        "Chinese"
+                      ],
+                      "accents": [
+                        "American",
+                        "British",
+                        "Australian",
+                        "Indian",
+                        "Irish",
+                        "Scottish"
+                      ],
                       "total_voices": 150,
                       "filtered_by_language": "English",
                       "filtered_voices_count": 85
@@ -1746,16 +1862,6 @@
         "operationId": "getTTSVoices",
         "description": "Retrieve a list of available voices for text-to-speech generation.\n\nReturns all predefined voices (ElevenLabs and OpenAI) and optionally the user's custom cloned voices.\n\n**Filtering:**\n- Filter by language using the `language` query parameter\n- Filter by accent using the `accent` query parameter\n- Both filters can be used together\n\n**Authentication:**\n- Optional: Endpoint works without authentication for public voices\n- Required for custom voices: Include `x-api-key` header",
         "parameters": [
-          {
-            "name": "x-api-key",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "type": "string"
-            },
-            "description": "Your API key (optional, required for custom voices)",
-            "example": "27feb2bb-aeb4-4a83-9fb6-8f3f2a15885e"
-          },
           {
             "name": "language",
             "in": "query",
@@ -1823,8 +1929,17 @@
                         "accent": null
                       },
                       "available": {
-                        "languages": ["English", "Spanish", "French", "German"],
-                        "accents": ["American", "British", "Australian"]
+                        "languages": [
+                          "English",
+                          "Spanish",
+                          "French",
+                          "German"
+                        ],
+                        "accents": [
+                          "American",
+                          "British",
+                          "Australian"
+                        ]
                       }
                     }
                   },
@@ -1847,8 +1962,13 @@
                         "accent": null
                       },
                       "available": {
-                        "languages": ["English"],
-                        "accents": ["American", "British"]
+                        "languages": [
+                          "English"
+                        ],
+                        "accents": [
+                          "American",
+                          "British"
+                        ]
                       }
                     }
                   }
@@ -1895,7 +2015,13 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {},
+          {
+            "apiKeyAuth": []
+          }
+        ]
       }
     },
     "/api/generate-text-to-speech": {
@@ -1903,18 +2029,6 @@
         "summary": "Generate Text-to-Speech",
         "operationId": "generateTTS",
         "description": "Convert text to speech using various AI voices. The generated audio is returned as a publicly accessible URL.\n\n**Usage Limits:**\n- Free plan: Limited words per billing period\n- Paid plans: Higher limits based on subscription tier",
-        "parameters": [
-          {
-            "name": "x-api-key",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "Your API key",
-            "example": "27feb2bb-aeb4-4a83-9fb6-8f3f2a15885e"
-          }
-        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -2015,29 +2129,7 @@
       "post": {
         "summary": "Chat Completions (OpenAI-compatible)",
         "operationId": "chatCompletions",
-        "description": "OpenAI-compatible chat completions endpoint. Works with the standard OpenAI SDK — just change the base URL and API key.\n\nSupports text, vision (image URLs and base64), and audio input in the standard OpenAI multimodal message format. Supports both streaming (Server-Sent Events) and non-streaming responses.",
-        "parameters": [
-          {
-            "name": "x-api-key",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "type": "string"
-            },
-            "description": "Your API key. Alternatively, use the `Authorization: Bearer` header.",
-            "example": "27feb2bb-aeb4-4a83-9fb6-8f3f2a15885e"
-          },
-          {
-            "name": "Authorization",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "type": "string"
-            },
-            "description": "Bearer token authentication (alternative to x-api-key). Format: `Bearer YOUR_API_KEY`",
-            "example": "Bearer 27feb2bb-aeb4-4a83-9fb6-8f3f2a15885e"
-          }
-        ],
+        "description": "Use the OpenAI SDK’s chat.completions.create method with the Easy-Peasy.AI base URL and API key. Supports the request fields documented here, text responses, and SSE streaming. Multimodal support depends on the selected model. Tool calling, response_format, n, and other undocumented OpenAI options are not implemented by this endpoint.",
         "requestBody": {
           "required": true,
           "content": {
@@ -2047,8 +2139,14 @@
               },
               "example": {
                 "messages": [
-                  { "role": "system", "content": "You are a helpful assistant." },
-                  { "role": "user", "content": "Explain quantum computing in simple terms." }
+                  {
+                    "role": "system",
+                    "content": "You are a helpful assistant."
+                  },
+                  {
+                    "role": "user",
+                    "content": "Explain quantum computing in simple terms."
+                  }
                 ],
                 "model": "gemini-3-flash",
                 "temperature": 0.7,
@@ -2122,7 +2220,7 @@
             }
           },
           "429": {
-            "description": "Token limit reached for subscription",
+            "description": "Word allowance reached for the current plan.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2149,6 +2247,92 @@
                     "message": "Internal server error",
                     "type": "server_error"
                   }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          },
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/get-image": {
+      "get": {
+        "summary": "Get Image",
+        "operationId": "getImage",
+        "description": "Retrieve an existing image by id using the same account’s API key. Useful for legacy image integrations that return a pending record. The query parameter is imageId (camelCase). The response is a single object; read image_url at the top level.",
+        "parameters": [
+          {
+            "name": "imageId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The id from a Generate Image response.",
+            "example": 12345
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Image record",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetImageResponse"
+                },
+                "example": {
+                  "id": 12345,
+                  "image_url": "https://yourcdn.com/generated-image.png",
+                  "model": "Midjourney V7",
+                  "prompt": "A cat in a garden",
+                  "used_credits": 2
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Missing or invalid imageId.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid or missing API key, or blocked account.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Image missing or not accessible to this account.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Could not retrieve image.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
                 }
               }
             }
@@ -2180,7 +2364,18 @@
               "type": "string"
             },
             "description": "All available preset categories",
-            "example": ["Social Media", "Content", "Business", "HR", "Marketing", "Resume", "Education", "Project Management", "Tools", "Other"]
+            "example": [
+              "Social Media",
+              "Content",
+              "Business",
+              "HR",
+              "Marketing",
+              "Resume",
+              "Education",
+              "Project Management",
+              "Tools",
+              "Other"
+            ]
           }
         }
       },
@@ -2205,10 +2400,21 @@
           "category": {
             "description": "Category or categories the preset belongs to",
             "oneOf": [
-              {"type": "string"},
-              {"type": "array", "items": {"type": "string"}}
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
             ],
-            "example": ["Tools", "Content", "Marketing"]
+            "example": [
+              "Tools",
+              "Content",
+              "Marketing"
+            ]
           },
           "isFree": {
             "type": "boolean",
@@ -2238,8 +2444,15 @@
           "category": {
             "description": "Category or categories the preset belongs to",
             "oneOf": [
-              {"type": "string"},
-              {"type": "array", "items": {"type": "string"}}
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
             ]
           },
           "isFree": {
@@ -2271,7 +2484,15 @@
           "type": {
             "type": "string",
             "description": "Field input type",
-            "enum": ["text", "textarea", "select", "radio", "number", "checkbox", "hidden"],
+            "enum": [
+              "text",
+              "textarea",
+              "select",
+              "radio",
+              "number",
+              "checkbox",
+              "hidden"
+            ],
             "example": "textarea"
           },
           "required": {
@@ -2323,7 +2544,10 @@
       },
       "GenerateRequest": {
         "type": "object",
-        "required": ["preset", "keywords"],
+        "required": [
+          "preset",
+          "keywords"
+        ],
         "properties": {
           "preset": {
             "type": "string",
@@ -2342,7 +2566,11 @@
           "length": {
             "type": "string",
             "description": "The desired output length.",
-            "enum": ["Short", "Medium", "Long"]
+            "enum": [
+              "Short",
+              "Medium",
+              "Long"
+            ]
           },
           "outputs": {
             "type": "integer",
@@ -2400,13 +2628,21 @@
           }
         },
         "example": [
-          {"id": 10, "name": "Output 1"},
-          {"id": 20, "name": "Output 2"}
+          {
+            "id": 10,
+            "name": "Output 1"
+          },
+          {
+            "id": 20,
+            "name": "Output 2"
+          }
         ]
       },
       "ImageGenerationRequest": {
         "type": "object",
-        "required": ["prompt", "model"],
+        "required": [
+          "prompt"
+        ],
         "properties": {
           "prompt": {
             "type": "string",
@@ -2415,67 +2651,83 @@
           },
           "model": {
             "type": "string",
-            "description": "The model to use for image generation",
+            "description": "Exact text-to-image model title. Defaults to Nano Banana 2. For Edit Image with AI, choose editModel instead. Unknown titles may fall back to another generator; use a listed value.",
             "enum": [
-              "DALL-E 3",
-              "OpenAI GPT Image 1",
-              "OpenAI GPT Image 1.5",
+              "Nano Banana 2 Lite",
+              "Nano Banana 2",
               "OpenAI GPT Image 2 Low",
               "OpenAI GPT Image 2 Medium",
               "OpenAI GPT Image 2 High",
-              "Midjourney V6",
-              "Midjourney V7",
-              "FLUX.1",
-              "FLUX 1.1 Pro",
-              "FLUX 1.1 Pro Ultra",
-              "FLUX.2 [dev]",
+              "OpenAI GPT Image 2.5 Flare Low",
+              "OpenAI GPT Image 2.5 Flare Medium",
+              "OpenAI GPT Image 2.5 Flare High",
+              "OpenAI GPT Image 2.5 Sunburst Medium",
+              "OpenAI GPT Image 2.5 Sunburst High",
+              "Nano Banana Pro",
+              "Nano Banana Flash",
+              "Z-Image Turbo",
+              "ImagineArt 1.5",
+              "Mai Image 2.5",
+              "Muse Image",
+              "FLUX.2 [max]",
               "FLUX.2 [flex]",
               "FLUX.2 [pro]",
-              "FLUX.2 [max]",
-              "Flux Kontext Pro",
-              "Flux Kontext Max",
-              "Flux.1 Krea",
-              "Stable Diffusion XL",
-              "Stable Diffusion 3.0",
-              "Stable Diffusion 3.5",
-              "Imagen 3",
-              "Imagen 4",
-              "Imagen 4 Ultra",
-              "Imagen 4 Fast",
-              "Seedream 3.0",
+              "FLUX.2 [dev]",
               "Seedream 4.0",
               "Seedream 4.5",
               "Seedream 5.0 Lite",
-              "Recraft v3",
+              "Seedream 5.0 Pro",
+              "Qwen Image Max",
+              "Qwen Image 2.0",
+              "WAN 2.7 Pro",
+              "WAN 2.7",
+              "Krea v2 Large",
+              "Krea v2 Medium",
+              "Krea v2 Medium Turbo",
+              "Luma Uni v1",
+              "Boogu Image",
+              "Cosmos 3 Super",
+              "P-Image",
+              "HunyuanImage 3.0",
+              "REVE",
               "Recraft v4.1",
               "Recraft v4.1 Pro",
               "Recraft v4.1 Vector",
               "Recraft v4.1 Pro Vector",
-              "REVE",
-              "ImagineArt 1.5",
-              "Mai Image 2.5",
-              "HiDream",
-              "HunyuanImage 3.0",
+              "Recraft v3",
+              "Stable Diffusion XL",
+              "FLUX.1",
+              "Stable Diffusion 3.5",
               "Bria 3.2",
+              "HiDream",
+              "WAN 2.2",
+              "WAN 2.5 Preview",
               "Dreamina 3.1",
               "Qwen-Image",
+              "Grok Imagine 2.0",
               "Grok",
               "Grok Pro",
-              "Ideogram v3",
-              "Ideogram v4",
-              "MiniMax Image 01",
               "Kandinsky 3.0",
               "Kandinsky 2.2",
               "Kandinsky 2",
-              "WAN 2.2",
-              "WAN 2.5 Preview",
+              "MiniMax Image 01",
+              "FLUX 1.1 Pro Ultra",
+              "Ideogram v4",
+              "Ideogram v3",
+              "Flux Kontext Pro",
+              "Flux Kontext Max",
+              "Seedream 3.0",
               "Nano Banana",
-              "Nano Banana 2",
-              "Nano Banana Pro",
-              "Nano Banana Flash",
-              "Z-Image Turbo"
+              "OpenAI GPT Image 1",
+              "OpenAI GPT Image 1.5",
+              "Midjourney V6",
+              "Midjourney V7",
+              "FLUX 1.1 Pro",
+              "Flux.1 Krea",
+              "Stable Diffusion 3.0"
             ],
-            "example": "DALL-E 3"
+            "example": "Nano Banana 2",
+            "default": "Nano Banana 2"
           },
           "style": {
             "type": "string",
@@ -2489,8 +2741,9 @@
           },
           "dimensions": {
             "type": "string",
-            "description": "Dimensions of the generated image. Accepted values vary by model:\n\n- **DALL-E 3**: `1024x1024`, `1792x1024`, `1024x1792`\n- **OpenAI GPT Image 1/1.5**: `1024x1024`, `1536x1024`, `1024x1536`\n- **Midjourney V6/V7, FLUX.1, FLUX 1.1 Pro/Ultra**: `1:1`, `2:3`, `3:2`, `4:5`, `5:4`, `16:9`, `9:16`\n- **FLUX.2 [dev/flex/pro/max]**: `1:1`, `2:3`, `3:2`, `4:5`, `5:4`, `16:9`, `9:16`\n- **Flux Kontext Pro/Max, Stable Diffusion 3.0/3.5**: `1:1`, `21:9`, `16:9`, `4:3`, `3:2`, `2:3`, `3:4`, `9:16`, `9:21`\n- **Imagen 3/4/4 Ultra/4 Fast, Seedream, HiDream, Dreamina, HunyuanImage, MiniMax, WAN, ImagineArt, Ideogram v3, Qwen-Image**: `1:1`, `3:4`, `4:3`, `9:16`, `16:9`\n- **Grok/Grok Pro**: `1:1`, `3:4`, `4:3`, `9:16`, `16:9`, `2:3`, `3:2`, `1:2`, `2:1`\n- **Recraft v3**: `1024x1024`, `1365x1024`, `1024x1365`, `1536x1024`, `1024x1536`, `1820x1024`, `1024x1820`, `2048x1024`, `1024x2048`\n- **Nano Banana/Pro/Flash**: `1:1`, `2:3`, `3:2`, `3:4`, `4:3`, `4:5`, `5:4`, `9:16`, `16:9`, `21:9`\n- **Nano Banana 2**: same as above plus `1:4`, `4:1`, `1:8`, `8:1`\n- **REVE**: `1:1`, `2:3`, `3:2`, `3:4`, `4:3`, `9:16`, `16:9`\n- **Bria 3.2**: `1:1`, `2:3`, `3:2`, `3:4`, `4:3`, `4:5`, `5:4`, `9:16`, `16:9`\n- **Z-Image Turbo**: `1:1`, `4:3`, `3:4`, `16:9`, `9:16`\n- **Stable Diffusion XL**: `1024x1024`, `2048x1536`, `1536x2048`",
-            "example": "1024x1024"
+            "description": "Size or aspect ratio, depending on the selected generator or editor. Nano Banana 2 accepts ratios such as 1:1, 16:9, and 9:16; OpenAI GPT Image accepts sizes such as 1024x1024, 1536x1024, and 1024x1536. Support differs by model. The request default is 1024x1024; send a value appropriate to your chosen model.",
+            "example": "1024x1024",
+            "default": "1024x1024"
           },
           "useHD": {
             "type": "boolean",
@@ -2501,7 +2754,7 @@
           "image": {
             "type": "string",
             "format": "uri",
-            "description": "Reference/input image URL for image editing. When provided with a prompt, the request switches to image-to-image mode and the image is edited/transformed by the model named in `editModel` (NOT `model`, which only applies to text-to-image). Any publicly reachable URL is accepted. Defaults to `editModel: \"Nano Banana 2\"`. For multiple reference images use `images` instead."
+            "description": "Public input image URL. With no action, selects Edit Image with AI. Choose editModel to select the editor. For several reference images use images."
           },
           "images": {
             "type": "string",
@@ -2536,18 +2789,27 @@
           },
           "editModel": {
             "type": "string",
-            "description": "Model to use for image editing (only used with `action: \"Edit Image with AI\"`, which is the default when `image`/`images` is provided). Defaults to `Nano Banana 2`.",
+            "description": "Editor used with action: Edit Image with AI. Without an explicit action, image/images selects OpenAI GPT Image 2 Medium when editModel is omitted or Qwen Image. With an explicit Edit Image with AI action, the omitted editModel defaults to Qwen Image. Send editModel explicitly for predictable behavior.",
             "enum": [
+              "Nano Banana 2 Lite",
               "Nano Banana 2",
               "Nano Banana Pro",
               "Grok",
               "Grok Pro",
+              "Grok Imagine 2.0",
+              "Muse Image",
               "OpenAI GPT Image 1.5",
               "OpenAI GPT Image 2 Low",
               "OpenAI GPT Image 2 Medium",
               "OpenAI GPT Image 2 High",
+              "OpenAI GPT Image 2.5 Flare Low",
+              "OpenAI GPT Image 2.5 Flare Medium",
+              "OpenAI GPT Image 2.5 Flare High",
+              "OpenAI GPT Image 2.5 Sunburst Medium",
+              "OpenAI GPT Image 2.5 Sunburst High",
               "Seedream 4.5",
               "Seedream 5.0 Lite",
+              "Seedream 5.0 Pro",
               "FLUX.2 [max]",
               "FLUX.2 [pro]",
               "FLUX.2 [flex]",
@@ -2561,8 +2823,7 @@
               "Flux Kontext Max",
               "OpenAI GPT Image 1",
               "Ideogram v3 Character"
-            ],
-            "default": "Nano Banana 2"
+            ]
           },
           "outputs": {
             "type": "integer",
@@ -2572,8 +2833,13 @@
           },
           "resolution": {
             "type": "string",
-            "description": "Resolution quality level. Supported by FLUX.2, Nano Banana, and other select models.",
-            "enum": ["1K", "2K"],
+            "description": "Model-specific image resolution tier (uppercase K). Nano Banana 2 defaults to 1K; Nano Banana Pro/Flash default to 2K. Not every model supports every tier. This does not use the lowercase video resolution values.",
+            "enum": [
+              "0.5K",
+              "1K",
+              "2K",
+              "4K"
+            ],
             "example": "1K"
           },
           "recraftStyle": {
@@ -2581,12 +2847,6 @@
             "description": "Style preset for Recraft v3 model.",
             "default": "any",
             "example": "any"
-          },
-          "waitForResult": {
-            "type": "boolean",
-            "description": "Wait for the image to be fully generated before returning the response. If false, returns immediately with a pending status.",
-            "default": false,
-            "example": false
           }
         }
       },
@@ -2603,16 +2863,16 @@
             "image_url": {
               "type": "string",
               "description": "URL of the generated image",
-              "example": "https://fdczvxmwwjwpwbeeqcth.supabase.co/storage/v1/object/public/images/27feb2bb-aeb4-4a83-9fb6-8f3f2a15885e/138c3903-2355-4489-8ccf-b4bdade6289a.png"
+              "example": "https://yourcdn.com/generated-image.png"
             },
             "model": {
               "type": "string",
               "description": "The model used for the image generation",
-              "example": "DALL-E 3"
+              "example": "Nano Banana 2"
             },
             "used_credits": {
-              "type": "integer",
-              "description": "The number of credits used for the generation",
+              "type": "number",
+              "description": "Credits used, which may be fractional.",
               "example": 2
             },
             "prompt": {
@@ -2625,7 +2885,9 @@
       },
       "TranscriptionRequest": {
         "type": "object",
-        "required": ["url"],
+        "required": [
+          "url"
+        ],
         "properties": {
           "audio_type": {
             "type": "string",
@@ -2645,7 +2907,8 @@
           "detect_speakers": {
             "type": "boolean",
             "description": "Whether to detect multiple speakers",
-            "example": true
+            "example": true,
+            "default": true
           },
           "enhanced_quality": {
             "type": "boolean",
@@ -2676,7 +2939,11 @@
       },
       "ConfigResponse": {
         "type": "object",
-        "required": ["languages", "accents", "total_voices"],
+        "required": [
+          "languages",
+          "accents",
+          "total_voices"
+        ],
         "properties": {
           "languages": {
             "type": "array",
@@ -2684,7 +2951,12 @@
               "type": "string"
             },
             "description": "List of all available languages (sorted alphabetically)",
-            "example": ["English", "Spanish", "French", "German"]
+            "example": [
+              "English",
+              "Spanish",
+              "French",
+              "German"
+            ]
           },
           "accents": {
             "type": "array",
@@ -2692,7 +2964,12 @@
               "type": "string"
             },
             "description": "List of available accents. If `language` parameter was provided, only accents for that language are returned.",
-            "example": ["American", "British", "Australian", "Indian"]
+            "example": [
+              "American",
+              "British",
+              "Australian",
+              "Indian"
+            ]
           },
           "total_voices": {
             "type": "integer",
@@ -2715,7 +2992,10 @@
       },
       "Voice": {
         "type": "object",
-        "required": ["id", "name"],
+        "required": [
+          "id",
+          "name"
+        ],
         "properties": {
           "id": {
             "type": "string",
@@ -2752,7 +3032,12 @@
       },
       "VoicesResponse": {
         "type": "object",
-        "required": ["voices", "total", "filters", "available"],
+        "required": [
+          "voices",
+          "total",
+          "filters",
+          "available"
+        ],
         "properties": {
           "voices": {
             "type": "array",
@@ -2793,7 +3078,11 @@
                   "type": "string"
                 },
                 "description": "List of available languages in the filtered results",
-                "example": ["English", "Spanish", "French"]
+                "example": [
+                  "English",
+                  "Spanish",
+                  "French"
+                ]
               },
               "accents": {
                 "type": "array",
@@ -2801,7 +3090,11 @@
                   "type": "string"
                 },
                 "description": "List of available accents in the filtered results",
-                "example": ["American", "British", "Australian"]
+                "example": [
+                  "American",
+                  "British",
+                  "Australian"
+                ]
               }
             },
             "description": "Available filter options based on current results"
@@ -2810,7 +3103,10 @@
       },
       "TextToSpeechRequest": {
         "type": "object",
-        "required": ["voiceID", "text"],
+        "required": [
+          "voiceID",
+          "text"
+        ],
         "properties": {
           "voiceID": {
             "type": "string",
@@ -2846,7 +3142,9 @@
           },
           "status": {
             "type": "string",
-            "enum": ["completed"],
+            "enum": [
+              "completed"
+            ],
             "description": "Status of the speech generation",
             "example": "completed"
           }
@@ -2854,40 +3152,70 @@
       },
       "GenerateVideoRequest": {
         "type": "object",
-        "required": ["prompt", "model"],
+        "required": [
+          "prompt",
+          "model"
+        ],
         "properties": {
           "prompt": {
             "type": "string",
             "description": "Text prompt describing the video to generate.",
-            "example": "A cat walking on the beach at sunset, cinematic lighting"
+            "example": "A cat walking on the beach at sunset, cinematic lighting",
+            "minLength": 1
           },
           "image": {
             "type": "string",
             "format": "uri",
-            "description": "URL of a start/first-frame image for image-to-video generation. Use a model whose title ends in \"Image\" (e.g. \"Seedance 2.0 Image\", \"Veo 3.1 Image\"). Omit this field for a text-to-video model; supplying an image does not switch the model variant automatically. The URL must remain reachable without browser cookies until the input has been downloaded, including any provider queue delay."
+            "description": "Public URL of a first-frame image. Choose a variant with a first-image input in the video model reference. Model suffixes are not always enough: Grok Imagine 1.5 and Kling 2.5 Turbo Standard also require image. The URL must remain downloadable without browser cookies through queue delays."
           },
           "model": {
             "type": "string",
-            "description": "The video model to use (required). The value must exactly match one of the enum titles below. Titles ending in \"Image\" take a start-frame `image`; titles ending in \"Reference\" take `referenceImages`; \"First-Last Frame\" titles take both `image` and `tailImage`; all others are text-to-video.",
+            "description": "Required exact model title. See the video model reference for input modes, durations, resolutions, and reference limits. Adding media does not automatically switch model variants. https://docs.easy-peasy.ai/api-reference/video-models",
             "enum": [
               "Veo 3.1 Fast",
+              "Gemini Omni Flash",
+              "Gemini Omni Flash Reference",
+              "Gemini Omni Flash 1.1",
+              "Gemini Omni Flash 1.1 Reference",
+              "MiniMax H3 Max",
+              "MiniMax H3 Max Reference",
               "Grok Imagine",
               "Grok Imagine Reference",
+              "Grok Imagine 1.5 Text",
+              "Grok Imagine 1.5 Reference",
               "Seedance 2.0 Fast",
+              "MiniMax H3",
+              "Seedance 2.5",
+              "Seedance 2.5 Turbo",
+              "Seedance 2.5 Turbo Reference",
+              "Seedance 2.5 Reference",
+              "FLUX 3",
+              "WAN 3.0",
+              "WAN 3.0 Reference",
               "Seedance 2.0 Turbo",
               "Seedance 2.0",
               "Seedance 2.0 Mini",
               "Seedance 2.0 Reference",
               "Seedance 2.0 Fast Reference",
+              "MiniMax H3 Reference",
               "Seedance 2.0 Mini Reference",
               "Kling 2.6 Pro",
               "Veo 3.1 Lite",
               "Veo 3.1 Lite Image",
               "Veo 3.1 Fast Image",
+              "Gemini Omni Flash Image",
+              "Gemini Omni Flash 1.1 Image",
+              "Gemini Omni Flash 1.1 First-Last Frame",
+              "MiniMax H3 Max Image",
               "Grok Imagine Image",
               "Grok Imagine 1.5",
               "Seedance 2.0 Image",
               "Seedance 2.0 Fast Image",
+              "MiniMax H3 Image",
+              "Seedance 2.5 Turbo Image",
+              "Seedance 2.5 Image",
+              "FLUX 3 Image",
+              "WAN 3.0 Image",
               "Seedance 2.0 Turbo Image",
               "Seedance 2.0 Mini Image",
               "Happy Horse",
@@ -2905,8 +3233,6 @@
               "Kling O3 Reference",
               "Seedance 1.5 Pro",
               "Seedance 1.5 Pro Image",
-              "Kling Motion Control Pro",
-              "Kling Motion Control",
               "Kling O1 Image",
               "Kling O1 Reference",
               "Kling 2.5 Turbo Pro Image",
@@ -2921,8 +3247,6 @@
               "Veo 3.1 Fast First-Last Frame",
               "LTX-2 Pro Image",
               "LTX-2 Fast Image",
-              "Sora 2",
-              "Sora 2 Pro",
               "Hailuo 2.0",
               "Hailuo 2.0 Pro",
               "Hailuo 2.3",
@@ -2935,8 +3259,6 @@
               "Wan 2.5",
               "Wan v2.2 Turbo",
               "Wan v2.2",
-              "Sora 2 Image",
-              "Sora 2 Pro Image",
               "Hailuo 2.0 Image",
               "Hailuo 2.0 Pro Image",
               "Seedance 1.0 Pro Fast",
@@ -2944,39 +3266,59 @@
               "Wan 2.5 Image",
               "Wan v2.2 Turbo Image",
               "Wan-2.2 Image"
-            ]
+            ],
+            "example": "MiniMax H3 Max"
           },
           "duration": {
             "type": "string",
-            "description": "Video length as a string. Use a duration supported by the exact model variant. Veo 3.1, Veo 3.1 Fast, and Veo 3.1 Lite text models accept 4s, 6s, or 8s; their Image variants accept only 8s. Equivalent bare-second strings (for example 8) are also accepted. Seedance 2.0 Mini and Mini Image accept 4 through 15 seconds. Five seconds is not supported by Veo 3.1. If omitted, the API chooses a supported model default.",
-            "example": "8s"
+            "description": "Output length as a string, using the exact variant’s allowed durations. MiniMax H3 Max: 5–15 whole seconds; MiniMax H3: 4–15. Veo 3.1 text variants: 4s, 6s, 8s; Image and First-Last Frame variants: 8s only. Bare seconds and an s suffix are equivalent. If omitted, the API selects five seconds when listed, otherwise the first configured duration, or five seconds for models without a list. Provider-specific output lengths can differ.",
+            "example": "5"
           },
           "aspectRatio": {
             "type": "string",
             "default": "16:9",
-            "description": "Aspect ratio of the video.",
-            "enum": ["16:9", "9:16", "1:1", "4:3", "3:4", "21:9", "9:21", "3:2", "2:3"]
+            "description": "Use an aspect ratio listed for the exact variant. Omit for variants whose framing follows the input. The API defaults to 16:9 when applicable.",
+            "enum": [
+              "16:9",
+              "9:16",
+              "1:1",
+              "4:3",
+              "3:4",
+              "21:9",
+              "3:2",
+              "2:3"
+            ]
           },
           "resolution": {
             "type": "string",
-            "description": "Video resolution. Allowed values depend on the model (e.g. Seedance 2.0 supports 480p–4k; Veo 3.1 supports 720p/1080p).",
-            "enum": ["480p", "720p", "1080p", "4k"]
+            "description": "Allowed resolutions depend on the exact variant. MiniMax H3 Max: 480p/768p; MiniMax H3: 768p/2k; Seedance 2.5: 480p/720p; Seedance 2.5 Turbo: 720p/1080p. Send a listed value explicitly; defaults vary by model. Use lowercase k for 2k and 4k. Omit when no resolution selector is listed.",
+            "enum": [
+              "360p",
+              "480p",
+              "720p",
+              "768p",
+              "1080p",
+              "2k",
+              "4k"
+            ]
           },
           "generateAudio": {
             "type": "boolean",
-            "description": "Whether to generate audio along with the video (supported by some models like Veo 3.1, Kling 3.0, Seedance 2.0)."
+            "description": "Enable or disable generated audio only on models with an audio toggle. MiniMax H3 and H3 Max always generate native audio; false does not disable it. Supplying reference audio enables audio generation. Audio settings can affect credit usage."
           },
           "tailImage": {
             "type": "string",
             "format": "uri",
-            "description": "URL of an end/last-frame image. Only used by models that support a tail frame — the \"First-Last Frame\" titles and \"Seedance 2.0 Image\" (paired with `image` as the first frame). Any publicly reachable URL is accepted."
+            "description": "Public URL of a last-frame image, paired with image. Use only a variant that supports a last image, such as MiniMax H3 Max Image or Seedance 2.5 Image. See the video model reference."
           },
           "referenceImages": {
             "type": "array",
-            "description": "Reference images for reference-to-video models (titles ending in \"Reference\", e.g. \"Seedance 2.0 Reference\", \"Kling O1 Reference\", \"Kling O3 Reference\"). Used to keep characters/objects/style consistent across the generated video. Seedance 2.0 Reference accepts up to 9 images. Not used by text-to-video or image-to-video models.",
+            "description": "Array of reference images on supported variants. Reference models require at least one reference image or a supported reference video. Limits differ: MiniMax H3 Max Reference accepts up to 9 images; Seedance 2.5 Reference accepts up to 30. Some Veo variants also support optional references. See the video model reference.",
             "items": {
               "type": "object",
-              "required": ["url"],
+              "required": [
+                "url"
+              ],
               "properties": {
                 "url": {
                   "type": "string",
@@ -2985,8 +3327,51 @@
                 },
                 "type": {
                   "type": "string",
-                  "enum": ["character", "object", "style"],
-                  "description": "Reference role. Used by Kling O1/O3 to distinguish character/object references (as `elements`) from style references. Seedance 2.0 treats every entry as a general reference, so `type` is optional for it."
+                  "enum": [
+                    "character",
+                    "object",
+                    "style"
+                  ],
+                  "description": "Optional reference role. Kling O1/O3 uses character/object/style to assign reference roles; other families use general image references."
+                }
+              }
+            }
+          },
+          "referenceVideo": {
+            "type": "string",
+            "format": "uri",
+            "description": "Single reference video URL, on variants supporting reference video. Alternative to referenceVideos; the array takes precedence when supplied, even if empty."
+          },
+          "referenceVideos": {
+            "type": "array",
+            "description": "Reference videos for supported variants only. Do not combine with image or tailImage. Counts, clip lengths, total duration, and file-size limits depend on the variant. MiniMax H3 Max Reference accepts up to 3 clips of 2–15 seconds, at most 15 seconds combined, and 20 MiB each. Seedance 2.5 Reference supports up to 3 clips of 2–30 seconds, at most 30 seconds combined, and 50 MiB each. Reference inputs can add credit charges.",
+            "items": {
+              "type": "object",
+              "required": [
+                "url"
+              ],
+              "properties": {
+                "url": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "Publicly downloadable media URL."
+                }
+              }
+            }
+          },
+          "referenceAudios": {
+            "type": "array",
+            "description": "Audio references for supported variants. Require a companion reference image or supported reference video, and cannot accompany image. Enable generated audio. MiniMax H3 Max Reference accepts up to 3 clips of 2–15 seconds and at most 15 seconds total. Seedance 2.5 Reference supports up to 10 MP3/WAV clips, 2–30 seconds each, at most 30 seconds total, and 15 MiB each. See the reference limits for other variants.",
+            "items": {
+              "type": "object",
+              "required": [
+                "url"
+              ],
+              "properties": {
+                "url": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "Publicly downloadable media URL."
                 }
               }
             }
@@ -3006,7 +3391,7 @@
           },
           "image_url": {
             "type": "string",
-            "description": "Video URL. Empty string while processing."
+            "description": "Video URL when present. May be empty or omitted while processing. Poll Get Video with id; do not depend on this field to detect submission success."
           },
           "model": {
             "type": "string",
@@ -3045,7 +3430,10 @@
               },
               "status": {
                 "type": "string",
-                "enum": ["processing", "completed"],
+                "enum": [
+                  "processing",
+                  "completed"
+                ],
                 "description": "Current status. `processing` means the video is still being generated. `completed` means the video URL is ready."
               },
               "created_at": {
@@ -3056,10 +3444,18 @@
                 "type": "object",
                 "description": "The original request parameters",
                 "properties": {
-                  "duration": { "type": "string" },
-                  "aspectRatio": { "type": "string" },
-                  "isTextToVideo": { "type": "boolean" },
-                  "isImageToVideo": { "type": "boolean" }
+                  "duration": {
+                    "type": "string"
+                  },
+                  "aspectRatio": {
+                    "type": "string"
+                  },
+                  "isTextToVideo": {
+                    "type": "boolean"
+                  },
+                  "isImageToVideo": {
+                    "type": "boolean"
+                  }
                 }
               }
             }
@@ -3068,7 +3464,9 @@
       },
       "GenerateSoundRequest": {
         "type": "object",
-        "required": ["prompt"],
+        "required": [
+          "prompt"
+        ],
         "properties": {
           "prompt": {
             "type": "string",
@@ -3109,7 +3507,9 @@
           },
           "status": {
             "type": "string",
-            "enum": ["completed"],
+            "enum": [
+              "completed"
+            ],
             "description": "Status of the generation"
           }
         }
@@ -3142,13 +3542,19 @@
           },
           "avatarModel": {
             "type": "string",
-            "enum": ["premium", "standard"],
+            "enum": [
+              "premium",
+              "standard"
+            ],
             "default": "premium",
             "description": "Avatar generation model. `premium` uses VEED Fabric (higher quality), `standard` uses WaveSpeed InfiniteTalk (faster). Only applies to image input."
           },
           "resolution": {
             "type": "string",
-            "enum": ["480p", "720p"],
+            "enum": [
+              "480p",
+              "720p"
+            ],
             "default": "480p",
             "description": "Output video resolution."
           },
@@ -3164,7 +3570,9 @@
       },
       "GetAudioRequest": {
         "type": "object",
-        "required": ["audio_id"],
+        "required": [
+          "audio_id"
+        ],
         "properties": {
           "audio_id": {
             "type": "string",
@@ -3176,111 +3584,136 @@
       "GetAudioResponse": {
         "type": "object",
         "properties": {
-          "audio": {
-            "type": "object",
-            "properties": {
-              "uuid": {
-                "type": "string",
-                "description": "Audio identifier"
-              },
-              "name": {
-                "type": "string",
-                "description": "Audio name"
-              },
-              "content": {
-                "type": "string",
-                "description": "Full transcription text. Empty string until processing completes."
-              },
-              "created_at": {
-                "type": "string",
-                "format": "date-time",
-                "description": "Creation timestamp"
-              },
-              "segments": {
-                "type": "array",
-                "description": "Timestamped segments with optional speaker detection",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "start": {
-                      "type": "string",
-                      "description": "Start time in seconds"
+          "uuid": {
+            "type": "string",
+            "description": "Audio identifier"
+          },
+          "name": {
+            "type": "string",
+            "description": "Audio name"
+          },
+          "content": {
+            "type": "string",
+            "description": "Transcript text. Can be empty or null while processing, or empty after a completed no-speech transcription. Check transcription_status.",
+            "nullable": true
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Creation timestamp"
+          },
+          "segments": {
+            "type": "array",
+            "description": "Timestamped segments with optional speaker detection",
+            "items": {
+              "type": "object",
+              "properties": {
+                "start": {
+                  "oneOf": [
+                    {
+                      "type": "number"
                     },
-                    "end": {
-                      "type": "string",
-                      "description": "End time in seconds"
-                    },
-                    "text": {
-                      "type": "string",
-                      "description": "Segment text"
-                    },
-                    "speaker": {
-                      "type": "string",
-                      "description": "Speaker label (if speaker detection was enabled)"
+                    {
+                      "type": "string"
                     }
-                  }
+                  ],
+                  "description": "Start timestamp from the transcription engine. Numeric representation can vary by provider."
+                },
+                "end": {
+                  "oneOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ],
+                  "description": "End timestamp from the transcription engine. Numeric representation can vary by provider."
+                },
+                "text": {
+                  "type": "string",
+                  "description": "Segment text"
+                },
+                "speaker": {
+                  "type": "string",
+                  "description": "Speaker label (if speaker detection was enabled)"
                 }
-              },
-              "summary": {
-                "type": "string",
-                "nullable": true,
-                "description": "AI-generated summary (if generated)"
-              },
-              "audio_type": {
-                "type": "string",
-                "description": "Type of audio"
-              },
-              "language": {
-                "type": "string",
-                "description": "Detected language"
-              },
-              "title": {
-                "type": "string",
-                "nullable": true,
-                "description": "AI-generated title (if generated)"
-              },
-              "description": {
-                "type": "string",
-                "nullable": true,
-                "description": "AI-generated description (if generated)"
-              },
-              "keywords": {
-                "type": "string",
-                "nullable": true,
-                "description": "AI-generated keywords (if generated)"
-              },
-              "action_items": {
-                "type": "string",
-                "nullable": true,
-                "description": "AI-generated action items (Meeting type, if generated)"
-              },
-              "show_notes": {
-                "type": "string",
-                "nullable": true,
-                "description": "AI-generated show notes (Podcast type, if generated)"
-              },
-              "timestamped_overview": {
-                "type": "string",
-                "nullable": true,
-                "description": "AI-generated timestamped overview (if generated)"
-              },
-              "topics_and_bullets": {
-                "type": "string",
-                "nullable": true,
-                "description": "AI-generated topics and bullets (if generated)"
-              },
-              "linkedin_post": {
-                "type": "string",
-                "nullable": true,
-                "description": "AI-generated LinkedIn post (if generated)"
               }
-            }
+            },
+            "nullable": true
+          },
+          "summary": {
+            "type": "string",
+            "nullable": true,
+            "description": "AI-generated summary (if generated)"
+          },
+          "audio_type": {
+            "type": "string",
+            "description": "Type of audio"
+          },
+          "language": {
+            "type": "string",
+            "description": "Detected language"
+          },
+          "title": {
+            "type": "string",
+            "nullable": true,
+            "description": "AI-generated title (if generated)"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true,
+            "description": "AI-generated description (if generated)"
+          },
+          "keywords": {
+            "type": "string",
+            "nullable": true,
+            "description": "AI-generated keywords (if generated)"
+          },
+          "action_items": {
+            "type": "string",
+            "nullable": true,
+            "description": "AI-generated action items (Meeting type, if generated)"
+          },
+          "show_notes": {
+            "type": "string",
+            "nullable": true,
+            "description": "AI-generated show notes (Podcast type, if generated)"
+          },
+          "timestamped_overview": {
+            "type": "string",
+            "nullable": true,
+            "description": "AI-generated timestamped overview (if generated)"
+          },
+          "topics_and_bullets": {
+            "type": "string",
+            "nullable": true,
+            "description": "AI-generated topics and bullets (if generated)"
+          },
+          "linkedin_post": {
+            "type": "string",
+            "nullable": true,
+            "description": "AI-generated LinkedIn post (if generated)"
+          },
+          "transcription_status": {
+            "type": "string",
+            "nullable": true,
+            "enum": [
+              "processing",
+              "done",
+              "failed",
+              null
+            ],
+            "description": "Job lifecycle. done is complete even if content is empty; failed is terminal. Older records may have no status."
           }
-        }
+        },
+        "description": "API-key responses return these fields directly, without an audio wrapper."
       },
       "GenerateAudioContentRequest": {
         "type": "object",
-        "required": ["audio_id"],
+        "required": [
+          "audio_id"
+        ],
         "properties": {
           "audio_id": {
             "type": "string",
@@ -3339,26 +3772,50 @@
         "type": "object",
         "properties": {
           "error": {
-            "type": "string",
-            "description": "Error message",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "integer"
+                  }
+                }
+              }
+            ],
+            "description": "Error text, or an object with message and optional status for some provider integrations.",
             "example": "Invalid API key"
           }
         }
       },
       "ChatCompletionsRequest": {
         "type": "object",
-        "required": ["messages"],
+        "required": [
+          "messages"
+        ],
         "properties": {
           "messages": {
             "type": "array",
             "description": "Array of message objects for the conversation",
             "items": {
               "type": "object",
-              "required": ["role", "content"],
+              "required": [
+                "role",
+                "content"
+              ],
               "properties": {
                 "role": {
                   "type": "string",
-                  "enum": ["system", "user", "assistant"],
+                  "enum": [
+                    "system",
+                    "user",
+                    "assistant"
+                  ],
                   "description": "The role of the message author"
                 },
                 "content": {
@@ -3375,39 +3832,85 @@
                           {
                             "type": "object",
                             "properties": {
-                              "type": { "type": "string", "enum": ["text"] },
-                              "text": { "type": "string" }
+                              "type": {
+                                "type": "string",
+                                "enum": [
+                                  "text"
+                                ]
+                              },
+                              "text": {
+                                "type": "string"
+                              }
                             },
-                            "required": ["type", "text"]
+                            "required": [
+                              "type",
+                              "text"
+                            ]
                           },
                           {
                             "type": "object",
                             "properties": {
-                              "type": { "type": "string", "enum": ["image_url"] },
+                              "type": {
+                                "type": "string",
+                                "enum": [
+                                  "image_url"
+                                ]
+                              },
                               "image_url": {
                                 "type": "object",
                                 "properties": {
-                                  "url": { "type": "string", "description": "Image URL or base64 data URI (data:image/png;base64,...)" }
+                                  "url": {
+                                    "type": "string",
+                                    "description": "Image URL or base64 data URI (data:image/png;base64,...)"
+                                  }
                                 },
-                                "required": ["url"]
+                                "required": [
+                                  "url"
+                                ]
                               }
                             },
-                            "required": ["type", "image_url"]
+                            "required": [
+                              "type",
+                              "image_url"
+                            ]
                           },
                           {
                             "type": "object",
                             "properties": {
-                              "type": { "type": "string", "enum": ["input_audio"] },
+                              "type": {
+                                "type": "string",
+                                "enum": [
+                                  "input_audio"
+                                ]
+                              },
                               "input_audio": {
                                 "type": "object",
                                 "properties": {
-                                  "data": { "type": "string", "description": "Base64-encoded audio data" },
-                                  "format": { "type": "string", "enum": ["mp3", "wav", "webm", "mp4"], "description": "Audio format" }
+                                  "data": {
+                                    "type": "string",
+                                    "description": "Base64-encoded audio data"
+                                  },
+                                  "format": {
+                                    "type": "string",
+                                    "enum": [
+                                      "mp3",
+                                      "wav",
+                                      "webm",
+                                      "mp4"
+                                    ],
+                                    "description": "Audio format"
+                                  }
                                 },
-                                "required": ["data", "format"]
+                                "required": [
+                                  "data",
+                                  "format"
+                                ]
                               }
                             },
-                            "required": ["type", "input_audio"]
+                            "required": [
+                              "type",
+                              "input_audio"
+                            ]
                           }
                         ]
                       }
@@ -3416,30 +3919,14 @@
                   "description": "Message content — a string for text, or an array for multimodal (text, images, audio)"
                 }
               }
-            }
+            },
+            "minItems": 1
           },
           "model": {
             "type": "string",
-            "default": "gemini-3-flash",
-            "description": "Model to use for the completion. See the models table below for all supported models.",
-            "enum": [
-              "gemini-3-flash",
-              "gemini-3-pro",
-              "gemini-3.1-pro",
-              "claude-opus-4-6",
-              "claude-sonnet-4-6",
-              "claude-haiku-4-5",
-              "gpt-5",
-              "gpt-5-mini",
-              "gpt-5.4-instant",
-              "gpt-5.4-thinking",
-              "gpt-5.4-pro",
-              "deepseek-v3",
-              "kimi-k2.5",
-              "glm-5",
-              "minimax-m2p5",
-              "grok-4"
-            ]
+            "default": "gemini-3.8-flash",
+            "description": "Model ID from the Chat Completions model table. Default: gemini-3.8-flash. gemini-3-flash is a floating alias currently resolving to this default. Some legacy IDs resolve to replacement models. Unknown names may fall back to the default or be rejected by the provider; use a documented ID.",
+            "example": "gemini-3.8-flash"
           },
           "stream": {
             "type": "boolean",
@@ -3448,7 +3935,7 @@
           },
           "temperature": {
             "type": "number",
-            "description": "Sampling temperature (0-2)"
+            "description": "Sampling temperature where supported by the chosen model. Some models ignore or reject custom values."
           },
           "max_tokens": {
             "type": "integer",
@@ -3460,8 +3947,15 @@
           },
           "stop": {
             "oneOf": [
-              { "type": "string" },
-              { "type": "array", "items": { "type": "string" } }
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
             ],
             "description": "Stop sequences"
           }
@@ -3476,7 +3970,9 @@
           },
           "object": {
             "type": "string",
-            "enum": ["chat.completion"],
+            "enum": [
+              "chat.completion"
+            ],
             "description": "Object type"
           },
           "created": {
@@ -3545,6 +4041,33 @@
             }
           }
         }
+      },
+      "GetImageResponse": {
+        "type": "object",
+        "description": "Image record returned directly, without an image wrapper. Additional record fields may be present.",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "image_url": {
+            "type": "string",
+            "nullable": true,
+            "description": "Image URL when ready; empty or null while pending."
+          },
+          "model": {
+            "type": "string"
+          },
+          "prompt": {
+            "type": "string"
+          },
+          "used_credits": {
+            "type": "number"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
       }
     },
     "securitySchemes": {
@@ -3553,6 +4076,11 @@
         "in": "header",
         "name": "x-api-key",
         "description": "API key for authentication. Get yours at https://easy-peasy.ai/settings/api"
+      },
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "description": "Your Easy-Peasy.AI API key. Supported by Chat Completions."
       }
     }
   }

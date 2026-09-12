@@ -1,0 +1,15 @@
+---
+title: 'Get Image'
+openapi: 'GET /api/get-image'
+---
+
+Use this endpoint when Generate Image returns an image record whose `image_url` is empty, or to retrieve an existing image. Pass its `id` as the camelCase query parameter `imageId`.
+
+```bash
+curl --fail-with-body 'https://easy-peasy.ai/api/get-image?imageId=12345' \
+  -H 'x-api-key: YOUR_API_KEY'
+```
+
+The response is a single object. Read `image_url` at the top level. Use the same account's API key that created the image.
+
+For pending images, poll every 15–30 seconds with a bounded timeout. Stop on HTTP errors and retain the ID on timeout. This endpoint has no normalized job status field, so an empty URL alone cannot distinguish processing from a failed generation. Do not automatically submit another paid generation when polling stops.

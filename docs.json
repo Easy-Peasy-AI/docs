@@ -30,12 +30,14 @@
           {
             "group": "Image Generation",
             "pages": [
-              "api-reference/endpoint/generate-image"
+              "api-reference/endpoint/generate-image",
+              "api-reference/endpoint/get-image"
             ]
           },
           {
             "group": "Video Generation",
             "pages": [
+              "api-reference/video-models",
               "api-reference/endpoint/generate-video",
               "api-reference/endpoint/generate-talking-video",
               "api-reference/endpoint/get-video"
