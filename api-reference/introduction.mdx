@@ -8,11 +8,11 @@ description: 'Getting started with the Easy-Peasy.AI API'
 The Easy-Peasy.AI API lets you programmatically access our AI-powered tools:
 
 - **Presets** — Discover available text generation templates and their input fields
-- **Text Generation** — Generate blog posts, social media captions, emails, marketing copy, and more using 50+ templates
-- **Image Generation** — Create AI images with 40+ models including DALL-E 3, Midjourney, FLUX.2, Imagen 4, and more
-- **Video Generation** — Generate AI videos with 40+ models including Veo 3.1, Kling 3.0, Sora 2, and more
+- **Text Generation** — Generate blog posts, social media captions, emails, marketing copy, and more using text templates
+- **Image Generation** — Generate and edit images with Nano Banana, GPT Image, FLUX, Seedream, and other models
+- **Video Generation** — Generate videos with MiniMax H3 Max, Seedance 2.5, Gemini Omni, Veo, Kling, and other [video models](/api-reference/video-models)
 - **Transcription** — Transcribe audio files with speaker detection and enhanced quality
-- **Text-to-Speech** — Convert text to natural-sounding speech with 150+ voices
+- **Text-to-Speech** — Convert text to natural-sounding speech with public and custom voices
 - **Chat Completions** — OpenAI-compatible chat completions endpoint (works with OpenAI SDK)
 - **Bots** — Chat with your custom AI bots via API
 
@@ -22,7 +22,9 @@ The Easy-Peasy.AI API lets you programmatically access our AI-powered tools:
 
 ## Authentication
 
-All API requests require your API key in the `x-api-key` header (except TTS Config/Voices which are public).
+Authenticated REST requests use your API key in the `x-api-key` header. [Chat Completions](/api-reference/endpoint/chat-completions) also accepts `Authorization: Bearer YOUR_API_KEY`. TTS Config and public TTS Voices work without a key; custom voices require authentication. The separate Bots API documents its own headers.
+
+Keep API keys on your server, outside browser bundles and public repositories.
 
 ```bash
 curl -X POST https://easy-peasy.ai/api/generate \
@@ -53,11 +55,17 @@ The **Bots API** uses a separate base URL:
 https://bots.easy-peasy.ai
 ```
 
-## Typical Workflow
+## Text generation workflow
 
 1. **Discover presets** — Call `GET /api/presets` to list available templates
 2. **Get field requirements** — Call `GET /api/presets/{slug}` to see what fields a preset needs
 3. **Generate content** — Call `POST /api/generate` with the preset slug and required fields
+
+## Media generation workflow
+
+1. **Choose the exact model and inputs.** For video, consult the [model reference](/api-reference/video-models). Plan access and credit requirements depend on the model and settings.
+2. **Submit once and save the ID.** Videos and transcriptions run asynchronously. Standard image integrations wait for results, while some legacy integrations return pending records.
+3. **Read or poll the result.** Follow each endpoint's response shape and polling example. Keep existing IDs when a local timeout occurs; submitting again can create another billable job.
 
 ## Endpoints
 
@@ -72,10 +80,10 @@ https://bots.easy-peasy.ai
     Generate content using any preset.
   </Card>
   <Card title="Generate Image" icon="image" href="/api-reference/endpoint/generate-image">
-    Create AI images with 40+ models.
+    Generate or edit images using an exact model name.
   </Card>
   <Card title="Generate Video" icon="video" href="/api-reference/endpoint/generate-video">
-    Generate AI videos with 40+ models.
+    Generate videos from text, images, or reference media.
   </Card>
   <Card title="Create Transcription" icon="microphone" href="/api-reference/endpoint/create-transcription">
     Transcribe audio files to text.

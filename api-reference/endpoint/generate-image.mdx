@@ -3,13 +3,13 @@ title: 'Generate Image'
 openapi: 'POST /api/generate-image'
 ---
 
-## Text-to-image vs. editing with a reference image
+## Generate or edit an image
 
-- **Text-to-image** — Provide `prompt` + `model`. The `model` picks the generator (e.g. `DALL-E 3`, `Seedream 4.5`).
-- **Editing / reference image** — Provide `prompt` + `image` (or `images`). The request switches to image-to-image mode and the image is processed by **`editModel`**, **not** `model`. The `model` field is ignored once an image is supplied.
+- **Text-to-image** — Provide `prompt` + `model`. The `model` picks the generator (e.g. `Nano Banana 2`, `OpenAI GPT Image 2.5 Flare Medium`).
+- **Editing / reference image** — Provide `prompt` + `image` (or `images`). With no explicit `action`, this selects **Edit Image with AI** and uses `editModel` to select the editor. Other actions, such as background removal, have their own behavior.
 
 <Note>
-The two model lists are different. When you send an `image`, choose the model with **`editModel`** (default `Nano Banana 2`). Setting `model` alongside an `image` has no effect on which model edits the image.
+Send **`editModel` explicitly** when editing. With an image and no `action`, omitting `editModel` selects `OpenAI GPT Image 2 Medium`. If you explicitly set `action: "Edit Image with AI"` and omit `editModel`, the default is `Qwen Image`. To select Qwen Image explicitly, include that action too. Text-to-image defaults to `model: "Nano Banana 2"`.
 </Note>
 
 The reference image does not need to be hosted on Easy-Peasy, but it **must be downloadable server-side** — some hosts (e.g. Wikimedia, or sites that block hotlinking / non-browser requests) return **HTTP 403** to automated fetches and will fail. If in doubt, host it on your own public CDN/bucket. Write the `prompt` as an instruction about the image (e.g. "change the color to yellow", "place this product on a marble counter").
@@ -47,9 +47,17 @@ curl -X POST https://easy-peasy.ai/api/generate-image \
 ## Model naming notes
 
 - **GPT Image 2** is exposed as three quality tiers — use the exact strings `OpenAI GPT Image 2 Low`, `OpenAI GPT Image 2 Medium`, or `OpenAI GPT Image 2 High`. There is no bare `"GPT Image 2"` value.
+- **GPT Image 2.5** uses exact quality names such as `OpenAI GPT Image 2.5 Flare Medium` and `OpenAI GPT Image 2.5 Sunburst High`. The schemas list all available tiers.
+- **New image models** include `Nano Banana 2 Lite`, `Seedream 5.0 Pro`, `Muse Image`, `Grok Imagine 2.0`, `WAN 2.7`, and others listed below. The generation and editing lists differ.
 - **Reve** is `REVE` for text-to-image (`model`), and `Reve` / `Reve Fast` for editing (`editModel`). There is no `"Reve 2.0"`.
 - Model names are matched **exactly** — always send a value as listed in the schema enums below. An unrecognized `editModel` returns a `400` error; an unrecognized `model` may fall back to a default generator, so a typo can silently produce the wrong model.
 
-<Note>
-When authenticated with an API key, image generation is **synchronous** — the finished image comes back in the response, so you don't need to poll.
-</Note>
+## Read the result
+
+The response is an array of image records. Modern model integrations wait for results when you authenticate with an API key; the web-only `waitForResult` flag does not turn that off. Some legacy integrations, including Midjourney, return pending records with empty `image_url` values.
+
+Check each record's `image_url`. If it is empty, save its `id` and poll [Get Image](/api-reference/endpoint/get-image) every 15–30 seconds with the same account's key. Stop after a bounded timeout and retain the ID. A polling timeout does not cancel generation or justify automatically creating another paid job.
+
+`outputs` defaults to one, but actual output count depends on the model. Midjourney returns four records per job. Credit amounts can be fractional.
+
+DALL-E 3 and Imagen titles are no longer in this endpoint's documented catalog. Update older integrations to a listed model instead of relying on fallback behavior.

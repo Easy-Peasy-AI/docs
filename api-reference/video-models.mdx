@@ -1,0 +1,229 @@
+---
+title: 'Video models'
+description: 'Exact API model names, input modes, durations, resolutions, and reference limits'
+---
+
+Choose an exact model name for [Generate Video](/api-reference/endpoint/generate-video). Every request requires a non-empty `prompt` and a `model`.
+
+The tables below are generated from the app's video catalog. They describe the settings accepted by the API's model validation; provider availability and plan limits also apply.
+
+## Choose settings
+
+- Send `duration` as a **string**, such as `"5"` or `"8s"`. A range means every whole second in that range. A comma-separated list means only those durations.
+- Send an explicitly listed `resolution` and `aspectRatio` when the model offers them. `2k` and `4k` use a lowercase `k`. **Omit** a setting marked “Provider-specific” or “From input”.
+- If you omit `duration`, the API selects five seconds when listed, otherwise the first configured duration, or five seconds when no duration list is configured. Provider-specific models may use their own output length. Explicit settings make requests more predictable.
+- “First image” requires `image`. A model that accepts a last image also accepts `tailImage` alongside `image`. Supply both when you want first-to-last-frame interpolation.
+- Reference models take `referenceImages`, or `referenceVideos` where listed. The reference tables below list optional audio inputs and limits.
+
+<Note>
+Model suffixes are not a reliable way to select the input mode. `Grok Imagine 1.5`, `Kling 2.5 Turbo Standard`, and `Seedance 1.0 Pro Fast` require an image. `Grok Imagine 1.5 Text` and `Seedance v1 Pro Fast` take text.
+</Note>
+
+## Model catalog
+
+### Veo
+
+| Model | Input | Duration (seconds) | Resolution | Aspect ratio |
+| --- | --- | --- | --- | --- |
+| `Veo 3.1 Fast` | Text | 4, 6, 8 | `720p`, `1080p`, `4k` | `16:9`, `9:16` |
+| `Veo 3.1 Lite` | Text | 4, 6, 8 | `720p`, `1080p` | `16:9`, `9:16` |
+| `Veo 3.1 Lite Image` | First image | 8 | `720p`, `1080p` | `16:9`, `9:16` |
+| `Veo 3.1 Fast Image` | First image | 8 | `720p`, `1080p`, `4k` | `16:9`, `9:16` |
+| `Veo 3.1` | Text | 4, 6, 8 | `720p`, `1080p`, `4k` | `16:9`, `9:16` |
+| `Veo 3.1 Image` | First image | 8 | `720p`, `1080p`, `4k` | `16:9`, `9:16` |
+| `Veo 3.1 First-Last Frame` | First image + optional last image | 8 | `720p`, `1080p`, `4k` | `16:9`, `9:16` |
+| `Veo 3.1 Fast First-Last Frame` | First image + optional last image | 8 | `720p`, `1080p`, `4k` | `16:9`, `9:16` |
+
+### Gemini Omni
+
+| Model | Input | Duration (seconds) | Resolution | Aspect ratio |
+| --- | --- | --- | --- | --- |
+| `Gemini Omni Flash` | Text | 4–10 (whole seconds) | Provider-specific | `16:9`, `9:16` |
+| `Gemini Omni Flash Reference` | Reference images or video | Provider-specific | Provider-specific | From input |
+| `Gemini Omni Flash 1.1` | Text | 3–10 (whole seconds) | `360p`, `720p`, `1080p`, `4k` | `16:9`, `9:16` |
+| `Gemini Omni Flash 1.1 Reference` | Reference images or video | 3–10 (whole seconds) | `360p`, `720p`, `1080p`, `4k` | From input |
+| `Gemini Omni Flash Image` | First image | 4–10 (whole seconds) | Provider-specific | From input |
+| `Gemini Omni Flash 1.1 Image` | First image | 3–10 (whole seconds) | `360p`, `720p`, `1080p`, `4k` | From input |
+| `Gemini Omni Flash 1.1 First-Last Frame` | First image + optional last image | 3–10 (whole seconds) | `360p`, `720p`, `1080p`, `4k` | From input |
+
+### MiniMax
+
+| Model | Input | Duration (seconds) | Resolution | Aspect ratio |
+| --- | --- | --- | --- | --- |
+| `MiniMax H3 Max` | Text | 5–15 (whole seconds) | `768p`, `480p` | `16:9`, `9:16`, `1:1`, `4:3`, `3:4`, `21:9` |
+| `MiniMax H3 Max Reference` | Reference images or video | 5–15 (whole seconds) | `768p`, `480p` | `16:9`, `9:16`, `1:1`, `4:3`, `3:4`, `21:9` |
+| `MiniMax H3` | Text | 4–15 (whole seconds) | `768p`, `2k` | `16:9`, `9:16`, `1:1`, `4:3`, `3:4`, `21:9` |
+| `MiniMax H3 Reference` | Reference images or video | 4–15 (whole seconds) | `768p`, `2k` | `16:9`, `9:16`, `1:1`, `4:3`, `3:4`, `21:9` |
+| `MiniMax H3 Max Image` | First image + optional last image | 5–15 (whole seconds) | `768p`, `480p` | From input |
+| `MiniMax H3 Image` | First image + optional last image | 4–15 (whole seconds) | `768p`, `2k` | `16:9` |
+
+### Grok
+
+| Model | Input | Duration (seconds) | Resolution | Aspect ratio |
+| --- | --- | --- | --- | --- |
+| `Grok Imagine` | Text | 5–15 (whole seconds) | `480p`, `720p` | `16:9`, `4:3`, `1:1`, `9:16`, `3:4`, `3:2`, `2:3` |
+| `Grok Imagine Reference` | Reference images | 5–10 (whole seconds) | `480p`, `720p` | `16:9`, `4:3`, `1:1`, `9:16`, `3:4`, `3:2`, `2:3` |
+| `Grok Imagine 1.5 Text` | Text | 5–15 (whole seconds) | `480p`, `720p`, `1080p` | `16:9`, `4:3`, `1:1`, `9:16`, `3:4`, `3:2`, `2:3` |
+| `Grok Imagine 1.5 Reference` | Reference images | 5–10 (whole seconds) | `480p`, `720p` | `16:9`, `4:3`, `1:1`, `9:16`, `3:4`, `3:2`, `2:3` |
+| `Grok Imagine Image` | First image | 5–15 (whole seconds) | `480p`, `720p` | From input |
+| `Grok Imagine 1.5` | First image | 5–15 (whole seconds) | `480p`, `720p`, `1080p` | From input |
+
+### Seedance
+
+| Model | Input | Duration (seconds) | Resolution | Aspect ratio |
+| --- | --- | --- | --- | --- |
+| `Seedance 2.0 Fast` | Text | 4–15 (whole seconds) | `480p`, `720p`, `1080p`, `4k` | `16:9`, `9:16`, `1:1`, `4:3`, `3:4`, `21:9` |
+| `Seedance 2.5` | Text | 4, 5, 6, 8, 10, 12, 15, 20, 25, 30 | `480p`, `720p` | `16:9`, `9:16`, `1:1`, `4:3`, `3:4`, `21:9` |
+| `Seedance 2.5 Turbo` | Text | 4, 5, 6, 8, 10, 12, 15, 20, 25, 30 | `720p`, `1080p` | `16:9`, `9:16`, `1:1`, `4:3`, `3:4`, `21:9` |
+| `Seedance 2.5 Turbo Reference` | Reference images or video | 4, 5, 6, 8, 10, 12, 15, 20, 25, 30 | `720p`, `1080p` | `16:9`, `9:16`, `1:1`, `4:3`, `3:4`, `21:9` |
+| `Seedance 2.5 Reference` | Reference images or video | 4, 5, 6, 8, 10, 12, 15, 20, 25, 30 | `480p`, `720p` | `16:9`, `9:16`, `1:1`, `4:3`, `3:4`, `21:9` |
+| `Seedance 2.0 Turbo` | Text | 4–15 (whole seconds) | `720p`, `1080p` | `16:9`, `9:16`, `1:1`, `4:3`, `3:4`, `21:9` |
+| `Seedance 2.0` | Text | 4–15 (whole seconds) | `480p`, `720p`, `1080p`, `4k` | `16:9`, `9:16`, `1:1`, `4:3`, `3:4`, `21:9` |
+| `Seedance 2.0 Mini` | Text | 4–15 (whole seconds) | `480p`, `720p`, `1080p`, `4k` | `16:9`, `9:16`, `1:1`, `4:3`, `3:4`, `21:9` |
+| `Seedance 2.0 Reference` | Reference images or video | 4–15 (whole seconds) | `480p`, `720p`, `1080p`, `4k` | `16:9`, `9:16`, `1:1`, `4:3`, `3:4`, `21:9` |
+| `Seedance 2.0 Fast Reference` | Reference images or video | 4–15 (whole seconds) | `480p`, `720p`, `1080p`, `4k` | `16:9`, `9:16`, `1:1`, `4:3`, `3:4`, `21:9` |
+| `Seedance 2.0 Mini Reference` | Reference images or video | 4–15 (whole seconds) | `480p`, `720p`, `1080p`, `4k` | `16:9`, `9:16`, `1:1`, `4:3`, `3:4`, `21:9` |
+| `Seedance 2.0 Image` | First image + optional last image | 4–15 (whole seconds) | `480p`, `720p`, `1080p`, `4k` | `16:9`, `9:16`, `1:1`, `4:3`, `3:4`, `21:9` |
+| `Seedance 2.0 Fast Image` | First image + optional last image | 4–15 (whole seconds) | `480p`, `720p`, `1080p`, `4k` | `16:9`, `9:16`, `1:1`, `4:3`, `3:4`, `21:9` |
+| `Seedance 2.5 Turbo Image` | First image + optional last image | 4, 5, 6, 8, 10, 12, 15, 20, 25, 30 | `720p`, `1080p` | `16:9` |
+| `Seedance 2.5 Image` | First image + optional last image | 4, 5, 6, 8, 10, 12, 15, 20, 25, 30 | `480p`, `720p` | `16:9` |
+| `Seedance 2.0 Turbo Image` | First image + optional last image | 4–15 (whole seconds) | `720p`, `1080p` | `16:9`, `9:16`, `1:1`, `4:3`, `3:4`, `21:9` |
+| `Seedance 2.0 Mini Image` | First image + optional last image | 4–15 (whole seconds) | `480p`, `720p`, `1080p`, `4k` | `16:9`, `9:16`, `1:1`, `4:3`, `3:4`, `21:9` |
+| `Seedance 1.5 Pro` | Text | 4–12 (whole seconds) | `480p`, `720p`, `1080p` | `16:9`, `4:3`, `1:1`, `3:4`, `9:16`, `21:9` |
+| `Seedance 1.5 Pro Image` | First image | 4–12 (whole seconds) | `480p`, `720p`, `1080p` | `16:9`, `4:3`, `1:1`, `3:4`, `9:16`, `21:9` |
+| `Seedance 1.5 Pro First-Last Frame` | First image + optional last image | 4–12 (whole seconds) | `480p`, `720p`, `1080p` | `16:9`, `4:3`, `1:1`, `3:4`, `9:16`, `21:9` |
+| `Seedance v1 Pro Fast` | Text | 3–12 (whole seconds) | Provider-specific | `1:1`, `3:4`, `9:16`, `16:9`, `4:3`, `21:9` |
+| `Seedance 1.0 Pro Fast` | First image | 3–12 (whole seconds) | Provider-specific | `1:1`, `3:4`, `9:16`, `16:9`, `4:3`, `21:9` |
+
+### FLUX
+
+| Model | Input | Duration (seconds) | Resolution | Aspect ratio |
+| --- | --- | --- | --- | --- |
+| `FLUX 3` | Text | 5, 6, 8, 10, 12, 15, 20 | `720p`, `1080p` | `16:9`, `9:16`, `1:1`, `4:3`, `3:4`, `21:9` |
+| `FLUX 3 Image` | First image + optional last image | 5, 6, 8, 10, 12, 15, 20 | `720p`, `1080p` | `16:9`, `9:16`, `1:1`, `4:3`, `3:4`, `21:9` |
+
+### WAN
+
+| Model | Input | Duration (seconds) | Resolution | Aspect ratio |
+| --- | --- | --- | --- | --- |
+| `WAN 3.0` | Text | 5, 8, 10, 12, 15, 20, 25, 30 | `480p`, `720p`, `1080p` | `16:9`, `9:16`, `1:1`, `4:3`, `3:4` |
+| `WAN 3.0 Reference` | Reference images | 5, 8, 10, 12, 15, 20, 25, 30 | `480p`, `720p`, `1080p` | `16:9`, `9:16`, `1:1`, `4:3`, `3:4` |
+| `WAN 3.0 Image` | First image + optional last image | 5, 8, 10, 12, 15, 20, 25, 30 | `480p`, `720p`, `1080p` | `16:9`, `9:16`, `1:1`, `4:3`, `3:4` |
+| `Wan 2.5` | Text | Provider-specific | Provider-specific | `16:9`, `9:16`, `1:1` |
+| `Wan v2.2 Turbo` | Text | Provider-specific | Provider-specific | `16:9`, `9:16` |
+| `Wan v2.2` | Text | Provider-specific | Provider-specific | `16:9`, `9:16` |
+| `Wan 2.5 Image` | First image | Provider-specific | Provider-specific | `16:9`, `9:16`, `1:1` |
+| `Wan v2.2 Turbo Image` | First image + optional last image | Provider-specific | Provider-specific | `16:9`, `9:16` |
+| `Wan-2.2 Image` | First image + optional last image | Provider-specific | Provider-specific | `1:1`, `16:9`, `9:16` |
+
+### Kling
+
+| Model | Input | Duration (seconds) | Resolution | Aspect ratio |
+| --- | --- | --- | --- | --- |
+| `Kling 2.6 Pro` | Text | 5, 10 | Provider-specific | `16:9`, `9:16`, `1:1` |
+| `Kling 2.6 Pro Image` | First image + optional last image | 5, 10 | Provider-specific | `16:9`, `9:16`, `1:1` |
+| `Kling 3.0 Pro` | Text | 3–15 (whole seconds) | Provider-specific | `16:9`, `9:16`, `1:1` |
+| `Kling 3.0 Pro Image` | First image + optional last image | 3–15 (whole seconds) | Provider-specific | `16:9`, `9:16`, `1:1` |
+| `Kling 3.0 Standard` | Text | 3–15 (whole seconds) | Provider-specific | `16:9`, `9:16`, `1:1` |
+| `Kling 3.0 Standard Image` | First image + optional last image | 3–15 (whole seconds) | Provider-specific | `16:9`, `9:16`, `1:1` |
+| `Kling O3 Pro` | Text | 3–15 (whole seconds) | Provider-specific | `16:9`, `9:16`, `1:1` |
+| `Kling O3 Pro Image` | First image + optional last image | 3–15 (whole seconds) | Provider-specific | `16:9`, `9:16`, `1:1` |
+| `Kling O3 Standard` | Text | 3–15 (whole seconds) | Provider-specific | `16:9`, `9:16`, `1:1` |
+| `Kling O3 Standard Image` | First image + optional last image | 3–15 (whole seconds) | Provider-specific | `16:9`, `9:16`, `1:1` |
+| `Kling O3 Reference` | Reference images | 3–15 (whole seconds) | Provider-specific | `16:9`, `9:16`, `1:1` |
+| `Kling O1 Image` | First image + optional last image | 5, 10 | Provider-specific | `1:1` |
+| `Kling O1 Reference` | Reference images | 3, 5, 10 | Provider-specific | `16:9`, `9:16`, `1:1` |
+| `Kling 2.5 Turbo Pro Image` | First image + optional last image | 5, 10 | Provider-specific | `16:9` |
+| `Kling 2.5 Turbo Pro` | Text | 5, 10 | Provider-specific | `16:9`, `9:16`, `1:1` |
+| `Kling 2.5 Turbo Standard` | First image | 5, 10 | Provider-specific | `16:9`, `9:16`, `1:1` |
+
+### Happy Horse
+
+| Model | Input | Duration (seconds) | Resolution | Aspect ratio |
+| --- | --- | --- | --- | --- |
+| `Happy Horse` | Text | 3–15 (whole seconds) | `720p`, `1080p` | `16:9`, `9:16`, `1:1`, `4:3`, `3:4` |
+| `Happy Horse Image` | First image | 3–15 (whole seconds) | `720p`, `1080p` | From input |
+| `Happy Horse Reference` | Reference images | 3–15 (whole seconds) | `720p`, `1080p` | `16:9`, `9:16`, `1:1`, `4:3`, `3:4` |
+
+### LTX-2
+
+| Model | Input | Duration (seconds) | Resolution | Aspect ratio |
+| --- | --- | --- | --- | --- |
+| `LTX-2 Pro` | Text | 6, 8, 10 | Provider-specific | `16:9` |
+| `LTX-2 Fast` | Text | 6, 8, 10, 12, 14, 16, 18, 20 | Provider-specific | `16:9` |
+| `LTX-2 Pro Image` | First image | 6, 8, 10 | Provider-specific | `16:9` |
+| `LTX-2 Fast Image` | First image | 6, 8, 10, 12, 14, 16, 18, 20 | Provider-specific | `16:9` |
+
+### Hailuo
+
+| Model | Input | Duration (seconds) | Resolution | Aspect ratio |
+| --- | --- | --- | --- | --- |
+| `Hailuo 2.0` | Text | 6, 10 | Provider-specific | `16:9` |
+| `Hailuo 2.0 Pro` | Text | Provider-specific | Provider-specific | `16:9` |
+| `Hailuo 2.3` | Text | 6, 10 | Provider-specific | `16:9` |
+| `Hailuo 2.3 Pro` | Text | 5 | Provider-specific | `16:9` |
+| `Hailuo 2.3 Image` | First image | 6, 10 | Provider-specific | `16:9` |
+| `Hailuo 2.3 Pro Image` | First image | 5 | Provider-specific | `16:9` |
+| `Hailuo 2.3-Fast Pro Image` | First image | 6 | Provider-specific | `16:9` |
+| `Hailuo 2.0 Image` | First image + optional last image | 6, 10 | Provider-specific | `16:9` |
+| `Hailuo 2.0 Pro Image` | First image + optional last image | Provider-specific | Provider-specific | `16:9` |
+
+### Pixverse
+
+| Model | Input | Duration (seconds) | Resolution | Aspect ratio |
+| --- | --- | --- | --- | --- |
+| `Pixverse v5.5` | Text | 5, 10 | Provider-specific | `16:9`, `4:3`, `1:1`, `3:4`, `9:16` |
+| `Pixverse v5.5 Image` | First image | 5, 10 | Provider-specific | `16:9`, `4:3`, `1:1`, `3:4`, `9:16` |
+
+## Reference limits
+
+All media URLs must be downloadable without browser cookies and remain valid through any queue delay. Limits are **per request**, not per account. Additional reference media can increase the credit cost.
+
+Do not combine `referenceVideos` with `image` or `tailImage`. Audio references require a companion reference image or a supported reference video; they cannot be used with a first-frame `image`.
+
+| Model | Reference images (max) | Reference video | Reference audio |
+| --- | --- | --- | --- |
+| `Veo 3.1 Fast` | 3 | — | — |
+| `Gemini Omni Flash Reference` | 5 | 1 max; 4–20s each; 20s total; 20 MiB each | — |
+| `Gemini Omni Flash 1.1 Reference` | 5 | 1 max; 4–10s each; 10s total; 20 MiB each | — |
+| `MiniMax H3 Max Reference` | 9 | 3 max; 2–15s each; 15s total; 20 MiB each | 3 max; 2–15s each; 15s total |
+| `Grok Imagine Reference` | 7 | — | — |
+| `Grok Imagine 1.5 Reference` | 7 | — | — |
+| `Seedance 2.5 Turbo Reference` | 30 | 3 max; 2–30s each; 30s total; 50 MiB each | 10 max; 2–30s each; 30s total; 15 MiB each; wav/mp3 |
+| `Seedance 2.5 Reference` | 30 | 3 max; 2–30s each; 30s total; 50 MiB each | 10 max; 2–30s each; 30s total; 15 MiB each; wav/mp3 |
+| `WAN 3.0 Reference` | 9 | — | 3 max; 2–30s each; 30s total; 15 MiB each; wav/mp3 |
+| `Seedance 2.0 Reference` | 9 | 3 max; 2–15s each; 15s total; 30 MiB each | 3 max; 15s total |
+| `Seedance 2.0 Fast Reference` | 9 | 3 max; 2–15s each; 15s total; 30 MiB each | 3 max; 15s total |
+| `MiniMax H3 Reference` | 9 | 3 max; 2–15s each; 15s total; 20 MiB each | 3 max; 2–15s each; 15s total; 15 MiB each; wav/mp3 |
+| `Seedance 2.0 Mini Reference` | 9 | 3 max; 2–15s each; 15s total; 30 MiB each | 3 max; 15s total |
+| `Veo 3.1 Fast Image` | 3 | — | — |
+| `Happy Horse Reference` | 9 | — | — |
+| `Kling O3 Reference` | 4 | — | — |
+| `Kling O1 Reference` | 4 | — | — |
+| `Veo 3.1` | 3 | — | — |
+| `Veo 3.1 Image` | 3 | — | — |
+| `Veo 3.1 First-Last Frame` | 3 | — | — |
+| `Veo 3.1 Fast First-Last Frame` | 3 | — | — |
+
+Veo reference images are optional on the variants listed above. For `Gemini Omni Flash Reference` video editing, the output follows the input clip's duration. Input requirements still apply when a model offers reference images alongside a first-frame mode.
+
+## Free plan settings
+
+Free accounts can use the variants below with sufficient remaining credits. Send the listed resolution explicitly. All other models require a paid plan.
+
+| Model | Resolution | Maximum duration |
+| --- | --- | --- |
+| `Veo 3.1 Fast` | `720p` | Model settings |
+| `Seedance 2.0 Mini` | `480p` | 5 seconds |
+| `Seedance 2.0 Mini Reference` | `480p` | 5 seconds |
+| `Veo 3.1 Lite` | `720p` | Model settings |
+| `Veo 3.1 Lite Image` | `720p` | Model settings |
+| `Veo 3.1 Fast Image` | `720p` | Model settings |
+| `Seedance 2.0 Mini Image` | `480p` | 5 seconds |
+| `Veo 3.1 Fast First-Last Frame` | `720p` | Model settings |
+
+## Retired and separate features
+
+`Sora 2`, `Sora 2 Pro`, and their Image variants are no longer accepted by this endpoint. Choose a current model and update its duration, resolution, and inputs together.
+
+Kling Motion Control uses a separate web-app workflow. Its motion-video payload is not supported by this public API endpoint.

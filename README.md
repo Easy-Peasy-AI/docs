@@ -1,55 +1,32 @@
-# Mintlify Starter Kit
+# Easy-Peasy.AI documentation
 
-Use the starter kit to get your docs deployed and ready to customize.
+Source for [docs.easy-peasy.ai](https://docs.easy-peasy.ai), published with Mintlify. API schemas live in `api-reference/openapi.json`; endpoint guides are MDX files. Navigation is defined in `docs.json`.
 
-Click the green **Use this template** button at the top of this repo to copy the Mintlify starter kit. The starter kit contains examples with
+## Update model catalogs
 
-- Guide pages
-- Navigation
-- Customizations
-- API reference pages
-- Use of popular components
-
-**[Follow the full quickstart guide](https://starter.mintlify.com/quickstart)**
-
-## AI-assisted writing
-
-Set up your AI coding tool to work with Mintlify:
+Use a current Easy-Peasy.AI app checkout with its Yarn dependencies installed:
 
 ```bash
-npx skills add https://mintlify.com/docs
+node scripts/sync-models.cjs /path/to/kopi
+node scripts/sync-models.cjs /path/to/kopi --check
 ```
 
-This command installs Mintlify's documentation skill for your configured AI tools like Claude Code, Cursor, Windsurf, and others. The skill includes component reference, writing standards, and workflow guidance.
+If the app is in `../kopi`, omit its path. The script loads only the video and image constants using the app's esbuild dependency. It does not load API routes, credentials, or provider clients, and makes no generation requests.
 
-See the [AI tools guides](/ai-tools) for tool-specific setup.
+It updates the video model guide, video model/resolution/aspect-ratio enums, and image generation/edit model enums. Motion-control models are excluded because the public video endpoint does not implement their payload. The script retains explicitly listed legacy image routes; review those when changing image routing.
 
-## Development
+When a model changes, also inspect the API handler: UI defaults can differ from REST defaults, and catalog options do not guarantee provider support. Update request examples, descriptions, and polling behavior when the contract changes. Chat model IDs and aliases must be checked against `src/pages/api/chat/completions.ts` and its provider maps.
 
-Install the [Mintlify CLI](https://www.npmjs.com/package/mint) to preview your documentation changes locally. To install, use the following command:
+## Validate and preview
 
-```
-npm i -g mint
-```
-
-Run the following command at the root of your documentation, where your `docs.json` is located:
-
-```
+```bash
+node scripts/validate-docs.cjs /path/to/kopi
+mint broken-links
 mint dev
 ```
 
-View your local preview at `http://localhost:3000`.
+The validation script checks schema references, request/response examples, video settings, MDX compilation, local navigation links, and polling success/error/timeout cases without spending account credits. It uses the app checkout's existing dependencies.
 
-## Publishing changes
+## Publish
 
-Install our GitHub app from your [dashboard](https://dashboard.mintlify.com/settings/organization/github-app) to propagate changes from your repo to your deployment. Changes are deployed to production automatically after pushing to the default branch.
-
-## Need help?
-
-### Troubleshooting
-
-- If your dev environment isn't running: Run `mint update` to ensure you have the most recent version of the CLI.
-- If a page loads as a 404: Make sure you are running in a folder with a valid `docs.json`.
-
-### Resources
-- [Mintlify documentation](https://mintlify.com/docs)
+Open a pull request to `main`. Mintlify publishes changes merged into the default branch. Check the Mintlify Deployment result and the published page before considering an update complete.

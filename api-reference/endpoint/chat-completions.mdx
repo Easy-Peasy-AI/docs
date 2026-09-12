@@ -3,9 +3,9 @@ title: 'Chat Completions (OpenAI-compatible)'
 openapi: 'POST /api/chat/completions'
 ---
 
-## OpenAI SDK Compatibility
+## OpenAI SDK compatibility
 
-This endpoint is fully compatible with the OpenAI SDK. Just change the `baseURL` and `apiKey`:
+Use the OpenAI SDK’s `chat.completions.create` method with the `baseURL` and `apiKey` below. This endpoint implements the request fields in this reference; tool calling, `response_format`, `n`, and other undocumented OpenAI options are not implemented.
 
 <CodeGroup>
 
@@ -77,30 +77,40 @@ This endpoint supports two authentication methods:
 - **x-api-key header**: `x-api-key: YOUR_API_KEY`
 - **Authorization header**: `Authorization: Bearer YOUR_API_KEY` (OpenAI SDK default)
 
-## Supported Models
+## Model IDs and aliases
 
-| Provider | Model ID | Description |
-|----------|----------|-------------|
-| **Google** | `gemini-3-flash` | Gemini 3 Flash — fast and efficient (default) |
-| **Google** | `gemini-3-pro` | Gemini 3 Pro — advanced reasoning |
-| **Google** | `gemini-3.1-pro` | Gemini 3.1 Pro — latest Gemini |
-| **Anthropic** | `claude-opus-4-6` | Claude Opus 4.6 — most capable |
-| **Anthropic** | `claude-sonnet-4-6` | Claude Sonnet 4.6 — balanced |
-| **Anthropic** | `claude-haiku-4-5` | Claude Haiku 4.5 — fast |
-| **OpenAI** | `gpt-5` | GPT-5 — latest flagship |
-| **OpenAI** | `gpt-5-mini` | GPT-5 Mini — smaller, fast |
-| **OpenAI** | `gpt-5.4-instant` | GPT-5.4 Instant — fast |
-| **OpenAI** | `gpt-5.4-thinking` | GPT-5.4 Thinking — reasoning |
-| **OpenAI** | `gpt-5.4-pro` | GPT-5.4 Pro — most capable |
-| **DeepSeek** | `deepseek-v3` | DeepSeek V3 |
-| **Kimi** | `kimi-k2.5` | Kimi K2.5 |
-| **GLM** | `glm-5` | GLM-5 |
-| **MiniMax** | `minimax-m2p5` | MiniMax M2.5 |
-| **xAI** | `grok-4` | Grok 4 |
+The REST default is `gemini-3.8-flash`. The `gemini-3-flash` alias used in these examples follows the current Flash model and currently resolves to that default. Use an explicit version when you need to avoid a floating alias.
+
+These IDs are routed by the chat endpoint; model availability, limits, and multimodal support depend on the provider.
+
+| Provider | Current model IDs |
+| --- | --- |
+| Google | `gemini-3.8-flash`, `gemini-3.7-flash`, `gemini-3.6-flash`, `gemini-3.5-flash`, `gemini-3.1-pro`, `gemini-3-pro` |
+| Anthropic | `claude-opus-5`, `claude-sonnet-5`, `claude-fable-5`, `claude-fable-5-1`, `claude-opus-4-8`, `claude-opus-4-7`, `claude-opus-4-6`, `claude-opus-4-5`, `claude-sonnet-4-6`, `claude-sonnet-4-5`, `claude-haiku-4-5` |
+| OpenAI | `gpt-6-astra`, `gpt-6-astra-max`, `gpt-5.6-sol`, `gpt-5.6-sol-max`, `gpt-5.6-terra`, `gpt-5.6-terra-max`, `gpt-5.6-luna`, `gpt-5.6-luna-max`, `gpt-5.5-instant`, `gpt-5.5-thinking`, `gpt-5.5-pro`, `gpt-5.4-instant`, `gpt-5.4-thinking`, `gpt-5.4-pro`, `gpt-5`, `gpt-5-mini` |
+| DeepSeek | `deepseek-v4-pro`, `deepseek-v4-flash` |
+| Moonshot | `kimi-k3`, `kimi-k2.7-code`, `kimi-k2.6` |
+| Z.ai | `glm-5p3`, `glm-5p3-max`, `glm-5p3-flash`, `glm-5p2`, `glm-5p1`, `glm-5` |
+| MiniMax | `minimax-m3` |
+| Meta | `muse-spark-1.3`, `muse-spark-1.3-max` |
+| Qwen | `qwen3p8-max` |
+| xAI | `grok-4` |
+
+Some older names select replacements, rather than the model their name suggests:
+
+| Legacy ID | Resolves to |
+| --- | --- |
+| `deepseek-v3`, `deepseek-r1`, `deepseek-chat`, `deepseek-reasoner` | `deepseek-v4-flash` |
+| `minimax-m2`, `minimax-m2p5`, `minimax-m2p7` | `minimax-m3` |
+| `kimi-k2.5`, `kimi-k2-thinking`, `kimi-k2-instruct` | `kimi-k2.6` |
+| `meta-llama-3.3-70b`, `llama4-maverick-instruct-basic` | `muse-spark-1.3` |
+| `qwen3p6-plus`, `qwen3p7-plus` | `qwen3p8-max` |
+
+Choose a listed ID. Unknown names may fall back to the default or reach a provider that rejects them. Parameters such as `temperature`, `top_p`, and `stop` are also model-dependent.
 
 ## Multimodal Messages
 
-You can send images and audio alongside text using the OpenAI multimodal message format.
+You can send images and audio alongside text using the OpenAI multimodal message format when the selected model supports that input. Accepting the message format does not make every model multimodal. Choose an image-capable model for vision and an audio-capable model for audio input.
 
 ### Vision (Image Input)
 
