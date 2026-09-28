@@ -296,6 +296,20 @@
     "options": [
       "copy",
       "view",
+      {
+        "title": "Open in Marky Agent",
+        "description": "Ask Marky about this page",
+        "icon": "/favicon.png",
+        "href": {
+          "base": "https://easy-peasy.ai/chat",
+          "query": [
+            {
+              "key": "prompt",
+              "value": "Read from https://easy-peasy.ai/docs$path.md so I can ask questions about it."
+            }
+          ]
+        }
+      },
       "chatgpt",
       "claude",
       "cursor"
