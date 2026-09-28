@@ -7,7 +7,7 @@
     "light": "#818CF8",
     "dark": "#4F46E5"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "/favicon.png",
   "appearance": {
     "default": "light"
   },
@@ -273,7 +273,8 @@
   },
   "logo": {
     "light": "/logo/marky.png",
-    "dark": "/logo/marky.png"
+    "dark": "/logo/marky.png",
+    "href": "https://easy-peasy.ai"
   },
   "navbar": {
     "links": [
