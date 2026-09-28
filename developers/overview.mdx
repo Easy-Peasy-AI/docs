@@ -1,0 +1,56 @@
+---
+title: "Developer overview"
+description: "Build on Easy-Peasy.AI with the REST API, the MCP server, and the OpenAI-compatible chat endpoint."
+---
+
+Everything you can create in the Easy-Peasy.AI dashboard is also available to your own code and AI agents. They all use your account's API key and draw from the same plan allowance as the dashboard.
+
+<Columns cols={2}>
+  <Card title="REST API" icon="square-terminal" href="/api-reference/introduction">
+    Generate text, images, videos, speech, and transcriptions from your backend.
+  </Card>
+  <Card title="MCP server" icon="plug" href="/mcp/introduction">
+    Connect Claude, Cursor, Windsurf, and other MCP clients without writing API code.
+  </Card>
+  <Card title="Chat Completions" icon="messages" href="/api-reference/endpoint/chat-completions">
+    Point the OpenAI SDK at Easy-Peasy.AI and use the same chat models as Marky.
+  </Card>
+  <Card title="Agents API" icon="robot" href="/api-reference/endpoint/chat-with-bot">
+    Send messages to an AI agent you built in the dashboard.
+  </Card>
+</Columns>
+
+## Get an API key
+
+Open [**Settings** > **API/MCP**](https://easy-peasy.ai/settings/api) in the dashboard and create a key. Send it in the `x-api-key` header. Keep keys on your server, never in browser code or public repositories.
+
+## What the API covers
+
+| Area | What you can do | Start here |
+| --- | --- | --- |
+| Text | Run the dashboard's writing tools, from blog posts to SOAP notes | [Generate text](/api-reference/endpoint/generate) |
+| Images | Generate and edit images with Nano Banana, GPT Image, FLUX, Seedream, and more | [Generate image](/api-reference/endpoint/generate-image) |
+| Video | Text-to-video, image-to-video, and reference-to-video with the dashboard's video models | [Video models](/api-reference/video-models) |
+| Talking videos | Animate a face with your script or audio | [Generate talking video](/api-reference/endpoint/generate-talking-video) |
+| Audio | Text to speech, sound effects, and transcription | [Text to speech](/api-reference/endpoint/generate-tts) |
+| Chat | OpenAI-compatible chat completions with streaming | [Chat Completions](/api-reference/endpoint/chat-completions) |
+
+<Note>
+  In the dashboard, the text generators are called **tools**. In the API they're called **presets**, because that's the name of the request field (`preset`).
+</Note>
+
+## Quick example
+
+```bash
+curl -X POST https://easy-peasy.ai/api/generate \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: YOUR_API_KEY" \
+  -d '{
+    "preset": "blog-post",
+    "keywords": "How to get started with AI",
+    "tone": "professional",
+    "outputs": 1
+  }'
+```
+
+API calls use the same allowance as the dashboard. See [Plans and credits](/account/plans-and-credits) for how usage is counted.

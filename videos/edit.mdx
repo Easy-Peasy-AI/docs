@@ -1,0 +1,66 @@
+---
+title: "Edit a video with AI"
+description: "Remove, replace, or restyle things in a video by describing the change, for the whole clip or for a few seconds of it."
+---
+
+Describe what should change, such as "remove the person in the background" or "change the lighting to golden evening light", and the rest of the video stays as it is. The edited video keeps the original length, framing, and aspect ratio.
+
+<Note>
+AI video editing is available on paid plans.
+</Note>
+
+## Open the editor
+
+- **For a video you made here**: open its **⋮** menu, or its details, and click **Edit with AI**. The **Edit video with AI** window opens.
+- **For your own video**: open **Videos** > **Edit Video** and click **Upload a video**: MP4 or MOV, 4 to 30 seconds, up to 100 MB.
+
+## Make an edit
+
+<Frame>
+  <img src="/images/videos/edit-modal.webp" alt="The Edit video with AI window: the video with a play button and Add edit here, a timeline with edit 2 covering 0 to 2 seconds and edit 1 covering the whole clip; on the right, edit 1 Whole clip 'Change the lighting to golden evening light with long warm shadows' and edit 2 0s – 2s 'Add a rolled-out purple yoga mat in the middle of the floor', Quick edits, and the Seedance 2.5 model; at the bottom 720p, 75 credits, Cancel, and Apply edits" />
+</Frame>
+
+<Steps>
+  <Step title="Describe the change">
+    Type the change in the first edit, which applies to the **Whole clip**. Start with what you want done: add, remove, replace, or change. **Quick edits** start a sentence for you: **Remove an object**, **Replace a subject**, **Change the background**, **Change the lighting**, **Change the outfit**, **Remove on-screen text**, **Remove the music**, and **Change the style**.
+  </Step>
+  <Step title="Limit an edit to a moment (optional)">
+    Play the video, pause where the change should happen, and click **Add edit here**. The new edit covers a few seconds from that point. Drag its ends on the timeline, or use **start here** and **end here** while the video plays. Times snap to whole seconds, so treat them as a strong hint rather than an exact cut. You can add up to 6 edits.
+  </Step>
+  <Step title="Add reference images (optional)">
+    Under **References (optional)**, add up to 4 images, such as a jacket or a person to swap in. They're tagged **@Image1** to **@Image4**, so you can write "replace the jacket with @Image1".
+  </Step>
+  <Step title="Pick an engine and resolution">
+    Choose a model under **Model**, and a resolution at the bottom. The price updates as you go.
+  </Step>
+  <Step title="Click Apply edits">
+    The edited video appears in your results in a few minutes. Its menu says **Change these edits** instead of **Regenerate**, so you can adjust the instructions and try again.
+  </Step>
+</Steps>
+
+## Engines and credits
+
+Editing is charged per second of the video you edit, at the resolution you choose. Seconds are rounded up.
+
+| Model | Good for | Video length | Credits per second |
+| --- | --- | --- | --- |
+| **Seedance 2.5** (default) | Best quality | 4–30 s | 7 at 480p, 15 at 720p |
+| **Seedance 2.5 Fast** | Faster and cheaper | 4–30 s | 9 at 720p, 10 at 1080p |
+| **WAN 3.0** | Another model family: try it when Seedance refuses a clip | 4–15 s | 5 at 480p, 10 at 720p, 20 at 1080p |
+
+For example, editing a 5-second video with Seedance 2.5 at 720p costs 75 credits.
+
+## Tips
+
+- Keep each edit to one change. Use separate edits for separate changes.
+- Name what's there and what should replace it: "replace the red car with a white van" works better than "change the car".
+- If an edit is refused, which can happen with clips that show real people, try **WAN 3.0**. You aren't charged for refused edits.
+
+<Columns cols={2}>
+  <Card title="Extend a video" icon="forward" href="/videos/extend">
+    Add a new shot to the end.
+  </Card>
+  <Card title="Upscale a video" icon="up-right-and-down-left-from-center" href="/videos/upscale">
+    Make the result sharper.
+  </Card>
+</Columns>

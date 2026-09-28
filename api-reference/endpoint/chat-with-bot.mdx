@@ -1,23 +1,26 @@
 ---
-title: 'Chat with Bot'
+title: 'Chat with an agent'
 openapi: 'POST /bot/{public_url}/api'
 ---
 
+Send a message to an [agent](/agents/overview) you built in the dashboard and get its answer. Agents were called Bots, which is why the path starts with `/bot`.
+
 <Note>
-  The Bots API uses a **different base URL** (`https://bots.easy-peasy.ai`) but the **same API key** as all other Easy-Peasy.AI endpoints.
+  The Agents API uses a **different base URL** (`https://bots.easy-peasy.ai`) but the **same API key** as all other Easy-Peasy.AI endpoints.
 </Note>
 
-## Getting your Bot's public URL
+## Find your agent's ID
 
-1. Go to your [Easy-Peasy.AI dashboard](https://easy-peasy.ai)
-2. Navigate to your bot's settings
-3. Open the **Integrations** tab
-4. Select **API** to find your bot's `public_url`
+`public_url` is your agent's ID. In the dashboard, open your agent and go to **Channels** > **Chat bubble** > **Manage** and copy **Your Agent ID**, or open **Integrations** > **REST API** to see the full endpoint with example code.
 
 ## Streaming
 
-When `stream: true` is set, the response is returned as **server-sent events (SSE)**. Each event contains a chunk of the bot's response text, allowing you to display the response progressively as it's generated.
+When `stream: true` is set, the response is returned as **server-sent events (SSE)**. Each event contains a chunk of the agent's answer, so you can show it as it's written.
 
 ## Conversation history
 
-To maintain context across multiple messages, include the `history` array with previous messages. Each entry should have a `role` (`human` or `ai`) and `text` field.
+To keep context across messages, send the earlier messages in `history`. Each entry has a `role` (`human` or `ai`) and a `text` field. Each request is answered on its own, so without `history` the agent doesn't know what was said before.
+
+## What the API doesn't do
+
+The agent answers from its knowledge and instructions. [Actions](/agents/actions), such as buttons, forms, and bookings, don't run through the API.

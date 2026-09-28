@@ -1,0 +1,108 @@
+---
+title: "WhatsApp"
+description: "Connect a WhatsApp Business number to your agent in one click, keep using the WhatsApp Business app if you like, and manage message templates."
+---
+
+Your agent can answer messages sent to your WhatsApp Business number. You connect it by signing in with Facebook and picking or creating a number; there's no Meta developer app, token, or webhook to set up.
+
+<Note>
+  WhatsApp is available on paid plans. Meta charges its own fees for business messaging, billed to your Meta account.
+</Note>
+
+## Before you start
+
+You need:
+
+- A Facebook account.
+- A phone number for your business that can receive a text message or a call for verification.
+- A number that isn't signed in to the regular WhatsApp app. A number you use in the **WhatsApp Business** app is fine: see [Keep using the WhatsApp Business app](#keep-using-the-whatsapp-business-app).
+
+## Connect in one click
+
+<Steps>
+  <Step title="Open the WhatsApp channel">
+    Open your agent, click **Channels**, and click **Connect** on **WhatsApp**.
+
+    <Frame>
+      <img src="/images/agents/channel-whatsapp.webp" alt="The WhatsApp Integration window: Connect in one click, with a Continue with Facebook button and a link to enter credentials manually" width="520" />
+    </Frame>
+  </Step>
+  <Step title="Choose how to connect">
+    Click **Continue with Facebook**, then choose **Continue with Facebook** again for a number that isn't on WhatsApp yet, or **I already use the WhatsApp Business app**.
+
+    <Frame>
+      <img src="/images/agents/channel-whatsapp-connect.webp" alt="Connect WhatsApp: Continue with Facebook, or I already use the WhatsApp Business app to keep using the app with messages working in both places" width="460" />
+    </Frame>
+  </Step>
+  <Step title="Finish in Meta's window">
+    Meta's window opens. Sign in with Facebook, pick or create a business portfolio, create your WhatsApp Business profile (the name customers see), add your number, and enter the code Meta sends. Keep the window open until it closes on its own.
+  </Step>
+  <Step title="Test it">
+    The WhatsApp card shows **Connected**. Send a WhatsApp message to your business number from another phone; the agent replies within seconds.
+  </Step>
+</Steps>
+
+Everything after Meta's window is automatic: your number is registered and incoming messages are sent to your agent.
+
+## Keep using the WhatsApp Business app
+
+Choose **I already use the WhatsApp Business app** to connect the number you already use in the app. The agent answers automatically, and you can still read and reply from the app on your phone. Your chat history stays.
+
+Meta's requirements for this option:
+
+- The number must be on the **WhatsApp Business** app, not regular WhatsApp, and in use there for at least 7 days on the latest version.
+- It must not already be added to your WhatsApp Business account as an API number. If you tried the one-click option first, remove the number in WhatsApp Manager (**Phone numbers**), wait a few minutes, and try again.
+- It isn't available in every country.
+
+You'll confirm the connection in the app on your phone, so keep it nearby.
+
+## The 24-hour rule and templates
+
+This is WhatsApp's rule. Your agent can reply freely within 24 hours of a customer's last message, which covers normal back-and-forth. To start a conversation with someone who hasn't messaged you in the last 24 hours, WhatsApp requires an approved **message template**.
+
+Once connected, click **Manage templates** in the WhatsApp window, then **New template**. Enter a **Template name**, **Category** (**Utility** or **Marketing**), the **Message body** with `{{1}}`-style variables and example values, and a **Language**, then click **Submit for approval**. Meta usually reviews templates within minutes to hours; the list shows each template's status.
+
+## Pause, disconnect, or move a number
+
+- **Pause:** switch off **Enable integration**. Messages still arrive at your number; the agent stops answering.
+- **Disconnect:** click **Disconnect**. The number stays in your Meta account; it just stops going to this agent.
+- **Move to another agent:** disconnect it here, then connect it on the other agent.
+
+Conversations appear in [**Conversations**](/agents/conversations) under **WhatsApp**. Your [actions](/agents/actions) work on WhatsApp. The agent answers text messages; photos, voice notes, and documents aren't answered.
+
+## Use your own Meta app
+
+If your business already runs the WhatsApp Cloud API with its own Meta app, click **Using your own Meta app? Enter credentials manually** and fill in:
+
+| Field | Where to find it |
+| --- | --- |
+| **WhatsApp phone number ID** | In your Meta app under **WhatsApp** > **API Setup** |
+| **Access token** | A permanent system user token with the `whatsapp_business_messaging` and `whatsapp_business_management` permissions |
+| **Verify token** | Any text you choose; enter the same text in Meta |
+| **Webhook URL** | Shown in the form. In your Meta app, go to **WhatsApp** > **Configuration**, paste the URL and your verify token, and subscribe to the `messages` field |
+
+Unless you need your own app, the one-click connection is faster and needs no upkeep.
+
+<AccordionGroup>
+  <Accordion title="The number is still in use in the WhatsApp app on a phone">
+    The number is signed in to the regular WhatsApp app, and WhatsApp won't connect it while that account exists. Delete the WhatsApp account on the phone (**Settings** > **Account** > **Delete my account**), wait a few minutes, and connect again. If the phone uses WhatsApp Business, use [Keep using the WhatsApp Business app](#keep-using-the-whatsapp-business-app) instead.
+  </Accordion>
+  <Accordion title="It asks for a two-step verification PIN">
+    The number was registered before and has a PIN. Enter it when asked, or turn off two-step verification in WhatsApp Manager (**Phone numbers** > **Settings** > **Two-step verification**) and connect again.
+  </Accordion>
+  <Accordion title="The connection expired before I finished">
+    Meta allows 14 days to finish registering a number. Start the connection again from the beginning.
+  </Accordion>
+  <Accordion title="The agent isn't replying">
+    Check that **Enable integration** is on, that the number shows as connected in WhatsApp Manager, and that you sent a text message.
+  </Accordion>
+</AccordionGroup>
+
+<Columns cols={2}>
+  <Card title="Channels" icon="share-nodes" href="/agents/channels">
+    All the places your agent can answer.
+  </Card>
+  <Card title="Conversations" icon="comments" href="/agents/conversations">
+    Read your WhatsApp chats.
+  </Card>
+</Columns>

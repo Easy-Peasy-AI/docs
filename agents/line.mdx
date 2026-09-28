@@ -1,0 +1,51 @@
+---
+title: "LINE"
+description: "Connect your agent to a LINE Official Account so it answers messages on LINE."
+---
+
+Your agent can answer messages sent to your LINE Official Account. You copy two keys from the LINE Developers console and paste them into Easy-Peasy.AI; the webhook is set up for you.
+
+<Note>
+  LINE is available on paid plans. You need a LINE Official Account with the Messaging API turned on.
+</Note>
+
+## Connect LINE
+
+<Steps>
+  <Step title="Turn on the Messaging API">
+    In LINE Official Account Manager, open your account's **Settings** > **Messaging API** and enable it. This creates a Messaging API channel you can open in the [LINE Developers console](https://developers.line.biz/console/).
+  </Step>
+  <Step title="Copy the channel secret and access token">
+    In the LINE Developers console, open your channel:
+
+    - On the **Basic settings** tab, copy the **Channel secret**.
+    - On the **Messaging API** tab, under **Channel access token (long-lived)**, click **Issue** and copy the token.
+  </Step>
+  <Step title="Paste them into Easy-Peasy.AI">
+    Open your agent, click **Channels**, and click **Connect** on **LINE**. Paste the **Channel access token** and **Channel secret**, and click **Save**. The keys are checked and the webhook is registered with LINE automatically.
+  </Step>
+  <Step title="Check the webhook and auto-replies">
+    Back on the **Messaging API** tab in the LINE Developers console, make sure **Use webhook** is on. In LINE Official Account Manager, turn off the account's automatic greeting and reply messages if you don't want them to answer alongside your agent.
+  </Step>
+  <Step title="Send a test message">
+    Once connected, the LINE window has a button to open your account in LINE. Add it as a friend and send a question.
+  </Step>
+</Steps>
+
+## How it works
+
+- The agent answers in one-to-one chats and in groups the account has been added to. Each chat keeps its own history.
+- It reads text messages. For other messages, it replies that it can only read text.
+- Your [actions](/agents/actions) work on LINE, and conversations appear in [**Conversations**](/agents/conversations) under **LINE**.
+- Each LINE Official Account can be connected to one agent.
+
+To stop replies, switch off **Enable integration** in the LINE window.
+
+<Columns cols={2}>
+  <Card title="Channels" icon="share-nodes" href="/agents/channels">
+    All the places your agent can answer.
+  </Card>
+  <Card title="Conversations" icon="comments" href="/agents/conversations">
+    Read your LINE chats.
+  </Card>
+</Columns>

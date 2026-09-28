@@ -1,0 +1,77 @@
+---
+title: "Use references"
+description: "Add images of a person, product, or style, a video to guide the motion, or audio to guide the sound, and keep them consistent across videos."
+---
+
+import VideoReferenceLimits from '/snippets/video-reference-limits.mdx';
+
+References tell the model what should look or sound the same, without fixing the first frame the way a start image does. Use them to put the same person or product in every video, match a look, copy the camera movement from a clip, or give a character a particular voice.
+
+| Reference | What it's for |
+| --- | --- |
+| **Images** | People, products, places, or a style to match. A **Character** or **Object** from your library keeps the same person or product across videos. |
+| **Video** | A clip whose motion, camera work, and pacing the new video follows. On Gemini Omni Flash, the clip is the video you want to edit instead. |
+| **Audio** | A voice, song, or piece of music that guides the soundtrack. It always goes with at least one image or video reference. |
+
+## Add references
+
+<Steps>
+  <Step title="Open Add media">
+    Click **Add media** under **References (optional)**.
+
+    <Frame>
+      <img src="/images/videos/add-media.webp" alt="The Add media window: Library tabs All uploads, Character, Object, History, Video, and Audio; Scene tabs Camera, Lighting, and Shot Type; an Upload new tile for images, video and audio; and Clear selection, Cancel, and Apply buttons" />
+    </Frame>
+  </Step>
+  <Step title="Pick your media">
+    Choose from the **Library** tabs:
+
+    - **All uploads**: everything you've uploaded. **Upload new** takes images, MP4 or MOV videos, and audio files.
+    - **Character** and **Object**: the people and products you've saved in your library, also used in [AI Images](/ai-images/generate).
+    - **History**: images you've generated.
+    - **Video** and **Audio**: a reference clip and a sound file. If an audio file is longer than the model allows, drag the highlighted window over its waveform to choose the part to use.
+
+    You can attach one video and one audio file per video.
+  </Step>
+  <Step title="Click Apply">
+    The references appear under **References (optional)** with a counter, such as **1 / 30**. If your model can't use references, the page switches to its reference version, for example from **Seedance 2.0 Fast** to **Seedance 2.0 Fast Reference**. Remove the references and it switches back.
+  </Step>
+  <Step title="Say how to use them in your prompt">
+    Describe what each reference is for. Many models understand **@image1**, **@image2**, and so on, in the order you added them: "@image1 is the main character. She walks into a sunlit yoga studio and rolls out her mat."
+  </Step>
+</Steps>
+
+<Frame>
+  <img src="/images/videos/template-applied.webp" alt="A reference labelled Character under References (optional) with a 1 / 30 counter, and a prompt that begins Create a 15-second cinematic surreal photorealistic video. @image1 is the main character" width="480" />
+</Frame>
+
+## Rules
+
+- **References or a start image, not both.** Adding a start or end image removes the references, and adding references hides the start and end images.
+- **Audio needs company.** Add at least one image or video reference with any audio reference.
+- **Audio formats.** MiniMax H3, Seedance 2.5, and WAN 3.0 accept only WAV or MP3 audio.
+- **Video files** must be MP4 or MOV.
+- Images you add are checked against the content policy. A blocked image is marked **Blocked** and must be removed before you can generate.
+
+## Limits by model
+
+The number of references each model accepts per video. Models that aren't listed don't take references.
+
+<VideoReferenceLimits />
+
+## What references cost
+
+- **Images** are included in the price on most models.
+- **Reference videos** are charged by their length on Seedance 2.0, Seedance 2.5, and MiniMax H3, at the same rate per second as the video you generate. For example, a 10-second clip adds 60 credits to a Seedance 2.5 Reference video at 480p.
+- On **MiniMax H3 Max Reference**, images and clips are charged by size: about four images are free, and each clip adds credits by its length.
+
+The **Generate** button includes all of this before you start.
+
+<Columns cols={2}>
+  <Card title="Video templates" icon="shapes" href="/videos/templates">
+    Many templates are built around one reference photo of you.
+  </Card>
+  <Card title="Video models and credits" icon="table" href="/videos/models">
+    Compare the models that take references.
+  </Card>
+</Columns>

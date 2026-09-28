@@ -1,0 +1,112 @@
+---
+title: "Chat widget"
+description: "Embed an agent's chat bubble, configure it with data attributes, and control it from JavaScript with window.easyPeasyChat."
+---
+
+The chat widget puts an [agent](/agents/overview) on any web page. It's one script tag, configured with data attributes, and a small JavaScript API on `window.easyPeasyChat` for opening, hiding, and identifying the visitor. To get the snippet without code, see [Add your agent to your website](/agents/website).
+
+## Embed
+
+```html
+<script
+  src="https://bots.easy-peasy.ai/chat.min.js"
+  data-chat-url="https://bots.easy-peasy.ai/bot/YOUR_AGENT_ID"
+  data-btn-position="bottom-right"
+  data-widget-btn-color="#6366f1"
+  defer>
+</script>
+```
+
+Load it as a classic `<script>` tag, not a module. Your agent ID is under **Channels** > **Website** > **Your Agent ID**.
+
+| Attribute | Values |
+| --- | --- |
+| `data-chat-url` | `https://bots.easy-peasy.ai/bot/YOUR_AGENT_ID`. Required |
+| `data-btn-position` | `bottom-right` (default), `bottom-left`, `top-right`, `top-left`, `side-right`, `side-left` |
+| `data-widget-btn-color` | The bubble color, such as `#6366f1` |
+| `data-btn-size` | `medium`, `large`, or `xlarge` (corner positions) |
+| `data-btn-label` | The text on the side tab (side positions) |
+| `data-widget-icon` | URL of an image to use as the bubble icon |
+| `data-widget-width` | Width of the open chat on desktop, in pixels, from 320 to 720. Phones always use the full screen |
+
+## JavaScript API
+
+The script creates `window.easyPeasyChat`. You can call its methods before the widget has loaded; the calls wait and run once it's ready.
+
+| Method | What it does |
+| --- | --- |
+| `open()`, `close()`, `toggle()` | Open or close the chat |
+| `hide()`, `show()` | Hide or show the bubble and the chat. The conversation is kept, and `show()` reopens a chat that was open |
+| `destroy()`, `init()` | Remove the widget from the page, or create it again. `init()` does nothing while the widget is on the page |
+| `isOpen()`, `isVisible()`, `isMounted()` | Current state |
+| `setContact(contact)` | Tell the agent who the visitor is. See below |
+| `addEventListener(type, fn)`, `removeEventListener(type, fn)` | Listen for `ready`, `open`, `close`, `show`, `hide`, and `destroy` |
+
+When the widget is ready, the window also receives a DOM event, `easy-peasy-chat:ready`.
+
+```html
+<button onclick="window.easyPeasyChat.open()">Chat with us</button>
+```
+
+### Start hidden
+
+To load the widget without showing the bubble, for example on a checkout page, set this before the script tag and call `show()` when you want it:
+
+```html
+<script>window.easyPeasyChat = { hidden: true };</script>
+```
+
+### Single-page apps
+
+Load the script once, in your root layout, and call `hide()` and `show()` on route changes. The widget tells the agent about each client-side navigation, so [Conversations](/agents/conversations#conversation-details) shows the page each chat started on and the last page the visitor saw.
+
+## Identify the visitor
+
+If visitors sign in to your website, pass their details so their conversations show who they are in [Conversations](/agents/conversations):
+
+```js
+window.easyPeasyChat.setContact({
+  email: 'jane@example.com',
+  name: 'Jane Doe',
+  phone: '+15551234567',
+  externalId: 'user_123', // your own ID for the visitor
+});
+```
+
+Call `setContact(null)` when the visitor signs out. You can also set it before the script loads:
+
+```html
+<script>
+  window.easyPeasyChat = { contact: { email: 'jane@example.com', name: 'Jane Doe' } };
+</script>
+```
+
+These details label conversations; they aren't verified. Anyone who can run code on your page can set them, so don't use them to decide what the agent may share.
+
+## Iframe
+
+To place the chat inside a page instead of floating over it:
+
+```html
+<iframe
+  src="https://bots.easy-peasy.ai/bot/YOUR_AGENT_ID?mode=embedded"
+  width="100%"
+  height="600"
+  allow="microphone">
+</iframe>
+```
+
+`allow="microphone"` lets visitors use voice input and [voice calls](/agents/voice).
+
+## Allowed domains and Content Security Policy
+
+If the agent has [**Allowed Domains**](/agents/settings#allowed-domains) set, the widget works only on those domains. If your site sends a Content Security Policy, allow `https://bots.easy-peasy.ai` in `script-src`, `frame-src`, and `connect-src`.
+
+<Columns cols={2}>
+  <Card title="Add your agent to your website" icon="window-maximize" href="/agents/website">
+    Build the snippet in the dashboard.
+  </Card>
+  <Card title="Agents API" icon="robot" href="/api-reference/endpoint/chat-with-bot">
+    Talk to your agent from your backend.
+  </Card>
+</Columns>

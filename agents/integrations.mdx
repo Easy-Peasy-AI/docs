@@ -1,0 +1,96 @@
+---
+title: "Integrations"
+description: "Let your agent book meetings in Google Calendar, connect it to thousands of apps with Zapier, and talk to it from your own code with the REST API."
+---
+
+Integrations give your agent access to the tools you already use. Open your agent and click **Integrations**.
+
+<Frame>
+  <img src="/images/agents/integrations.webp" alt="Integrations: Apps with Google Calendar and Zapier, and Build your own with Custom actions and REST API" />
+</Frame>
+
+## Google Calendar
+
+With Google Calendar connected, your agent can offer free times from your calendar and book meetings during a chat. The visitor is added to the event with the email they give, so they get an invite.
+
+<Steps>
+  <Step title="Connect your calendar">
+    Click **Connect** on **Google Calendar**, then **Connect with Google**. Sign in with the Google account whose calendar should get the bookings and allow access. The page shows the **Connected Account**.
+  </Step>
+  <Step title="Add the Google Calendar action">
+    On [**Actions**](/agents/actions), add **Google Calendar**. In **Trigger Instructions**, say when to offer a meeting, for example "When someone asks for a demo or a consultation. Business hours are 9:00 to 17:00 on weekdays."
+  </Step>
+  <Step title="Set the defaults">
+    Set the default event title and description, the **Default Meeting Duration (minutes)**, and the **Default Timezone** your free times are offered in. Save the configuration.
+  </Step>
+  <Step title="Book a test meeting">
+    In the [Playground](/agents/playground), write "I'd like to book a call next week." The agent offers free times, asks for your name and email, and books the meeting.
+  </Step>
+</Steps>
+
+The agent offers only times that are free in your calendar, so block time in Google Calendar that shouldn't be booked. To stop bookings, turn off the action; to disconnect the calendar, click **Disconnect** on the Google Calendar page.
+
+Google Calendar is available on paid plans, because it works through an action.
+
+## Zapier
+
+The Easy-Peasy.AI app on [Zapier](https://zapier.com/apps/easy-peasyai/integrations) lets your agent answer inside automated workflows: reply to new emails, answer form submissions, or post answers in a spreadsheet.
+
+<Steps>
+  <Step title="Create a Zap with a trigger">
+    In Zapier, click **Create Zap** and choose what starts it, such as a new email in Gmail or a new form submission.
+  </Step>
+  <Step title="Add the Easy-Peasy.AI action">
+    Add an action step, search for **Easy-Peasy.AI**, and choose the action that sends a message to your agent. Connect your account with an API key from [**Settings** > **API/MCP**](https://easy-peasy.ai/settings/api).
+  </Step>
+  <Step title="Map the message and your agent">
+    Paste **Your Agent ID** (from [**Channels** > **Website**](/agents/website#your-agent-id)) and map the message to the text from your trigger.
+  </Step>
+  <Step title="Send the answer on">
+    Add a step that uses the agent's answer, such as a Gmail reply or a new row in Google Sheets. Test the Zap and turn it on.
+  </Step>
+</Steps>
+
+Each Zap run is a separate question: the agent doesn't remember earlier runs. For ongoing conversations, use a channel such as [WhatsApp](/agents/whatsapp) or [Email](/agents/email). Answers use your plan's words like any chat, and Zapier counts its own tasks.
+
+## REST API
+
+Talk to your agent from your own app or backend. Click **Manage** on **REST API** to see your agent's endpoint, try a request with **Test API**, and copy example code in curl, Node, Python, or Go.
+
+<Frame>
+  <img src="/images/agents/rest-api.webp" alt="The API page with the agent's endpoint URL, the API key, the message, history, stream, and include_sources parameters, a Test API button, and a curl example" />
+</Frame>
+
+```bash
+curl -X POST https://bots.easy-peasy.ai/bot/YOUR_AGENT_ID/api \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: YOUR_API_KEY" \
+  -d '{
+    "message": "What classes do you offer?",
+    "history": [],
+    "stream": false,
+    "include_sources": false
+  }'
+```
+
+| Field | What it does |
+| --- | --- |
+| `message` | The question. Required |
+| `history` | Earlier messages, each with `role` (`human` or `ai`) and `text`, so the agent answers in context |
+| `stream` | `true` streams the answer as it's written |
+| `include_sources` | `true` returns the knowledge the answer came from |
+
+The key is your account's API key, from [**Settings** > **API/MCP**](https://easy-peasy.ai/settings/api). Keep it on your server, never in a web page. The API answers from the agent's knowledge and instructions; [actions](/agents/actions) don't run through the API. See the [API reference](/api-reference/endpoint/chat-with-bot) for the full request and response.
+
+## Custom actions
+
+To let your agent call your own API during a chat, for example to look up an order, add a [**Custom Action**](/agents/actions#custom-action).
+
+<Columns cols={2}>
+  <Card title="Actions" icon="bolt" href="/agents/actions">
+    Everything your agent can do in a chat.
+  </Card>
+  <Card title="API reference" icon="square-terminal" href="/api-reference/endpoint/chat-with-bot">
+    The agent endpoint in detail.
+  </Card>
+</Columns>

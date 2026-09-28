@@ -1,51 +1,57 @@
 ---
-title: "Easy-Peasy.AI API"
-description: "Programmatically access AI-powered text generation, image generation, transcription, and text-to-speech"
+title: "Welcome to Easy-Peasy.AI"
+sidebarTitle: "Welcome"
+description: "One workspace for an AI agent, image and video generation, voice and audio tools, and hundreds of focused tools."
 ---
 
-## Getting Started
+<Frame>
+  <img src="/images/get-started/dashboard-home.webp" alt="The Easy-Peasy.AI dashboard: a prompt box that asks 'How can I help you today?', recommended tools, and templates to get inspired" />
+</Frame>
 
-Use the Easy-Peasy.AI API to integrate AI content generation directly into your applications.
+Easy-Peasy.AI brings the AI you use for work into one place. Ask Marky Agent to handle a task, generate images and videos with current models, turn scripts into speech, transcribe recordings, or build an AI agent that answers your customers on your website and messaging apps. Everything runs on one account and one plan.
 
-<Columns cols={2}>
-  <Card title="Introduction" icon="book" href="/api-reference/introduction">
-    Learn about authentication, base URL, and available endpoints.
+<Card title="Quickstart" icon="rocket" href="/get-started/quickstart" horizontal>
+  Give Marky a task, run a tool, and find your results in about five minutes.
+</Card>
+
+## What you can do
+
+{/* Point these cards at the product docs sections as they're published. */}
+
+<Columns cols={3}>
+  <Card title="Marky Agent" icon="sparkles" href="/marky/overview">
+    An AI agent that writes, researches, builds slides and websites, and works with your connected apps.
   </Card>
-  <Card title="Get API Key" icon="key" href="https://easy-peasy.ai/settings/api">
-    Sign up and generate your API key.
+  <Card title="AI Images" icon="image" href="/ai-images/overview">
+    Generate and edit images with models like GPT Image, Nano Banana, FLUX, and Seedream.
+  </Card>
+  <Card title="AI Videos" icon="video" href="/videos/overview">
+    Turn text, images, or reference clips into video, then extend, edit, or upscale it.
+  </Card>
+  <Card title="Voice and audio" icon="waveform-lines" href="/audio/text-to-speech">
+    Text to speech, voice cloning, transcription, music, and sound effects.
+  </Card>
+  <Card title="Tools" icon="wand-magic-sparkles" href="/tools/overview">
+    Focused tools for emails, social posts, lesson plans, clinical notes, and hundreds of other jobs.
+  </Card>
+  <Card title="Agents" icon="robot" href="/agents/overview">
+    Train an AI agent on your content and put it on your website, WhatsApp, Slack, and more.
   </Card>
 </Columns>
 
-## Available APIs
+## Start here
 
 <Columns cols={2}>
-  <Card title="Text Generation" icon="pen" href="/api-reference/endpoint/generate">
-    Generate blog posts, emails, social media content, and more using 50+ templates.
+  <Card title="Find your way around" icon="compass" href="/get-started/dashboard">
+    What's in the sidebar, on the Home screen, in History, and in Settings.
   </Card>
-  <Card title="Image Generation" icon="image" href="/api-reference/endpoint/generate-image">
-    Create AI images with DALL-E 3, Stable Diffusion XL, or Stable Diffusion 3.0.
+  <Card title="Plans and credits" icon="coins" href="/account/plans-and-credits">
+    How words and credits work, and what each plan includes.
   </Card>
-  <Card title="Transcription" icon="microphone" href="/api-reference/endpoint/create-transcription">
-    Transcribe audio files with speaker detection and enhanced quality.
+  <Card title="Build with the API" icon="code" href="/developers/overview">
+    Use the REST API, the MCP server, and OpenAI-compatible chat from your own code.
   </Card>
-  <Card title="Text-to-Speech" icon="volume-high" href="/api-reference/endpoint/generate-tts">
-    Convert text to natural-sounding speech with 150+ AI voices.
-  </Card>
-  <Card title="MCP Server" icon="plug" href="/mcp/introduction">
-    Connect Claude, Cursor, Windsurf, and other AI agents to Easy-Peasy.AI.
+  <Card title="Get help" icon="life-ring" href="https://easy-peasy.ai/support">
+    Browse the FAQ, chat with support, or email support@easy-peasy.ai.
   </Card>
 </Columns>
-
-## Quick Example
-
-```bash
-curl -X POST https://easy-peasy.ai/api/generate \
-  -H "Content-Type: application/json" \
-  -H "x-api-key: YOUR_API_KEY" \
-  -d '{
-    "preset": "blog-post",
-    "keywords": "How to get started with AI",
-    "tone": "professional",
-    "outputs": 1
-  }'
-```

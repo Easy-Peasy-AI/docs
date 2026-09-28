@@ -1,17 +1,207 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Easy-Peasy.AI",
+  "name": "Easy-Peasy.AI Docs",
   "colors": {
     "primary": "#6366F1",
     "light": "#818CF8",
     "dark": "#4F46E5"
   },
   "favicon": "/favicon.svg",
+  "appearance": {
+    "default": "light"
+  },
+  "styling": {
+    "eyebrows": "section"
+  },
   "navigation": {
     "tabs": [
       {
+        "tab": "Guides",
+        "icon": "book-open",
+        "groups": [
+          {
+            "group": "Get started",
+            "pages": [
+              "index",
+              "get-started/quickstart",
+              "get-started/dashboard",
+              "get-started/history"
+            ]
+          },
+          {
+            "group": "Marky Agent",
+            "pages": [
+              "marky/overview",
+              "marky/chat",
+              "marky/manage-chats",
+              "marky/models",
+              "marky/slides",
+              "marky/websites",
+              "marky/media",
+              "marky/research",
+              "marky/browser",
+              "marky/connectors",
+              "marky/skills",
+              "marky/prompts-and-brand-voice",
+              "marky/memory",
+              "marky/scheduled-tasks"
+            ]
+          },
+          {
+            "group": "Tools",
+            "pages": [
+              "tools/overview",
+              "tools/run",
+              "tools/models",
+              "tools/custom-tools"
+            ]
+          },
+          {
+            "group": "AI Images",
+            "pages": [
+              "ai-images/overview",
+              "ai-images/generate",
+              "ai-images/edit",
+              "ai-images/templates-and-tools",
+              "ai-images/remove-background",
+              "ai-images/upscale",
+              "ai-images/photo-studio",
+              "ai-images/headshots",
+              "ai-images/interior-designer",
+              "ai-images/manage",
+              "ai-images/models"
+            ]
+          },
+          {
+            "group": "AI Videos",
+            "pages": [
+              "videos/overview",
+              "videos/generate",
+              "videos/references",
+              "videos/templates",
+              "videos/extend",
+              "videos/edit",
+              "videos/upscale",
+              "videos/motion-control",
+              "videos/talking-videos",
+              "videos/video-agent",
+              "videos/video-editor",
+              "videos/manage",
+              "videos/models"
+            ]
+          },
+          {
+            "group": "Workflows",
+            "pages": [
+              "workflows/overview",
+              "workflows/build",
+              "workflows/share"
+            ]
+          },
+          {
+            "group": "Agents",
+            "pages": [
+              "agents/overview",
+              "agents/create",
+              "agents/knowledge",
+              "agents/playground",
+              "agents/instructions-and-model",
+              "agents/appearance",
+              "agents/actions",
+              {
+                "group": "Channels",
+                "pages": [
+                  "agents/channels",
+                  "agents/website",
+                  "agents/website-platforms",
+                  "agents/whatsapp",
+                  "agents/messenger",
+                  "agents/telegram",
+                  "agents/slack",
+                  "agents/line",
+                  "agents/email",
+                  "agents/phone-calls",
+                  "agents/shopify",
+                  "agents/basecamp"
+                ]
+              },
+              "agents/integrations",
+              "agents/voice",
+              "agents/conversations",
+              "agents/leads",
+              "agents/analytics",
+              "agents/settings",
+              "agents/limits-and-usage"
+            ]
+          },
+          {
+            "group": "Brand Voice",
+            "pages": [
+              "brand-voice/create",
+              "brand-voice/use"
+            ]
+          },
+          {
+            "group": "Audio",
+            "pages": [
+              "audio/text-to-speech",
+              "audio/voices",
+              "audio/voice-changer",
+              "audio/dubbing",
+              "audio/speech-to-text",
+              "audio/transcripts",
+              "audio/record",
+              "audio/music",
+              "audio/sound-effects",
+              "audio/audio-generator",
+              "audio/limits"
+            ]
+          },
+          {
+            "group": "Account & billing",
+            "pages": [
+              "account/plans-and-credits",
+              "account/subscription",
+              "account/buy-credits",
+              "account/usage",
+              "account/team",
+              "account/profile",
+              "account/data-controls",
+              "account/referrals",
+              "account/hipaa"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Developers",
+        "icon": "code",
+        "groups": [
+          {
+            "group": "Overview",
+            "pages": [
+              "developers/overview"
+            ]
+          },
+          {
+            "group": "Agents",
+            "pages": [
+              "developers/chat-widget"
+            ]
+          },
+          {
+            "group": "MCP server",
+            "pages": [
+              "mcp/introduction",
+              "mcp/tools"
+            ]
+          }
+        ]
+      },
+      {
         "tab": "API Reference",
+        "icon": "square-terminal",
         "groups": [
           {
             "group": "Getting Started",
@@ -72,40 +262,14 @@
             ]
           },
           {
-            "group": "Bots",
+            "group": "Agents",
             "pages": [
               "api-reference/endpoint/chat-with-bot"
             ]
           }
         ]
-      },
-      {
-        "tab": "MCP Server",
-        "groups": [
-          {
-            "group": "MCP Server",
-            "pages": [
-              "mcp/introduction",
-              "mcp/tools"
-            ]
-          }
-        ]
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Templates",
-          "href": "https://easy-peasy.ai/presets",
-          "icon": "wand-magic-sparkles"
-        },
-        {
-          "anchor": "Get API Key",
-          "href": "https://easy-peasy.ai/settings/api",
-          "icon": "key"
-        }
-      ]
-    }
+    ]
   },
   "logo": {
     "light": "/logo/marky.png",
@@ -114,15 +278,18 @@
   "navbar": {
     "links": [
       {
-        "label": "Support",
-        "href": "mailto:support@easy-peasy.ai"
+        "label": "Help & Support",
+        "href": "https://easy-peasy.ai/support"
       }
     ],
     "primary": {
       "type": "button",
-      "label": "Dashboard",
-      "href": "https://easy-peasy.ai"
+      "label": "Open dashboard",
+      "href": "https://easy-peasy.ai/dashboard"
     }
+  },
+  "search": {
+    "prompt": "Search the docs"
   },
   "contextual": {
     "options": [

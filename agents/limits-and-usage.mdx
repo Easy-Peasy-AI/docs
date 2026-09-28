@@ -1,0 +1,60 @@
+---
+title: "Limits and usage"
+description: "How many agents, actions, and knowledge your plan includes, what agent replies use from your allowance, and what happens when it runs out."
+---
+
+import AgentPlanLimits from '/snippets/agent-plan-limits.mdx';
+
+## What each plan includes
+
+<AgentPlanLimits />
+
+Agents that teammates share with you count toward your number of agents. Compare plans on the [pricing page](https://easy-peasy.ai/pricing).
+
+## What agent replies use
+
+Agents don't use image & video credits. On paid plans:
+
+- **Text replies** use your plan's words when the agent's model is marked **Uses words** in the [model list](/agents/instructions-and-model#models). Models marked **No** don't use words. It's the same allowance as Marky and the tools, plus any [bonus words](/account/buy-credits) you bought.
+- **Images** that visitors send use 200 words each time the agent looks at them, on every model. See [Image attachments](/agents/appearance#image-attachments).
+- **Voice calls** from the website chat use words at twice the rate of a text reply, on every model. See [Voice calls](/agents/voice#what-calls-cost).
+- **Phone calls** through Twilio use words like text replies. Twilio bills the number and minutes separately.
+
+Channels, knowledge, and conversations don't cost anything extra. Check your words on [**Settings** > **Usage**](/account/usage).
+
+## The Free plan
+
+On the Free plan you can build one agent and try it out:
+
+| | Free plan |
+| --- | --- |
+| Messages | 100 every 30 days, across all your agents |
+| Knowledge | 1 million characters and 250 sources; up to 100 pages per website crawl |
+| Instructions | Up to 5,000 characters (40,000 on paid plans) |
+| Models | The models marked **Yes** under Free plan in the [model list](/agents/instructions-and-model#models) |
+| Channels | Website, shareable link, Telegram, Messenger, Slack, and Basecamp |
+| Actions, lead form, notifications | Paid plans. Actions can be tried with a 7-day trial |
+| Voice calls | 10 minutes of testing in the Playground every 30 days |
+| "Powered by" footer | Always shown |
+
+## When an allowance runs out
+
+Usage is checked once a day.
+
+- **Paid plans:** when your words are used up, agents on models that use words stop replying. Agents on models that don't use words keep working. They start again when your plan renews, when you upgrade, or when you buy more words.
+- **Free plan:** after 100 messages in 30 days, all your agents stop replying until you upgrade.
+
+You get an email when an agent is paused, and **Agent Details** shows **Agent Temporarily Blocked**. While paused, visitors get an error instead of an answer.
+
+## If your subscription ends
+
+When you no longer have a paid plan, agents on paid-only models switch to GPT-4o mini, and the "Powered by Easy-Peasy.AI" footer is shown again. You get an email about each change.
+
+<Columns cols={2}>
+  <Card title="Plans and credits" icon="coins" href="/account/plans-and-credits">
+    How words and credits work across Easy-Peasy.AI.
+  </Card>
+  <Card title="Instructions and model" icon="sliders" href="/agents/instructions-and-model#models">
+    Which models use words.
+  </Card>
+</Columns>

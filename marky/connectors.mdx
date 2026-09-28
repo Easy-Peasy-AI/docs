@@ -1,0 +1,92 @@
+---
+title: "Connectors"
+description: "Connect Gmail, Google Calendar, Notion, GitHub, Stripe, and dozens of other apps so Marky can read and act in them."
+---
+
+Connectors give Marky access to the apps you work in. With Gmail connected, you can ask "summarize the unread emails from clients and draft replies". With Google Calendar: "find a free hour with Anna next week and book it". With Stripe: "how many new subscriptions did we get this month?"
+
+Marky reads your data only when a task needs it. In email, calendar, file, and note apps, it checks with you before it sends, creates, changes, or deletes anything.
+
+## Connect an app
+
+<Steps>
+  <Step title="Open Connectors">
+    Click **Connectors** in the Marky sidebar. You can also click **+** in the message box, then **Connectors** > **Manage Connectors**.
+
+    <Frame>
+      <img src="/images/marky/connectors.webp" alt="The Connectors window with the Apps, Custom API, and Custom MCP tabs, a search box, and rows for My Browser, Gmail, Google Calendar, Google Drive, GitHub, Notion, and Outlook Mail, each with a Connect or Install button" width="690" />
+    </Frame>
+  </Step>
+  <Step title="Click Connect">
+    Find the app in the list or search for it, and click **Connect**. Sign in to the app in the window that opens and approve access.
+  </Step>
+  <Step title="Use it in a chat">
+    Back in Marky, the app shows **Connected** with the account you used. Ask Marky to do something with it. Connected apps also appear as small logos next to **+** in the message box.
+  </Step>
+</Steps>
+
+## Available apps
+
+| Category | Apps |
+| --- | --- |
+| Email and calendar | Gmail, Google Calendar, Outlook Mail, Outlook Calendar, Cal.com |
+| Files and notes | Google Drive, OneDrive, OneNote, Notion, Airtable |
+| Work management | Asana, ClickUp, Linear, monday.com, Todoist, Trello |
+| Sales and support | Attio, Close, Crisp |
+| Payments | PayPal, Square, Stripe |
+| Marketing | Customer.io, Klaviyo, MailerLite, Meta Ads, Tally |
+| Analytics and SEO | Ahrefs, DataForSEO, Mixpanel, Mixpanel (EU), PostHog, Semrush |
+| Websites and development | Cloudinary, GitHub, Neon, Sentry, Supabase (Read-only), Supabase (Read & Write), Vercel, Webflow, Wix |
+| Automation | Zapier |
+| Your browser | My Browser. See [Browse the web](/marky/browser#use-your-own-browser). |
+
+Some apps come in two versions so you can choose how much Marky may do. For example, **Supabase (Read-only)** lets Marky look at your database but never change it.
+
+For **Crisp**, you paste a token instead of signing in: in Crisp, go to **Workspace Settings** > **Advanced** and copy the **MCP Server Token**.
+
+Don't see your app? Click **Let us know!** at the bottom of the window, or add it yourself as a [custom connector](#add-a-custom-connector).
+
+## Turn connectors on and off
+
+Each connected app has a switch. Turn it off and Marky won't use that app in any chat, but it stays connected, so you can turn it back on in one click. This is useful when you want Marky to stay out of your email for a while.
+
+To see what Marky can do in an app, click the app's name. The details list its **Tools**, such as searching, reading, or creating. **Disconnect** removes the connection.
+
+## Add a custom connector
+
+If an app isn't in the list, connect it yourself with **Create** at the top of the window:
+
+| Option | Use it for |
+| --- | --- |
+| **Custom API** | Any service with an HTTP API. Enter a **Name** and the **Base URL**, then add your API key under **Secrets**. Marky only sends requests to that address. |
+| **Custom MCP** | A service that offers an MCP server. Enter the **Server URL** and any **Custom headers** (for example, an API key), or a **Command** to run the server in Marky's computer. |
+| **Import MCP by JSON** | Paste an `mcpServers` configuration from Claude Desktop, Cursor, or another app. |
+
+Custom MCP servers connect with URLs and headers; signing in with OAuth works only for the apps in the list.
+
+## Privacy and Google data
+
+- Marky reads your data only while it works on a task that needs it.
+- In Gmail, Outlook, Google Calendar, Outlook Calendar, Google Drive, OneDrive, OneNote, Notion, and GitHub, Marky asks in the chat before it sends an email, changes your calendar, or creates or changes files, pages, and issues. For other apps, say in your request if you want Marky to check with you first, for example "show me the refund before you issue it".
+- Grok (xAI) and DeepSeek models can't use Gmail, Google Calendar, or Google Drive, because of Google's rules for how its data may be used. While those connectors are on, these models are unavailable in the model picker. Turn the Google connectors off to use them.
+
+<AccordionGroup>
+  <Accordion title="Marky says an app isn't connected, but it is">
+    The app's sign-in may have expired, for example after you changed your password or haven't used it for a long time. Open **Connectors** and connect the app again. If it still shows **Connected**, click its name, then **Disconnect**, and connect it again.
+  </Accordion>
+  <Accordion title="Can my scheduled tasks use connectors?">
+    Yes. [Scheduled tasks](/marky/scheduled-tasks) can use every connector that's connected and on.
+  </Accordion>
+  <Accordion title="Which OneNote notebooks can Marky see?">
+    Notebooks stored in your own OneDrive or OneDrive for Business. Notebooks on SharePoint team sites or in Microsoft 365 groups aren't available.
+  </Accordion>
+</AccordionGroup>
+
+<Columns cols={2}>
+  <Card title="Browse the web" icon="window-maximize" href="/marky/browser">
+    For websites without a connector, let Marky use a browser.
+  </Card>
+  <Card title="Scheduled tasks" icon="calendar-clock" href="/marky/scheduled-tasks">
+    Run a connector job every day or week.
+  </Card>
+</Columns>

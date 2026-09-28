@@ -1,0 +1,68 @@
+---
+title: "Conversations"
+description: "Read what people ask your agent, see where they came from, fix wrong answers, and export conversations."
+---
+
+**Conversations** shows every chat your agent has had, so you can see what people ask and how the agent answers. It's the fastest way to improve an agent: find a weak answer, correct it, and the agent gets it right next time.
+
+<Frame>
+  <img src="/images/agents/conversations.webp" alt="Conversations: a list of two website chats, one marked Positive, and the open conversation with two questions and the agent's answers, each with a confidence score and a Revise answer button" />
+</Frame>
+
+## Read conversations
+
+Open your agent and click **Activity** > **Conversations**.
+
+- The menu at the top chooses the channel: **Web**, **WhatsApp**, **Messenger**, **LINE**, or **Telegram**. **Web** includes the website chat, the shareable link, the Playground, and voice calls.
+- Each conversation in the list shows the visitor's country, device, and browser, the time, the first message, and its sentiment once it's been analyzed.
+- Click a conversation to read it. Scroll down and click **Load more conversations** for older ones.
+
+Under each answer, a percentage shows how confident the agent was. Low scores point to questions its knowledge doesn't cover well.
+
+<Note>
+  Conversations on Slack, email, phone calls, Basecamp, and the REST API aren't listed here.
+</Note>
+
+## Conversation details
+
+Click **Details** above the conversation to see who the visitor was and where they came from.
+
+<Frame>
+  <img src="/images/agents/conversation-details.webp" alt="The Details tab: Contact Anonymous, Source Playground, Status Ongoing, Sentiment positive, Messages 4, Country Singapore, Language en-US, Timezone Asia/Singapore, Browser macOS - Chrome, an IP address, Created, Last activity, and Conversation ID" width="600" />
+</Frame>
+
+| Detail | What it shows |
+| --- | --- |
+| **Contact** | The visitor's name or email when they filled in a lead form or your website passed it on, or **Anonymous** |
+| **Source** | Website, Playground, or voice call |
+| **Status** | **Ongoing** while the chat is active, then ended |
+| **Sentiment**, **Messages** | The mood of the conversation and how many messages it has |
+| **Country**, **Language**, **Timezone**, **Browser**, **IP address** | Where the visitor was and what they used |
+| **Started on**, **Last page**, **Referrer** | The page the chat started on, the page they were last on, and where they came from |
+| **Created**, **Last activity**, **Conversation ID** | When it started, when the last message was sent, and its ID |
+
+To name visitors who are signed in to your website, pass their details to the chat. See [Chat widget for developers](/developers/chat-widget#identify-the-visitor).
+
+## Revise an answer
+
+When the agent gets something wrong, click **Revise answer** under the answer. Write the answer it should have given in **Expected Response** and click **Save**.
+
+<Frame>
+  <img src="/images/agents/revise-answer.webp" alt="The Revise Answer window with the User Message What classes do you offer?, the agent's response, and an Expected Response to edit" width="560" />
+</Frame>
+
+The question and your answer are added to [**Knowledge**](/agents/knowledge) as a Q&A, and the answer is marked **Revised**. The agent uses your answer from the next question on.
+
+## Export and delete
+
+- **Export** at the top downloads the conversations as a PDF or JSON file. It isn't available for Telegram.
+- To delete a conversation, hover over it in the list and click the trash icon. Deleting can't be undone.
+
+<Columns cols={2}>
+  <Card title="Analytics" icon="chart-line" href="/agents/analytics">
+    Chats, messages, and feedback over time.
+  </Card>
+  <Card title="Leads" icon="address-card" href="/agents/leads">
+    Details your visitors left.
+  </Card>
+</Columns>

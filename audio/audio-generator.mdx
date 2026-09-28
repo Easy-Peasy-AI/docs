@@ -1,0 +1,69 @@
+---
+title: "Audio generator"
+description: "Create voices, music, and soundscapes together in one clip from a single description, with optional audio or image references."
+---
+
+**AI Audio Generator** turns a description into finished audio: a narrator over music, two characters talking in a café, a jingle, or a whole scene with voices and sound around them. Where [text to speech](/audio/text-to-speech) reads your text in one voice, the audio generator directs the whole scene.
+
+## Create audio
+
+<Steps>
+  <Step title="Open AI Audio Generator">
+    Click **Audio** > **AI Audio Generator** in the top menu, or find it in **All Tools**. The number at the top right shows how many text-to-speech characters you have left.
+  </Step>
+  <Step title="Describe your audio">
+    Write it in **Describe your audio**, up to 2,048 characters. Set the scene, the voices and how they speak, and the music and sounds. Put spoken words in quotes.
+
+    Not sure where to start? Pick one under **Start with an idea**, **Narration**, **Music**, **Dialogue**, or **Soundscape**, to fill in an example description and length.
+
+    <Frame>
+      <img src="/images/audio/audio-generator-form.webp" alt="AI Audio Generator with Seed Audio 1.0 by ByteDance, a description of a calm yoga teacher saying Welcome to Example Yoga Studio over soft ambient pads and a singing bowl, Add media, Output format MP3, Target duration Auto, and Start with an idea on the right" />
+    </Frame>
+  </Step>
+  <Step title="Add references (optional)">
+    Click **Add media** to guide the result with up to 3 audio clips (MP3 or WAV, up to 30 seconds each) or 1 image (JPG, PNG, or WebP), 10 MB each. You can't mix audio and an image. Refer to the clips in your description as `@Audio1`, `@Audio2`, and `@Audio3`, for example "Use the voice from @Audio1".
+  </Step>
+  <Step title="Choose the format and length">
+    - **Output format**: MP3, WAV, OGG Opus, or PCM.
+    - **Target duration**: **Auto**, or 5 seconds to 2 minutes. It's a guide; the actual length can differ.
+  </Step>
+  <Step title="Click Generate audio">
+    The audio is ready in about 20 seconds and appears under **Your creations**.
+
+    <Frame>
+      <img src="/images/audio/audio-generator-result.webp" alt="Your creations with one clip from Seed Audio 1.0 as MP3, dated Sep 26, a 16-second player, Download MP3, Reuse prompt, and View prompt" width="600" />
+    </Frame>
+  </Step>
+</Steps>
+
+Play each creation in the list, click **Download** to save it, or **Reuse prompt** to put its description back in the form and try a variation. **View prompt** shows the full description. **Load more** shows older creations.
+
+## Advanced settings
+
+<Frame>
+  <img src="/images/audio/audio-generator-advanced.webp" alt="Advanced settings: Sample rate 24 kHz, Speed 1x, Volume 1x, and Pitch 0 semitones, with the Generate audio button and 1,000 audio characters per generation" width="370" />
+</Frame>
+
+| Setting | What it does | Default |
+| --- | --- | --- |
+| **Sample rate** | From 8 to 48 kHz. Higher is better quality and a larger file | 24 kHz |
+| **Speed** | From 0.5x to 2x | 1x |
+| **Volume** | From 0.5x to 2x | 1x |
+| **Pitch** | From 12 semitones down to 12 up | 0 |
+
+Speed, volume, and pitch mainly shape the voices.
+
+## What it costs
+
+Each generation uses 1,000 text-to-speech characters, whatever its length, and only when it succeeds. You need at least 1,000 characters left; otherwise the button changes to **Upgrade to generate**. The Free plan's 100 characters aren't enough. See [Audio plans and limits](/audio/limits).
+
+You can make one clip at a time, together with the [sound effect generator](/audio/sound-effects).
+
+<Columns cols={2}>
+  <Card title="Text to speech" icon="microphone" href="/audio/text-to-speech">
+    Read a script aloud in one voice.
+  </Card>
+  <Card title="Sound effects" icon="volume-high" href="/audio/sound-effects">
+    Make a single sound effect.
+  </Card>
+</Columns>

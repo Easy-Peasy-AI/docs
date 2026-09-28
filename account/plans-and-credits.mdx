@@ -1,0 +1,89 @@
+---
+title: "Plans and credits"
+description: "How Easy-Peasy.AI measures what you use, what the Free plan includes, and what happens when an allowance runs out."
+---
+
+Every plan comes with a monthly allowance, split into a few separate balances. Each feature draws from one of them, and you can watch all of them on [**Settings** > **Usage**](/account/usage).
+
+| Balance | What uses it | How it's counted |
+| --- | --- | --- |
+| **Words** | Marky Agent, tools, and agents on some models | Words of text the AI writes, adjusted by the model's multiplier |
+| **Image & video credits** | AI Images, AI Videos, talking videos, image editing, upscaling, headshots, interior design, and images or slides Marky makes | A price per image, or per second of video, set by each model |
+| **Text-to-speech characters** | Text to speech, voice changer, dubbing, sound effects, the audio generator, and music | Characters of text you turn into speech; other audio features use a fixed amount per job |
+| **Transcriptions** | AI Speech to Text and Record & Transcribe | One per file |
+| **Agents** | Agents | How many agents you can have |
+
+Compare what each paid plan includes on the [pricing page](https://easy-peasy.ai/pricing).
+
+## Words
+
+Marky Agent and the tools count the words the AI writes for you. Two things change the count:
+
+- **The model's multiplier.** Every chat model has one, shown next to its name in Marky's model picker. A 0.5x model uses half a word per word it writes; a 2x model uses two. The default model is one of the cheapest.
+- **What the model reads and thinks.** A model's reasoning counts as writing. Premium models such as Claude Opus and Claude Fable also charge for long conversations and large files they read, after a free allowance each time.
+
+<Note>
+  In the [Quickstart](/get-started/quickstart), Claude Opus 5.5 Reasoning wrote a 110-word email and used 505 words, because its reasoning and the conversation it read count too. The same request on the default model would use a small fraction of that.
+</Note>
+
+On the Unlimited and Teams plans, some models are labelled **Unlimited** in the model picker and don't use words at all. In tools, the **Standard model** is also free of words on those plans.
+
+A few more rules:
+
+- On the Free plan, every chat model counts at 0.2x.
+- On the Starter plan, models labelled **Unlimited** count at 0.1x.
+- Uploading an image to a tool adds 150 words.
+- Agents built on some models use your words when they reply to your customers.
+
+## Image & video credits
+
+Images, videos, and the other visual features share one pool of credits. What a job costs depends on the model, the resolution, and for videos, the length. The **Generate** button always shows the cost before you start, and videos are priced per second: a 5-second clip at 4 credits per second costs 20 credits.
+
+- **Failed jobs are refunded automatically.** If a generation fails, its credits come back without you doing anything.
+- **You can refund a result you don't like.** Click the thumbs-down on your own image or video and its credits are returned, up to 10% of your plan's monthly credits each billing period.
+- **Deleting doesn't refund.** Once an image or video has been created, deleting it doesn't return its credits.
+
+## Text-to-speech characters
+
+Text to speech uses one character per character of your script, half that with **Turbo**, and one per ten characters with OpenAI voices. Other audio features take a set amount from the same balance:
+
+| Feature | Uses |
+| --- | --- |
+| Voice changer and dubbing | About 2,000 per minute of audio |
+| Sound effects and the audio generator | 1,000 per generation |
+| Music and songs | 600 per generation (two tracks, 300 each) |
+
+## When your allowance resets
+
+- **Paid plans** reset every month on your billing date. Yearly plans reset monthly too, on the same day of the month you subscribed.
+- **The Free plan** resets on the 1st of each month.
+
+Unused allowance doesn't roll over. Credits and words you [buy separately](/account/buy-credits) are different: they're used only after your plan allowance runs out, and whatever you don't use carries over to the next period.
+
+## The Free plan
+
+New accounts start on the Free plan. It's for trying things out:
+
+| Balance | Free plan |
+| --- | --- |
+| Words | 2,000 per month |
+| Image & video credits | 3 per month |
+| Text-to-speech characters | 100 per month |
+| Transcriptions | 2 per month |
+| Agents | 1, answering up to 100 messages per 30 days |
+
+On the Free plan:
+
+- Tools use the **Standard model** and make one result at a time. Tools marked as paid can be tried once.
+- Premium image and video models are locked, and videos are limited to a few models and short lengths.
+- Image downloads are for paid plans. Free accounts can download while they still have bonus credits.
+
+## What happens when you run out
+
+| You run out of | What happens |
+| --- | --- |
+| Words | On Free and Starter, Marky and tools stop until your allowance resets. On Unlimited and Teams plans, you can keep using the **Unlimited** chat models and the **Standard model** in tools. |
+| Image & video credits | You can't start new images or videos until your allowance resets. |
+| Anything else | That feature pauses until your allowance resets. |
+
+To keep going sooner, [buy more credits](/account/buy-credits) or [change your plan](/account/subscription).

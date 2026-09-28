@@ -1,0 +1,92 @@
+---
+title: "Playground"
+description: "Chat with your agent, try other models, instructions, and chat styles side by side, and save the setup you like."
+---
+
+The **Playground** is where you test your agent before your customers see it. The chat on the right is the same chat your website visitors get. The settings on the left let you try another model, other instructions, or a new look, and see the effect right away.
+
+<Frame>
+  <img src="/images/agents/playground.webp" alt="The Playground: Settings with the Chat, Appearance, and Voice tabs, the model GPT-6 Luna, temperature 0.7, and instructions; the chat preview with two questions and the agent's answers; Preview and Deploy buttons at the top right" />
+</Frame>
+
+## Test your agent
+
+Open your agent and click **Playground**. Type a question in the chat, or click one of the suggested messages.
+
+- **Show Sources** under the chat lists the knowledge the last answer came from. Use it to check whether an answer came from the right page.
+- Under each answer you can copy it, rate it, or regenerate it.
+- The refresh icon in the chat header starts a new conversation.
+
+Ask the questions your customers ask most. When an answer is wrong or missing, fix it in [**Knowledge**](/agents/knowledge) or in the instructions.
+
+<Note>
+  Playground chats are real conversations: they appear in [**Conversations**](/agents/conversations) and use your plan's allowance like any other chat.
+</Note>
+
+## Try a different setup
+
+The **Chat** tab has the settings that change how the agent answers:
+
+| Setting | What it does |
+| --- | --- |
+| **Model** | The AI model that writes the answers. See [models](/agents/instructions-and-model#models) |
+| **Temperature** | Lower (**Precise**) keeps answers consistent; higher (**Creative**) makes them more varied |
+| **Instructions** | How the agent behaves: its role, tone, and rules |
+| **Actions** | Turn [actions](/agents/actions) on or off for this test only |
+
+These changes apply only to your Playground chat. When they differ from the agent's saved setup, a bar appears at the bottom with **Unsaved setup**:
+
+- **Save to agent** saves the model, temperature, and instructions to your agent. Every channel uses them from your next message.
+- **Discard** goes back to the saved setup. **Reset** at the top does the same and also clears the chat.
+
+The **Actions** switches are never saved. To turn an action off for real, use the [**Actions**](/agents/actions) page.
+
+## Change the look
+
+The **Appearance** tab has the same settings as the [**Appearance**](/agents/appearance) page: name, greeting, suggested messages, colors, and more. The chat preview updates as you type. Click **Save** at the bottom of the tab to keep your changes.
+
+<Frame>
+  <img src="/images/agents/playground-appearance.webp" alt="The Appearance tab in the Playground with Agent Avatar, Agent Name, Description, Greeting Message, and Suggested Messages, next to the chat preview" />
+</Frame>
+
+## Set up voice calls
+
+The **Voice** tab turns on voice calls and sets the voice, the model used on calls, and the call instructions. Changes here save automatically. With voice on, a call button appears in the chat. See [Voice calls](/agents/voice).
+
+<Frame>
+  <img src="/images/agents/playground-voice.webp" alt="The Voice tab in the Playground with Voice mode and Allow text input during calls switched on and the voice model Same as chat, next to the chat with a call button in the message box" />
+</Frame>
+
+## Preview it on a web page
+
+**Preview** opens your agent's real chat bubble on a sample web page, the way it looks on your website. Switch between a light and a dark page to check your colors.
+
+<Frame>
+  <img src="/images/agents/preview-open.webp" alt="The Preview page: a sample web page with the agent's chat open on the right, showing the greeting and suggested messages" />
+</Frame>
+
+## Deploy
+
+**Deploy** lists the fastest ways to put your agent live:
+
+<Frame>
+  <img src="/images/agents/deploy-menu.webp" alt="The Deploy menu: Website widget, Website iframe, Shareable link, Shopify, WordPress, and Browse all channels" width="320" />
+</Frame>
+
+| Option | What it does |
+| --- | --- |
+| **Website widget** | A chat bubble on your website. See [Website](/agents/website) |
+| **Website iframe** | The chat inside a page instead of floating over it |
+| **Shareable link** | A hosted chat page you can link to |
+| **Shopify** | The chat bubble plus product and order lookups on your store. See [Shopify](/agents/shopify) |
+| **WordPress** | The chat bubble on a WordPress site. See [Website platforms](/agents/website-platforms#wordpress) |
+| **Browse all channels** | WhatsApp, Telegram, email, phone, and more. See [Channels](/agents/channels) |
+
+<Columns cols={2}>
+  <Card title="Instructions and model" icon="sliders" href="/agents/instructions-and-model">
+    Write better instructions and pick a model.
+  </Card>
+  <Card title="Channels" icon="share-nodes" href="/agents/channels">
+    Put your agent where your customers are.
+  </Card>
+</Columns>
