@@ -1,0 +1,97 @@
+---
+title: "Create an agent"
+description: "Build an agent from your website in a few steps: add your content, choose what the agent does, and open it in the Playground."
+---
+
+The **New AI Agent** page builds a working agent from your website in about a minute. It reads your pages, writes the agent's instructions, name, greeting, and starter questions, and matches the chat colors to your brand. You can change all of it afterwards.
+
+## Create your agent
+
+<Steps>
+  <Step title="Start a new agent">
+    Open **Agents** in the sidebar and click the button at the top right to create an agent.
+
+    <Frame>
+      <img src="/images/agents/agents-list.webp" alt="The Agents page with the create button at the top right and one agent, Example Yoga Studio, marked Public, with an Edit button" />
+    </Frame>
+  </Step>
+  <Step title="Add your website and other content">
+    Under **How should we train your agent?**, enter your website in **Your website**. The agent reads your pages for its knowledge and takes your logo and colors from them.
+
+    To add more, click **Add files, text, Q&A and more** under **Other sources**:
+
+    <Frame>
+      <img src="/images/agents/create-sources.webp" alt="The Add a knowledge source window with Files, Text, Q&A, Sitemap, and YouTube" width="480" />
+    </Frame>
+
+    | Source | What to add |
+    | --- | --- |
+    | **Files** | PDF, DOCX, CSV, TXT, or EPUB documents, up to 10 at a time |
+    | **Text** | Anything you type or paste |
+    | **Q&A** | A question and the exact answer you want the agent to give |
+    | **Sitemap** | Your sitemap's URL, to add the pages it lists |
+    | **YouTube** | A video's URL; the agent learns from its transcript. Add a language code, such as `en`, if it isn't English |
+
+    <Frame>
+      <img src="/images/agents/create-website.webp" alt="Step one of New AI Agent: the website example-yoga-demo.easy-peasy.site, a Q&A source Is my first class free?, and a preview of the chat" />
+    </Frame>
+
+    A website isn't required: you can build an agent from files, text, or Q&A alone.
+  </Step>
+  <Step title="Choose what the agent does">
+    Under **What should your agent do?**, pick **Customer support**, **Sales agent**, **Shopping assistant**, or **Something else**. Each fills in a short description of the agent's job. Edit it to fit your business.
+
+    <Frame>
+      <img src="/images/agents/create-goal.webp" alt="What should your agent do? with Customer support selected and its description: answer customer questions clearly and concisely, stay polite, and escalate billing or account issues to a human" width="600" />
+    </Frame>
+  </Step>
+  <Step title="Review the pages found (if shown)">
+    When your website has several pages, **Here are the links we found** lists them. Uncheck the ones the agent shouldn't learn from, such as a blog archive or legal pages. The agent learns from up to 100 pages. Fewer, better pages give sharper answers.
+  </Step>
+  <Step title="Choose where people will talk to it (optional)">
+    Under **Where will people talk to it?**, pick the channels you plan to use, such as **Website widget** or **WhatsApp**. This only tailors your getting-started checklist. You connect channels later.
+
+    <Frame>
+      <img src="/images/agents/create-channel.webp" alt="Where will people talk to it? with channel chips: Website widget (selected), Shareable link, Embed in a page, Slack, Messenger, Telegram, WhatsApp, Email, Shopify, Phone calls, REST API" width="600" />
+    </Frame>
+  </Step>
+  <Step title="Click Create my agent">
+    The agent is created, reads your website, and matches your branding. Then the [Playground](/agents/playground) opens so you can talk to it.
+
+    <Frame>
+      <img src="/images/agents/create-building.webp" alt="We are building a customer support agent for example-yoga-demo.easy-peasy.site, with the steps Creating your agent, Reading your website and matching your branding, and Opening your playground" />
+    </Frame>
+  </Step>
+</Steps>
+
+## What you get
+
+- A name, a one-line description, a greeting, and three suggested questions, written from your website.
+- Instructions for the agent, based on the job you chose. Edit them on [**Agent Details**](/agents/instructions-and-model).
+- Chat colors and an avatar taken from your website, where it has them.
+- Your pages and sources in [**Knowledge**](/agents/knowledge). Large websites take a few minutes to finish reading; the agent can answer from what's ready.
+- The model **GPT-6 Luna**. You can [change it](/agents/instructions-and-model#models) at any time.
+
+New agents are public, so the chat bubble and the shareable link work as soon as you add them.
+
+## How many agents you can have
+
+Your plan sets how many agents you can have; the Free plan has one. Agents your teammates share with you count too. When you reach the limit, the create button changes to **Upgrade plan**. See [Limits and usage](/agents/limits-and-usage).
+
+<AccordionGroup>
+  <Accordion title="My website wasn't read, or only one page was">
+    Some websites block automated reading, and single-page sites have only one page to read. Add your content another way: upload documents, paste text, or add your sitemap in [**Knowledge**](/agents/knowledge).
+  </Accordion>
+  <Accordion title="The agent's name or colors aren't right">
+    Change the name, greeting, and colors on [**Appearance**](/agents/appearance), and the instructions on [**Agent Details**](/agents/instructions-and-model).
+  </Accordion>
+</AccordionGroup>
+
+<Columns cols={2}>
+  <Card title="Test it in the Playground" icon="flask" href="/agents/playground">
+    Chat with your agent and adjust it.
+  </Card>
+  <Card title="Knowledge" icon="book" href="/agents/knowledge">
+    Add documents, Q&A, and more pages.
+  </Card>
+</Columns>

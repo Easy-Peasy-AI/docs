@@ -1,0 +1,71 @@
+---
+title: "Phone calls"
+description: "Give your agent a phone number with Twilio so callers can talk to it."
+---
+
+Your agent can answer a real phone number. Callers hear your greeting, ask their questions out loud, and the agent answers in a natural voice from the same knowledge as in chat. They can interrupt it, just like a person. The number lives in your own Twilio account.
+
+For voice calls from your website chat, see [Voice calls](/agents/voice).
+
+<Note>
+  Phone calls are available on paid plans. You also need a Twilio account and a phone number that supports voice. Twilio bills the number and call minutes to your Twilio account.
+</Note>
+
+## Connect a phone number
+
+<Steps>
+  <Step title="Copy your Twilio keys">
+    Sign in to the [Twilio Console](https://console.twilio.com). Under **Account Info** on the home page, copy the **Account SID** (it starts with `AC`) and the **Auth Token**.
+  </Step>
+  <Step title="Get a voice number">
+    In the Twilio Console, go to **Phone Numbers** > **Manage** > **Buy a number**, check **Voice**, and buy a number. You can also use a number you already have in Twilio.
+  </Step>
+  <Step title="Turn on Twilio's AI features">
+    In the Twilio Console, go to **Voice** > **Settings** > **General**. Under **Predictive and Generative AI/ML Features Addendum**, select **Enabled** and click **Save**. Without this, calls end right after they start.
+  </Step>
+  <Step title="Connect the number">
+    In Easy-Peasy.AI, open your agent, click **Channels**, and click **Connect** on **Phone Calls (Twilio)**. Fill in:
+
+    | Field | What to enter |
+    | --- | --- |
+    | **Account SID** | From the Twilio Console |
+    | **Auth Token** | From the Twilio Console |
+    | **Twilio phone number** | In international format, such as `+15551234567` |
+    | **Welcome greeting** | What the agent says when it answers, such as "Hi, you've reached Example Yoga Studio. How can I help?" |
+    | **Language** | The callers' language as a code, such as `en-US`, `en-AU`, or `de-DE` |
+
+    Click **Save**. Your keys and number are checked, and the number's voice settings in Twilio are updated for you.
+  </Step>
+  <Step title="Call your agent">
+    Dial your Twilio number. You hear your greeting; then ask a question.
+  </Step>
+</Steps>
+
+On a Twilio trial account, Twilio plays a short message first and asks you to press a key, and only the phone number you verified with Twilio can call. Upgrading your Twilio account removes both limits.
+
+## How it works
+
+- The agent keeps answers short and suited to speech, and remembers what was said earlier in the call.
+- Your [actions](/agents/actions) work on calls.
+- Each phone number can be connected to one agent.
+- Replies use your plan's words like chat replies. Twilio charges for the number and the call minutes in your Twilio account.
+
+To stop answering calls, switch off **Enable integration**. Callers then hear a message that the assistant is paused.
+
+<AccordionGroup>
+  <Accordion title="The call ends right after it starts">
+    Turn on the **Predictive and Generative AI/ML Features Addendum** in Twilio (step 3). On a trial account, press a key when Twilio's trial message plays.
+  </Accordion>
+  <Accordion title="The agent mishears callers">
+    Set **Language** to your callers' locale, for example `en-GB` or `en-AU`, and click **Save**.
+  </Accordion>
+</AccordionGroup>
+
+<Columns cols={2}>
+  <Card title="Voice calls" icon="microphone" href="/agents/voice">
+    Calls from your website chat.
+  </Card>
+  <Card title="Channels" icon="share-nodes" href="/agents/channels">
+    All the places your agent can answer.
+  </Card>
+</Columns>

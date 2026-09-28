@@ -1,0 +1,91 @@
+---
+title: "Actions"
+description: "Let your agent do things during a chat: show buttons and forms, collect details, book meetings, search the web, call your API, and send emails."
+---
+
+Actions let your agent do more than answer. With a **Custom Button** it can send a visitor straight to your booking page; with **Collect Data** it can take a visitor's details; with **Google Calendar** it can book a meeting. You describe when each action should be used, and the agent decides during the conversation.
+
+<Note>
+  Actions are for paid plans. Each plan allows a number of actions per agent, shown at the top right of the page as **used / allowed**. On the Free plan, the page offers a 7-day trial. See [Limits and usage](/agents/limits-and-usage).
+</Note>
+
+## Add an action
+
+<Steps>
+  <Step title="Pick an action">
+    Open your agent, click **Actions**, and click an action under **Add an action**.
+
+    <Frame>
+      <img src="/images/agents/actions-catalog.webp" alt="Add an action: cards for Custom Action, Custom Button, Collect Data, Suggested Messages, Custom Form, Fetch URL, Code Interpreter, Web Search, and Email" />
+    </Frame>
+  </Step>
+  <Step title="Name it and say when to use it">
+    Enter an **Action Name** and the **Trigger Instructions**: when the agent should use this action. Be specific, for example "When the user wants to book a class, sign up, or try their free first class". Click **Save**.
+  </Step>
+  <Step title="Configure it">
+    Fill in the action's settings below, such as the button's text and link, and click **Save Configuration**.
+
+    <Frame>
+      <img src="/images/agents/action-button.webp" alt="Action Configuration for Book a class: Action Name, Trigger Instructions, and the Custom Button section with Button Text Book a class and the URL of the studio's website" />
+    </Frame>
+  </Step>
+  <Step title="Test it">
+    Ask something that should trigger it in the [Playground](/agents/playground).
+
+    <Frame>
+      <img src="/images/agents/action-button-chat.webp" alt="The chat: the visitor asks to book their first class, and the agent answers that the first class is free and shows a Book a class button" width="400" />
+    </Frame>
+  </Step>
+</Steps>
+
+Your actions are listed under **Your Actions**, each with a switch to turn it on or off and a **Configure** button. To remove one, open it and click **Delete Action**.
+
+<Frame>
+  <img src="/images/agents/actions-list.webp" alt="Your Actions with a Custom Button action named Book a class, switched on, with a Configure button, and 1 / 8 actions used" />
+</Frame>
+
+## Available actions
+
+| Action | What it does | Settings |
+| --- | --- | --- |
+| **Custom Button** | Shows a button that opens a link | **Button Text**, **URL** |
+| **Collect Data** | Asks the visitor for details in the conversation, one or two at a time, and saves them when complete | The fields to ask for (each can be **Required**), **Message after saving**, **Also save to Leads**, and where to **Send submissions to**: a **Webhook URL (optional)** and **Email notifications (optional)** |
+| **Custom Form** | Shows a form inside the chat | **Form Title**, **Form Description**, **Form Fields** (text, email, number, text area, select, phone, URL), **Submit Button Text** |
+| **Suggested Messages** | Shows tappable replies after the agent's answer | **Auto generate suggested messages**, **Disable input field**, **Show after every message** |
+| **Google Calendar** | Checks your free times and books meetings in your calendar. One per agent | Connect Google Calendar, default event title and description, meeting length, and time zone. See [Google Calendar](/agents/integrations#google-calendar) |
+| **Web Search** | Searches the web for current information. One per agent | **Allowed Domains (Optional)**, **Include Images** |
+| **Fetch URL** | Reads a web page or an API during the chat. One per agent | **Allowed Domains (Optional)** |
+| **Code Interpreter** | Runs Python for calculations and charts. One per agent | None |
+| **Email** | Sends you an email, for example when a visitor asks to be contacted | **To Email Address**, **Subject Template**, **Message Template** |
+| **Custom Action** | Calls your own API, for example to look up an order | **Endpoint URL**, **HTTP Method**, **Headers**, **Payload Template** |
+
+### Collect Data or a lead form?
+
+Both capture visitors' details. **Collect Data** asks naturally in the conversation, works on messaging channels too, and can send what it collects to email or a webhook. The [lead form](/agents/leads) is a fixed form in the website chat that appears after the first answer. Turn on **Also save to Leads** to see Collect Data submissions on the same **Leads** page.
+
+### Email templates
+
+In the **Email** action's templates, `{{user}}` is replaced with the visitor's name and `{{message}}` with the message the agent writes. For example: subject `New message from {{user}}`, message `Message from {{user}}: {{message}}`.
+
+### Custom Action
+
+A **Custom Action** sends a request to your API and gives the agent the response.
+
+- To pass values from the conversation, put `${name}` placeholders in the **Endpoint URL**, for example `https://api.example.com/orders/${order_id}`. The agent fills them in, asking the visitor if it needs to.
+- For **POST** and **PUT**, the agent writes the JSON body itself. Describe the body you expect in the **Trigger Instructions**, for example "Send `{"email": "...", "question": "..."}`". The **Payload Template** is sent as written when the agent doesn't supply a body; placeholders in it aren't filled in.
+- Add authentication, such as an API key, under **Headers**. The agent never sees your headers.
+
+## How the agent decides
+
+Each action you turn on becomes something the agent can use, with your **Trigger Instructions** as its description. The agent picks an action when the conversation matches them, and can use several in one reply. Clear, specific trigger instructions work best. You can also mention actions in the agent's [instructions](/agents/instructions-and-model#instructions), for example "Always show the Book a class button after explaining prices."
+
+Actions work in the website chat and on messaging channels such as WhatsApp and Telegram. Buttons, forms, and suggested messages are made for the website chat. Actions don't run through the [REST API](/agents/integrations#rest-api).
+
+<Columns cols={2}>
+  <Card title="Leads" icon="address-card" href="/agents/leads">
+    Collect and export visitors' details.
+  </Card>
+  <Card title="Integrations" icon="plug" href="/agents/integrations">
+    Google Calendar, Zapier, and the REST API.
+  </Card>
+</Columns>

@@ -1,0 +1,71 @@
+---
+title: "Shopify"
+description: "Add your agent to your Shopify store so it answers shoppers, finds products from your catalog, and tells customers where their order is."
+---
+
+Connecting Shopify does two things:
+
+- **Adds the chat to your store**, on every page.
+- **Connects your catalog and orders**, so the agent can search your products, with prices and links, and look up an order's status when the customer gives the order number and the email used at checkout.
+
+You create a private app in your own Shopify account; nothing is installed from the Shopify App Store, and you can revoke access at any time.
+
+<Note>
+  Shopify is available on paid plans.
+</Note>
+
+## Create an app in Shopify
+
+<Steps>
+  <Step title="Open the Dev Dashboard">
+    In your Shopify admin, go to **Settings** > **Apps and sales channels** > **Develop apps** and click **Build apps in Dev Dashboard**.
+  </Step>
+  <Step title="Create the app">
+    Click **Create app**, choose **Start from Dev Dashboard**, name it, for example "Easy-Peasy.AI agent", and click **Create**.
+  </Step>
+  <Step title="Choose its permissions">
+    Under **API access**, click **Select scopes** and turn on `read_products` and `read_orders`. Add `read_all_orders` to let the agent find orders older than 60 days. Click **Done**, then **Release**.
+  </Step>
+  <Step title="Install it and copy the credentials">
+    On the app's **Overview**, click **Install app**, pick your store, and click **Install**. Then open the app's **Settings** and copy the **Client ID** and **Client secret**.
+  </Step>
+</Steps>
+
+Older stores that still have **Develop apps** > **Create an app** can create a custom app there instead, with the same permissions, and copy its Admin API access token (it starts with `shpat_`).
+
+## Connect your store
+
+<Steps>
+  <Step title="Open the Shopify channel">
+    In Easy-Peasy.AI, open your agent, click **Channels**, and click **Connect** on **Shopify**.
+  </Step>
+  <Step title="Enter your store's details">
+    Enter your **Shop domain**, the one ending in `.myshopify.com` (find it in Shopify under **Settings** > **Domains**). Paste the **Client ID** and **Client secret**, or the **Admin API access token (older stores)**. Click **Save**. The connection is checked with Shopify before it's saved.
+  </Step>
+  <Step title="Add the chat to your theme">
+    Copy the **Chat widget embed code** from the same window. In Shopify, go to **Online Store** > **Themes**, click **…** next to your theme, and choose **Edit code**. Open `layout/theme.liquid`, paste the code just before `</body>`, and click **Save**.
+  </Step>
+</Steps>
+
+To style the bubble (color, position, size), copy the install snippet from [**Channels** > **Website**](/agents/website) instead; it works the same way in `theme.liquid`. If you publish another theme later, paste the code there too.
+
+## Try it
+
+- Ask "Do you have any yoga mats?" The agent lists matching products with prices and links.
+- Ask "Where is my order?" The agent asks for the order number and the email used at checkout, and shares the status only when both match.
+
+Product search and order status work in the chat on your website, the shareable link, and the Playground.
+
+## Pause or disconnect
+
+- **Pause:** switch off **Enable integration**. The agent stops using your store data; the chat stays on your theme until you remove the code.
+- **Disconnect:** uninstall the app in Shopify, which revokes access immediately, and remove the code from your theme.
+
+<Columns cols={2}>
+  <Card title="Add your agent to your website" icon="window-maximize" href="/agents/website">
+    Style the chat bubble.
+  </Card>
+  <Card title="Knowledge" icon="book" href="/agents/knowledge">
+    Add your shipping and returns policies.
+  </Card>
+</Columns>

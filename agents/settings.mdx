@@ -1,0 +1,64 @@
+---
+title: "Agent settings"
+description: "Control who can chat with your agent, whether it answers only from its knowledge, which websites can embed it, team sharing, publishing to Marky, and deleting it."
+---
+
+Open your agent and click **Settings**. Click **Save** after changing the settings in the first card.
+
+<Frame>
+  <img src="/images/agents/settings.webp" alt="Agent Settings with Is agent publicly available? on, Should the agent use only knowledge when responding? on, Share with Team Members with an Upgrade to Teams link, and Allowed Domains with example entries" />
+</Frame>
+
+## Public access
+
+**Is agent publicly available?** is on for new agents. Leave it on: the chat bubble, the shareable link, and your other website chats need it. With it off, the agent currently answers only in the Playground. **Open in new tab** opens your agent's shareable chat page.
+
+## Answer only from knowledge
+
+**Should the agent use only knowledge when responding?** is on for new agents.
+
+- **On:** the agent searches its [knowledge](/agents/knowledge) for every message and answers from it. When the answer isn't there, it says it doesn't know instead of guessing, and it declines questions unrelated to your content.
+- **Off:** the agent doesn't search its knowledge at all. It answers from its instructions and the model's general knowledge, like a general assistant.
+
+Keep it on for customer support. Turn it off only for an agent that shouldn't use documents, such as a general writing helper.
+
+## Share with your team
+
+On a Teams plan, **Share with Team Members** lets everyone on your team view and use the agent. Only the agent's owner can change this. On other plans, **Upgrade to Teams** is shown instead.
+
+## Allowed domains
+
+**Allowed Domains** limits which websites can show your agent's chat. Enter one domain per line, without commas:
+
+```text
+example.com
+*.example.com
+localhost:3000
+```
+
+`*.example.com` covers every subdomain. Leave the box empty to allow every website.
+
+<Warning>
+  With a list set, the agent answers only chats that come from those websites. The [shareable link](/agents/website#shareable-link) stops working, and so does **Preview**, unless you also add `easy-peasy.ai`. Allowed domains keep your widget off other people's websites; they aren't a way to protect private information.
+</Warning>
+
+## Publish to Marky Agent
+
+**Publish to Marky Agent** lets other Easy-Peasy.AI users find your agent in [Marky](/marky/overview) and chat with it. Your agent's name, description, and avatar become visible to them, and they use their own allowance for those conversations. Add an **Author name** to show who made it.
+
+<Frame>
+  <img src="/images/agents/publish-to-marky.webp" alt="Publish to Marky Agent: make this agent available to all users in the Marky Agent chat, with a switch and the status Not published" />
+</Frame>
+
+## Delete an agent
+
+Under **Danger Zone**, click **Delete Agent**, type `delete`, and confirm. The agent, its knowledge, and its conversations are deleted and can't be restored. Remove its code from your website and disconnect its channels first, so visitors don't see a broken chat.
+
+<Columns cols={2}>
+  <Card title="Website" icon="window-maximize" href="/agents/website">
+    Embed the chat on your site.
+  </Card>
+  <Card title="Knowledge" icon="book" href="/agents/knowledge">
+    What the agent answers from.
+  </Card>
+</Columns>

@@ -1,0 +1,75 @@
+---
+title: "Models and words"
+description: "Choose the AI model for a chat, and see how many words each model uses from your plan."
+---
+
+import ChatModels from '/snippets/chat-models.mdx';
+
+Marky can run on more than a hundred AI models from OpenAI, Anthropic, Google, xAI, Meta, DeepSeek, and others. Faster, smaller models are cheaper and good for everyday tasks. The biggest models are better at hard reasoning, long documents, and complex builds, and use more of your words.
+
+The default is **GLM 5.3 Flash**: fast, capable, and one of the cheapest to run.
+
+## Choose a model
+
+Click the model name at the top left of the chat.
+
+<Frame>
+  <img src="/images/marky/model-picker.webp" alt="The model picker with a search for GLM 5.3, four Z.ai models with their word rates, and the details of GLM 5.3 Flash: description, Intelligence Index 57 of 100, a 1,000,000-token context length, and 0.05x word consumption" />
+</Frame>
+
+- Search by name, or browse by maker under **Providers**.
+- **Leaderboard** ranks the models by their **Intelligence Index**, a combined score for reasoning, knowledge, math, and coding from Artificial Analysis.
+- Click a model to see its description, specifications, word rate, and features, then click **Select**.
+
+The model you pick is saved with the chat, and new chats start with the model you used last. Models marked **Pro** need a paid plan.
+
+<Tip>
+Start with the default. Switch to a bigger model when a task needs deeper reasoning, such as a complex website, a long legal document, or tricky analysis. For building websites and apps, Marky suggests **Claude Opus 5**.
+</Tip>
+
+## How words are counted
+
+Marky counts the words it writes, including its reasoning and the text of every step of a task. Each model has a **word rate** that scales the count:
+
+- At **1x**, 1,000 words from Marky use 1,000 words from your plan.
+- At **0.05x**, the same 1,000 words use 50.
+- At **2x**, they use 2,000.
+
+The rate is shown next to each model in the picker and in the table below.
+
+Some large models also count part of what they read, such as long conversations and attached documents. This applies to Claude Opus, Sonnet, and Fable, GPT-6 Astra, GLM 5.3, and Muse Spark 1.3. Their cost grows with the length of the chat, so start a new chat when you switch topics.
+
+### Plan rules
+
+- **Free plan:** every model counts at 0.2x, whatever the picker says.
+- **Unlimited** in the picker means these models don't use words on Unlimited and Teams plans. On other paid plans, they count at 0.1x.
+- When you run out of words, Marky stops and offers to upgrade. On Unlimited and Teams plans, you can keep chatting with the models that don't count words.
+
+Check your balance in [Usage](/account/usage), and see [Plans and credits](/account/plans-and-credits) for how words work across Easy-Peasy.AI.
+
+## Features to look for
+
+The details panel lists what each model can do:
+
+| Feature | What it means |
+| --- | --- |
+| **Internet Access** | Can search the web. Needed for the **Search**, **Academic**, and **Deep Research** modes. |
+| **Code Interpreter** | Can use Marky's computer: read your files, run code, create documents. Needed to attach files. |
+| **Advanced Reasoning** | Thinks before answering. Better for hard problems, slower. |
+| **Image Generation** | Can make and edit images in the chat. |
+
+## All models
+
+<ChatModels />
+
+<AccordionGroup>
+  <Accordion title="Why can't I pick a Grok or DeepSeek model?">
+    While Gmail, Google Calendar, or Google Drive is connected and turned on, xAI (Grok) and DeepSeek models aren't available, because of Google's rules for how its data may be used. Turn the Google connectors off in [Connectors](/marky/connectors) to use these models.
+  </Accordion>
+  <Accordion title="What do (Max) and Thinking mean in a model name?">
+    They're the same model set to think longer before answering. They're better at hard problems, slower, and write more reasoning, so they use more words.
+  </Accordion>
+  <Accordion title="Why does Claude Fable ask me to confirm?">
+    Claude Fable models count words at 2x, so the picker asks you to confirm when you choose one.
+  </Accordion>
+</AccordionGroup>

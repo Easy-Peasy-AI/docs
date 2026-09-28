@@ -1,0 +1,146 @@
+---
+title: "Build and run a workflow"
+description: "Add nodes to the canvas, connect them, pass results between them with @ references, and run them."
+---
+
+This page builds a two-step workflow: a text description goes into an image model, which makes a promo image for a yoga class.
+
+<Frame>
+  <img src="/images/workflows/editor.webp" alt="The workflow editor for Class promo image: a #1 Text Input node describing a bright yoga studio at dawn, connected to a #2 Text to Image node with Model Nano Banana Pro, Size 1:1, the prompt @#1 Text Input, Number of images 1, and Run (7 credits), with Add Node and zoom controls" />
+</Frame>
+
+## Build a workflow
+
+<Steps>
+  <Step title="Add your first node">
+    Click **Add Node** at the top right and pick one, such as **Text Input**. It appears in the middle of the canvas.
+
+    <Frame>
+      <img src="/images/workflows/add-node.webp" alt="The Add Node list: Text Input, Upload Media, Select Media, Text to Image, Image to Image, Upscale Image, Image Splitter, Text to Video, and Image to Video" width="300" />
+    </Frame>
+  </Step>
+  <Step title="Connect the next node">
+    Drag from the round handle on the right of a node to the left handle of another. Or drop the connection on an empty spot: a list of nodes that can take that output opens, with a search box.
+
+    <Frame>
+      <img src="/images/workflows/connection-menu.webp" alt="The Add text node list that opens after dropping a connection, with Search nodes and the options Text to Image, Text Generation, Text to Video, Text to Speech, Output, and First-Last Frame to Video" width="280" />
+    </Frame>
+
+    Handles are colored by type: blue for text, purple for images, cyan for video, and indigo for audio. You can only connect matching types.
+  </Step>
+  <Step title="Use the result in the prompt">
+    Connecting into a prompt adds a reference like `@#1 Text Input`. When the workflow runs, the reference is replaced by that node's result. Type `@` in any prompt to reference another connected node, and add your own words around it, for example: "`@#1 Text Input`, in the style of a watercolor painting".
+  </Step>
+  <Step title="Set up each node">
+    Pick the model and settings in each node. The **Run** button shows what a node costs before you run it.
+  </Step>
+</Steps>
+
+## Run a workflow
+
+Click **Run** in a node, or the ▶ in its header. Before it runs, any node it depends on that doesn't have a result yet runs first, so running the last node runs the whole chain. Nodes that don't depend on each other run at the same time.
+
+<Frame>
+  <img src="/images/workflows/editor-result.webp" alt="The same workflow after running: the #2 Text to Image node shows the generated image of a small group walking into a bright yoga studio with plants and wooden floors, with a green check" />
+</Frame>
+
+- A running node has a blue border. A finished one gets a green check, and its settings fold away; click the node's settings icon to show them again.
+- A node that fails turns red and shows why, for example a missing prompt or a model that isn't on your plan.
+- Results stay in the node. Open or download them from the node's menu. Images and videos you make also appear in [AI Images](/ai-images/manage) and [AI Videos](/videos/manage), and in History.
+
+**To make a new version**, change the input and click **Regenerate** on the node you want to redo. Nodes that already have a result are reused, not run again, so regenerate each node you want to change.
+
+<Warning>
+  Workflows run in your browser. Keep the page open until your nodes finish; if you leave, the page warns you, and nodes that were still running stop updating.
+</Warning>
+
+## Nodes
+
+<AccordionGroup>
+  <Accordion title="Inputs">
+    | Node | What it does |
+    | --- | --- |
+    | **Text Input** | Text you type, such as a topic, a script, or a prompt |
+    | **Upload Media** | An image (up to 10 MB), video (up to 50 MB), or audio file (up to 20 MB) from your computer. Upload several files and each gets its own node |
+    | **Select Media** | An image or video you made before in AI Images or AI Videos |
+  </Accordion>
+  <Accordion title="Images">
+    | Node | What it does |
+    | --- | --- |
+    | **Text to Image** | Makes 1 to 4 images from a prompt, with any [image model](/ai-images/models). Extra images each get their own node |
+    | **Image to Image** | Edits connected images with an instruction, like [editing in AI Images](/ai-images/edit) |
+    | **Upscale Image** | Makes an image 2x or 4x larger, in **Crisp**, **Creative**, or **Restore old photo** mode |
+    | **Image Splitter** | Cuts an image into a grid of up to 5 by 5 pieces, each in its own node |
+  </Accordion>
+  <Accordion title="Videos">
+    | Node | What it does |
+    | --- | --- |
+    | **Text to Video** | Makes a video from a prompt |
+    | **Image to Video** | Animates an image, with an optional prompt |
+    | **First-Last Frame to Video** | Makes a video that moves from a first frame to a last frame |
+    | **References to Video** | Makes a video that keeps the characters or products from reference images |
+    | **Merge Videos** | Joins connected videos into one, in the order you set |
+    | **Talking Video** | Makes a person in an image or video speak a script or an audio file, like [talking videos](/videos/talking-videos) |
+
+    Video nodes have the same models, lengths, aspect ratios, and resolutions as [AI Videos](/videos/models). Their outputs include the video's first and last frames, to chain clips together.
+  </Accordion>
+  <Accordion title="Text and audio">
+    | Node | What it does |
+    | --- | --- |
+    | **Text Generation** | Writes text from a prompt, and can read a connected image. Choose the model, and add an optional system prompt |
+    | **Text Preset** | Runs one of the [tools](/tools/overview), with its own fields |
+    | **Text to Speech** | Reads connected or typed text aloud in a voice you pick |
+    | **Music Generation** | Makes a song or instrumental from a description, or from your style and lyrics |
+  </Accordion>
+  <Accordion title="Organize">
+    | Node | What it does |
+    | --- | --- |
+    | **Note** | A sticky note for instructions or comments. It doesn't run |
+    | **Output** | Shows a final result. Add it by dropping a connection on an empty spot |
+
+    Select several nodes and click **Group** (or press Cmd/Ctrl + G) to put them in a group you can color, lock, and move together.
+  </Accordion>
+</AccordionGroup>
+
+<Tip>
+  In **Text Generation**, **Text to Speech**, and **Talking Video**, choose the model or voice yourself before running, rather than relying on the one shown.
+</Tip>
+
+## Work on the canvas
+
+| To | Do this |
+| --- | --- |
+| Move around | Scroll, or drag the canvas in pan mode (the hand icon) |
+| Select several nodes | Switch to select mode (the arrow icon) and drag a box |
+| Zoom | Pinch, the + and − buttons, or Cmd/Ctrl + = and Cmd/Ctrl + − |
+| Fit everything on screen | Cmd/Ctrl + 0 |
+| Undo or redo | Cmd/Ctrl + Z, and Cmd/Ctrl + Shift + Z |
+| Rename a node | Double-click its title |
+| Copy or delete a node | Use the buttons, or the ⋯ menu, on the node |
+
+The top bar shows **All changes saved** once your edits are saved. The download button exports the workflow as a file.
+
+## What each node costs
+
+Each node uses the same allowance, at the same price, as the feature it runs.
+
+| Nodes | Use |
+| --- | --- |
+| Text to Image, Image to Image, Upscale Image, video nodes, Talking Video | Image & video credits, shown on the **Run** button. Upscaling costs 2 credits at 2x and 4 at 4x |
+| Text Generation, Text Preset | Words, like [Marky](/marky/models) and [tools](/tools/models) |
+| Text to Speech | Text-to-speech characters, one per character |
+| Music Generation | 600 text-to-speech characters per song |
+| Text Input, Upload Media, Select Media, Image Splitter, Merge Videos, Note, Output | Free |
+
+Whoever runs a node pays for it, including in a [shared workflow](/workflows/share).
+
+On the Free plan, a node set to a premium model fails with a message to upgrade. Pick a model that's available on Free; the default image model, Nano Banana Pro, isn't. See [Plans and credits](/account/plans-and-credits#the-free-plan).
+
+<Columns cols={2}>
+  <Card title="Share and collaborate" icon="users" href="/workflows/share">
+    Invite people and edit together.
+  </Card>
+  <Card title="Workflows" icon="diagram-project" href="/workflows/overview">
+    Templates, import, and export.
+  </Card>
+</Columns>

@@ -1,0 +1,89 @@
+---
+title: "Scheduled tasks"
+description: "Have Marky do a task on a schedule, such as a Monday morning report, and get the result in the chat and by email."
+---
+
+A scheduled task is a job Marky does on its own at set times: every weekday at 8, every Monday at 9, or once next Friday. At each run, Marky follows the task's instructions with all its usual tools, such as web search, your connected apps, and file creation, posts the result in the chat, and emails you a link.
+
+Use scheduled tasks for work that repeats: a weekly content plan, a daily news digest on your industry, a Monday check of your inbox or analytics, or a reminder-style report before a meeting.
+
+## Create a task by asking
+
+The easiest way is to tell Marky what you want and when, in any chat:
+
+> Every Monday at 9am, write three Instagram post ideas for Sunrise Yoga, a small yoga studio in Austin, and post them here.
+
+Marky writes detailed instructions for the task, sets the schedule, and confirms when the first run will be. The task runs in the same chat.
+
+<Frame>
+  <img src="/images/marky/scheduled-tasks.webp" alt="The Scheduled Tasks window with one active task, sunrise-yoga-monday-ig-ideas, set to Weekly on Monday at 09:00 with the next run on September 28" />
+</Frame>
+
+Say the time the way you'd say it to a person: "every weekday at 8:30", "on the first of each month", "every 2 hours during work hours", "once, next Friday at 5pm". Tasks run in your time zone.
+
+## Create or change a task yourself
+
+Click **Scheduled** in the Marky sidebar to see all your tasks.
+
+- **New task** creates one from scratch.
+- The pause button stops a task without deleting it. Click it again to resume.
+- The **⋯** menu has **Edit**, **View chat** (opens the chat where the results go), and **Delete**.
+
+<Frame>
+  <img src="/images/marky/scheduled-task-edit.webp" alt="The Edit scheduled task window with a title, a Weekly on Monday at 09:00 schedule in the Asia/Singapore time zone, a Set expiration date checkbox, the prompt, and Delete, Cancel, and Save buttons" width="560" />
+</Frame>
+
+| Field | What it does |
+| --- | --- |
+| **Title** | The name shown in the list and in emails. |
+| **Schedule** | **Daily**, **Weekly**, **Monthly** (on a day from 1 to 28), or **No Repeat** for a single run, plus the time. The time zone under it is the one the task runs in. |
+| **Prompt** | What Marky should do on each run. Describe the job, not the timing. |
+
+When you edit a task, you also get:
+
+- **Set expiration date**, which stops the task after a date, for example at the end of a campaign.
+- **Custom**, for schedules the simple options can't show, such as "weekdays at 8:30" that Marky set up. It's a cron expression with seconds first: `0 30 8 * * 1-5` means 8:30 on weekdays. Tasks that repeat every few minutes or hours show **Every N minutes** instead.
+
+Each task shows its status: **Active**, **Running**, **Paused**, **Completed** (a one-time task that ran), **Failed**, or **Expired**.
+
+## Write good task instructions
+
+At run time you're not there to answer questions, so the prompt has to stand on its own. When Marky creates a task for you, it writes the prompt this way. When you write one yourself, include:
+
+- **The goal and who it's for**: "Write three Instagram post ideas for Sunrise Yoga, a small yoga studio in Austin."
+- **Where to look**: the websites, files, or connected apps to use.
+- **How to avoid repeats**: "Check the earlier runs in this chat and don't repeat an idea."
+- **The format of the result**: a table, three bullets, a one-page report.
+
+## Limits and costs
+
+- You can have up to 10 active tasks. Pause or delete one to add another.
+- A task can run at most every 5 minutes. Daily or weekly schedules suit most work.
+- Each run uses words like any other message to Marky, plus credits for anything it generates, such as images. Frequent schedules add up, so check [Usage](/account/usage) after the first few runs.
+
+## Results and emails
+
+- The result of every run appears in the task's chat. A task you create by asking runs in that chat. A task you create with **New task** gets a chat of its own, named after the task. Open it with **View chat** or from the email.
+- After each run, you get an email that the task ran, with a link to the result.
+- If a run fails, for example because you're out of words, you get one email about it. You won't get another until the task runs successfully again.
+
+<AccordionGroup>
+  <Accordion title="Can a task use my Gmail, Calendar, or other apps?">
+    Yes. A scheduled run can use every app you've connected in **Connectors**, so a task like "every morning, summarize the unread emails from clients" works. See [Connectors](/marky/connectors).
+  </Accordion>
+  <Accordion title="A task ran at the wrong time">
+    Tasks run in the time zone shown under **Schedule** when you edit the task. If it's wrong, edit the task and save it again, or tell Marky the time zone you want.
+  </Accordion>
+  <Accordion title="Can Marky ask me questions during a run?">
+    No. Scheduled runs happen without you, so Marky can't ask for approval or clarification. If something needs your input, it says so in the result.
+  </Accordion>
+</AccordionGroup>
+
+<Columns cols={2}>
+  <Card title="Connectors" icon="plug" href="/marky/connectors">
+    Let Marky work with Gmail, Google Calendar, Notion, and more.
+  </Card>
+  <Card title="Usage" icon="chart-simple" href="/account/usage">
+    See how many words your tasks use.
+  </Card>
+</Columns>

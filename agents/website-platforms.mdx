@@ -1,0 +1,93 @@
+---
+title: "Website platforms"
+description: "Add your agent's chat to WordPress, Wix, Squarespace, Webflow, and other website builders."
+---
+
+Every platform needs the same thing: your agent's install snippet, pasted where the platform adds code before the closing `</body>` tag. Copy the snippet first from **Channels** > **Chat bubble** > **Manage** > **Install snippet**. See [Add your agent to your website](/agents/website).
+
+For a chat inside a single page instead of a floating bubble, use the **Iframe embed** code in the platform's HTML or embed block.
+
+## WordPress
+
+The **Easy-Peasy.AI Chatbot** plugin adds the chat bubble to every page without editing your theme.
+
+<Steps>
+  <Step title="Install the plugin">
+    In your WordPress admin, go to **Plugins** > **Add New**, search for **Easy-Peasy.AI Chatbot**, click **Install Now**, and then **Activate**.
+  </Step>
+  <Step title="Copy your Agent ID">
+    In Easy-Peasy.AI, open your agent, click **Channels** > **Chat bubble** > **Manage**, and copy **Your Agent ID**.
+  </Step>
+  <Step title="Paste it into the plugin">
+    In WordPress, go to **Settings** > **Easy-Peasy.AI Bot** and paste the ID into **Bot ID**. Choose the **Widget Position**, **Button Color**, and an optional **Widget Icon URL**, then click **Save Settings**.
+  </Step>
+</Steps>
+
+The plugin offers the four corner positions. For a side tab, a larger button, or a wider chat window, paste the install snippet instead, for example with a code snippets plugin or in your theme's footer. For a chat inside a page, add a **Custom HTML** block with the iframe code.
+
+WordPress.com sites need a plan that allows plugins; on other plans, use the **Custom HTML** block with the iframe code.
+
+## Wix
+
+<Steps>
+  <Step title="Open Custom code">
+    In your Wix site's dashboard, go to **Settings** and open **Custom code** (search for "custom code" in the settings).
+  </Step>
+  <Step title="Add the snippet">
+    Click **Add Code**, paste the install snippet, and give it a name. Under **Add Code to Pages**, choose **All pages** and **Load code once**. Set **Place Code in** to **Body - end**, then click **Apply**.
+  </Step>
+  <Step title="Check your live site">
+    Open your published site. The chat bubble appears on every page.
+  </Step>
+</Steps>
+
+If you don't see **Custom code**, your Wix plan may not allow it. Use the Wix Editor instead: **Add Elements** > **Embed Code** > **Embed HTML**, paste the iframe code, and publish.
+
+## Squarespace
+
+<Steps>
+  <Step title="Open Code Injection">
+    In your Squarespace dashboard, open **Code Injection** (search for "code injection" in the settings).
+  </Step>
+  <Step title="Paste the snippet into Footer">
+    Paste the install snippet into the **Footer** field and click **Save**.
+  </Step>
+  <Step title="Check your live site">
+    Open your site. The chat bubble appears on every page.
+  </Step>
+</Steps>
+
+For a chat inside one page, edit the page, add a **Code** block, and paste the iframe code. Squarespace allows code injection and scripts only on some plans; if you don't see the option, check your plan.
+
+## Webflow
+
+<Steps>
+  <Step title="Open Custom code">
+    Open your site's **Site settings** and the **Custom code** tab.
+  </Step>
+  <Step title="Paste the snippet into Footer code">
+    Paste the install snippet into **Footer code** and click **Save changes**.
+  </Step>
+  <Step title="Publish">
+    Custom code goes live only when you publish. Click **Publish**, then open your live site.
+  </Step>
+</Steps>
+
+To add the chat to one page only, paste the snippet into that page's **Before `</body>` tag** setting, or drag an **Embed** element onto the page and paste the iframe code. Webflow allows custom code on paid site plans.
+
+## Shopify
+
+Shopify has its own channel, which also lets the agent search your products and look up orders. See [Shopify](/agents/shopify).
+
+## Other websites
+
+For any other site, paste the install snippet before `</body>` in your page template, or in your builder's footer or custom code setting. On single-page apps (React, Vue, Next.js), add the snippet once to the main HTML template or layout so it loads on every page.
+
+<Columns cols={2}>
+  <Card title="Add your agent to your website" icon="window-maximize" href="/agents/website">
+    Style the bubble and copy the snippet.
+  </Card>
+  <Card title="Chat widget for developers" icon="code" href="/developers/chat-widget">
+    Open and hide the chat from your code.
+  </Card>
+</Columns>

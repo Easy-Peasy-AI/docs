@@ -1,0 +1,47 @@
+---
+title: "Audio plans and limits"
+description: "How many text-to-speech characters, transcriptions, and custom voices each plan includes, what each audio tool uses, when they reset, and what happens when they run out."
+---
+
+import AudioPlanLimits from '/snippets/audio-plan-limits.mdx';
+
+Text to speech and transcription have their own allowances, separate from words and image & video credits. See them on [**Settings** > **Usage**](/account/usage).
+
+<AudioPlanLimits />
+
+- **Text-to-speech characters** are shared by all the audio tools:
+
+  | Tool | Characters used |
+  | --- | --- |
+  | [Text to speech](/audio/text-to-speech) | One per character of text, half with Turbo, one per 10 with **Saver** voices |
+  | [Voice changer](/audio/voice-changer) and [AI dubbing](/audio/dubbing) | About 2,000 per minute of audio |
+  | [Music generator](/audio/music) | 600 per generation (two versions) |
+  | [Sound effects](/audio/sound-effects) and the [audio generator](/audio/audio-generator) | 1,000 per generation |
+
+  Marky's speech and music, and voiceovers and music in AI videos, use them too. The tools call them by different names on screen: **Usage**, **Speech credits**, and **audio characters**.
+- **Transcriptions** are used by [speech to text](/audio/speech-to-text) and [Record & Transcribe](/audio/record): one per item, whatever its length.
+- **Custom voices** are your [Instant clones, Professional clones, and designed voices](/audio/voices) together.
+- **Professional clones** shows which plans can make them.
+
+On a Teams plan, each member has the full allowance. Compare all plans on the [pricing page](https://easy-peasy.ai/pricing).
+
+## When they reset
+
+Paid plans reset on your billing date each month. The Free plan resets on the 1st of the month. Unused characters and transcriptions don't carry over, and [bonus words](/account/buy-credits) don't add characters or transcriptions.
+
+## When they run out
+
+- **Characters:** the generate button changes to an upgrade button. In text to speech and the music generator, a job that starts within your allowance finishes even if it goes over. The voice changer and AI dubbing won't start a file whose estimate is more than you have left, and sound effects and the audio generator need 1,000 characters left.
+- **Transcriptions:** you can't add a new item until your allowance resets. **Upload new** and **Record Audio** change to an upgrade link, and Record & Transcribe turns recording off.
+- **Custom voices:** **Clone Your Voice** and **Design a Voice** are turned off. Delete a voice you don't use to free a place.
+
+To get more, upgrade your plan on [**Settings** > **Subscription**](/account/subscription).
+
+<Columns cols={2}>
+  <Card title="Plans and credits" icon="coins" href="/account/plans-and-credits">
+    How all the allowances work.
+  </Card>
+  <Card title="Usage" icon="chart-simple" href="/account/usage">
+    See what you've used this period.
+  </Card>
+</Columns>

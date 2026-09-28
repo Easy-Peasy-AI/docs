@@ -1,0 +1,72 @@
+---
+title: "Edit images"
+description: "Change any image by describing the change or by pointing at spots on it, and keep every version."
+---
+
+import ImageEditModels from '/snippets/image-edit-models.mdx';
+
+You don't have to start over to change one thing. Edit an image you made, or upload your own, and describe what should be different.
+
+## Open the editor
+
+There are three ways in, and they all work the same:
+
+- **From a result.** Hover over an image and click the pencil, or open it and click **Edit image**.
+- **On its own page.** Choose **Images** > **Image Editor** from the menu at the top. Upload an image (JPG, PNG, or WebP) or pick one of your recent images.
+- **From your own photo.** On AI Images, add a photo with **Upload**, **Character**, or **Object**. The **Action** menu appears, set to **Edit Image with AI**. Describe the change in **Prompt** and click **Generate**.
+
+<Frame>
+  <img src="/images/ai-images/image-editor.webp" alt="The AI Image Editor page: a box asking 'What do you want to change?', the AI Model menu set to GPT Image 2.5 Flare Medium, a Generate • 3 credits button, and a large preview of a yoga studio" />
+</Frame>
+
+## Describe the change
+
+The editor has two ways to say what you want:
+
+<Tabs>
+  <Tab title="Prompt">
+    Type the change in **What do you want to change?**, as if you were asking a designer. For example: "Make it evening and turn on the lamps" or "Change the mats to deep blue".
+  </Tab>
+  <Tab title="Visual">
+    Click **Visual**, then click the spot on the image you want to change. A numbered marker appears; type what should happen there and click **Done**. Add as many markers as you need. This is the easiest way to change one object without touching the rest.
+
+    <Frame>
+      <img src="/images/ai-images/edit-visual-marker.webp" alt="Visual mode in the Edit Image window: marker 1 on a plant by the wall, with the instruction 'Replace this plant with a small wooden sign that says Sunrise Yoga'" />
+    </Frame>
+  </Tab>
+</Tabs>
+
+Then choose an **AI Model** and a size. **Auto** keeps the shape of your original. Click **Generate**; the button shows the price, for example **Generate • 3 credits**.
+
+## Keep editing, version by version
+
+Each edit adds a new version to the strip under the controls. Click **Original** or any version to see it, and keep editing from whichever one you like best. Every version is also saved in **History** > **Images**.
+
+<Frame>
+  <img src="/images/ai-images/edit-result-versions.webp" alt="The edited yoga studio now has a wooden sign that reads Sunrise Yoga where the plant was, with the Original and the new version side by side in the version strip" />
+</Frame>
+
+## Add reference images
+
+Click the paperclip to add other images the model should use, such as a product to place in the scene or a person to put in the picture. Only models that can combine several images are listed while references are attached: the FLUX.2, Seedream, Nano Banana, and GPT Image families.
+
+## Which models can edit
+
+Most image models can edit. These are available in the **AI Model** menu:
+
+<ImageEditModels />
+
+## Limits
+
+- Upload JPG, PNG, or WebP files. On AI Images you can attach up to 8 photos at once. Very large images are scaled down to 3,840 pixels on the long side, and transparent areas become white.
+- Uploads are checked against our content policy. If one is blocked, the **Generate** button changes to **Content Blocked**.
+- There's no brush or mask. To change one area, use **Visual** markers.
+
+<Columns cols={2}>
+  <Card title="Remove or replace a background" icon="scissors" href="/ai-images/remove-background">
+    Cut out the subject in one click.
+  </Card>
+  <Card title="Templates and one-click tools" icon="shapes" href="/ai-images/templates-and-tools">
+    Ready-made edits such as Ghiblify, Caricature, and mockups.
+  </Card>
+</Columns>

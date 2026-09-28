@@ -1,0 +1,80 @@
+---
+title: "Instructions and model"
+description: "Name your agent, write the instructions it follows, and choose the AI model that writes its answers."
+---
+
+import AgentModels from '/snippets/agent-models.mdx';
+
+**Agent Details** holds the basics of your agent: its name, its avatar, the instructions it follows, and the AI model that answers. Changes apply to every channel as soon as you click **Save**.
+
+<Frame>
+  <img src="/images/agents/agent-details.webp" alt="Agent Information: Agent Name Example Yoga Studio, the avatar with a Change button, Instructions with a Business Context and How to respond sections (593 of 40,000 characters), and Model GPT-6 Luna with Change model" />
+</Frame>
+
+## Name and avatar
+
+- **Agent Name** is shown in the chat header and in your agent list.
+- **Avatar** is the picture in the chat header. Click **Change** to upload an image of up to 5 MB.
+
+You can also change both on [**Appearance**](/agents/appearance), along with the greeting and colors.
+
+## Instructions
+
+Instructions tell the agent who it is, who it talks to, and how to answer. The agent follows them in every conversation, on every channel. New agents get instructions written from your website and the job you chose, split into **Business Context** and **How to respond**.
+
+Good instructions cover:
+
+- **Who the agent is.** "You are the front-desk assistant for Example Yoga Studio."
+- **What it helps with, and what it doesn't.** "Answer questions about classes, schedules, prices, and bookings. Don't give medical advice."
+- **Tone and length.** "Friendly and brief: two or three sentences unless the visitor asks for detail."
+- **What to do when it doesn't know.** "If the answer isn't in your knowledge, say so and suggest emailing the studio."
+- **When to use an action.** "When someone wants to book, show the Book a class button."
+
+Instructions can be up to 5,000 characters on the Free plan and 40,000 on paid plans. Try changes in the [Playground](/agents/playground) first: you can test new instructions there and save them when you're happy.
+
+<Tip>
+  Put facts in [**Knowledge**](/agents/knowledge), not in the instructions. Instructions are for behavior; knowledge is for what the agent knows. A price list in the instructions is easy to forget when prices change.
+</Tip>
+
+## Models
+
+The model is the AI that writes your agent's answers. New agents use **GPT-6 Luna**. To switch, click **Change model**, pick a model, and click **Select**, then **Save**.
+
+<Frame>
+  <img src="/images/agents/model-picker.webp" alt="The Agent Model window with model cards such as GPT-6 Astra, GPT-6 Sol, GPT-6 Luna (selected), GPT-5.6 Sol, GPT-5.6 Terra, GPT-5.6 Luna, GPT-4o mini, GPT-5.4 Instant, and GPT-5.4 Thinking" />
+</Frame>
+
+What to consider:
+
+- **Words.** On paid plans, replies from models marked **Uses words** below count against your plan's words. Models marked **No** answer without using words.
+- **Free plan.** Free accounts can use the models marked **Yes** in the Free plan column. The others are dimmed in the picker, with a link to start a trial or upgrade. An agent saved with a paid model on the Free plan runs on GPT-4o mini.
+- **Speed and quality.** Larger models answer harder questions better but take longer. For most customer support, a fast model is enough.
+
+<AgentModels />
+
+## Temperature
+
+**Temperature** runs from 0 to 1. Lower values (**Reserved**) give consistent, predictable answers, which suits support. Higher values (**Creative**) vary the wording more. New agents start at 0.7. Some newer models, including the GPT-6 family, ignore this setting.
+
+## Share your agent
+
+The **Share** menu at the top gives you quick links:
+
+| Option | What it does |
+| --- | --- |
+| **Chat with Marky** | Opens [Marky](/marky/overview) with this agent selected, so you can chat with it there |
+| **Via URL** | Opens the agent's shareable chat page |
+| **Widget**, **Iframe** | Open the embed codes on the [Website](/agents/website) channel |
+
+## If your agent is paused
+
+A red **Agent Temporarily Blocked** banner means the agent has stopped replying because your plan's allowance ran out. See [Limits and usage](/agents/limits-and-usage#when-an-allowance-runs-out).
+
+<Columns cols={2}>
+  <Card title="Playground" icon="flask" href="/agents/playground">
+    Try instructions and models before saving.
+  </Card>
+  <Card title="Limits and usage" icon="gauge" href="/agents/limits-and-usage">
+    What agents use from your plan.
+  </Card>
+</Columns>

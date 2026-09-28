@@ -1,0 +1,102 @@
+---
+title: "Speech to text"
+description: "Transcribe audio and video files, YouTube, Instagram, TikTok, and Google Drive links, with speaker labels, timestamps, and subtitles."
+---
+
+**AI Speech to Text** turns recordings into text: meetings, interviews, podcasts, lectures, calls, and videos. The transcript shows who said what and when, and you can turn it into summaries, notes, and posts with [AI Content](/audio/transcripts#ai-content).
+
+## Transcribe a file or link
+
+<Steps>
+  <Step title="Choose a source">
+    Click **AI Speech to Text** in the sidebar, then **Upload new**.
+
+    <Frame>
+      <img src="/images/audio/stt-sources.webp" alt="Source options: Transcribe a YouTube Video, an Instagram Video, a TikTok Video, a Google Drive File, Import URL, Transcribe an Uploaded File, Record Audio, and Integrate with Zapier" width="560" />
+    </Frame>
+
+    | Source | What to give |
+    | --- | --- |
+    | **Transcribe an Uploaded File** | An audio or video file from your computer |
+    | **Transcribe a YouTube Video** | A YouTube link, including Shorts |
+    | **Transcribe an Instagram Video**, **a TikTok Video** | The post's link |
+    | **Transcribe a Google Drive File** | A Google Drive link that anyone with the link can open |
+    | **Import URL** | A public link to an audio or video file |
+    | **Record Audio** | Opens [Record & Transcribe](/audio/record) |
+    | **Integrate with Zapier** | Sends recordings from other apps through Zapier |
+  </Step>
+  <Step title="Add the file or link">
+    For a file, drag it in or click to choose it. Audio: MP3, M4A, WAV, FLAC, OGG, AAC, Opus, WMA. Video: MP4, MOV, WebM, AVI, MKV, FLV.
+
+    <Frame>
+      <img src="/images/audio/stt-upload.webp" alt="The upload form with front-desk-call.mp3 uploaded, Type of Audio Phone Call, Language spoken in the audio English, and Detect Speakers on" />
+    </Frame>
+  </Step>
+  <Step title="Set the options">
+    <Frame>
+      <img src="/images/audio/stt-upload-options.webp" alt="Options: Detect Speakers on, Speakers expected 2, Enhanced Quality Transcription, Redact Personal Identifiable Information (PII), Specialized Terminology, Use Transcription 2.0 on, and a Transcribe button" />
+    </Frame>
+
+    | Option | What it does |
+    | --- | --- |
+    | **Type of Audio** | Podcast, Meeting, Lecture, Sales Call, Therapy Session, and so on. It decides which [AI Content](/audio/transcripts#ai-content) you get |
+    | **Language spoken in the audio** | The language, or **Auto** to detect it. Choosing the language gives better results, especially with accents |
+    | **Detect Speakers?** | Labels who is speaking |
+    | **Speakers expected** | How many people speak. Leave it empty to detect automatically |
+    | **Redact Personal Identifiable Information (PII)** | Replaces personal details with `####`: names, organizations, email addresses, dates of birth, passport, social security, health care, account, and credit card numbers, and banking details |
+    | **Use Transcription 2.0** | The current engine, on by default. It adds subtitle downloads and speaker counts. Leave it on |
+
+    **Specialized Terminology** and **Enhanced Quality Transcription** currently only affect the older engine, used when **Use Transcription 2.0** is off.
+  </Step>
+  <Step title="Click Transcribe">
+    The file uploads and transcription starts. Short recordings are done in a minute or two; long ones can take 10 to 20 minutes. You can leave the page; you'll get an email when it's ready.
+
+    <Frame>
+      <img src="/images/audio/stt-processing.webp" alt="The transcript page for front-desk-call.mp3 with the Transcription, AI Content, and AI Chat tabs and the message Transcription is in progress" />
+    </Frame>
+  </Step>
+</Steps>
+
+Then [read and work with the transcript](/audio/transcripts).
+
+### YouTube videos
+
+When a YouTube video has captions, the transcript is ready in seconds as plain text, without speakers or timestamps, and subtitle downloads aren't available. Videos without captions are transcribed like a file, with speakers and timestamps.
+
+## Your transcriptions
+
+**AI Speech to Text** lists your transcriptions, 20 per page, each with its status: **Processing**, **Transcribed**, **No speech**, or **Failed**. Click one, or **Edit**, to open it.
+
+<Frame>
+  <img src="/images/audio/stt-list.webp" alt="The AI Transcription page with Record Audio and Upload new buttons, and one item, Front desk call, marked Transcribed" />
+</Frame>
+
+On a Teams plan, transcriptions teammates share with the team appear here too.
+
+## If a transcription fails
+
+- **Failed** items are retried automatically. You can also open one and click **Retry transcription**; your file is kept.
+- **No speech** means no speech was found, for example a recording with the microphone muted. Check the recording and upload it again.
+
+## Dictate into a text box
+
+The microphone button in Marky, the tools, and AI Images types what you say into the text box. Dictation doesn't use transcriptions.
+
+## What it costs
+
+Each new item uses one transcription from your plan, whatever its length. An item counts when you pick a source or start a recording, even if you don't finish it or delete it later. Retries don't count again. Check your usage on [**Settings** > **Usage**](/account/usage) and see [Audio plans and limits](/audio/limits).
+
+AI Content and AI Chat use words.
+
+## For developers
+
+Transcribe from your own code with `POST /api/transcriptions`, which needs a paid plan. See [Create transcription](/api-reference/endpoint/create-transcription).
+
+<Columns cols={2}>
+  <Card title="Work with a transcript" icon="file-lines" href="/audio/transcripts">
+    Speakers, subtitles, AI Content, and AI Chat.
+  </Card>
+  <Card title="Record & Transcribe" icon="microphone" href="/audio/record">
+    Record a meeting in your browser.
+  </Card>
+</Columns>

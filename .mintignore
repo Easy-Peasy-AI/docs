@@ -5,3 +5,7 @@
 # Draft content
 drafts/
 *.draft.mdx
+
+# Repo instructions and tooling, not pages
+AGENTS.md
+scripts/

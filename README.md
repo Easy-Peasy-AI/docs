@@ -1,6 +1,6 @@
 # Easy-Peasy.AI documentation
 
-Source for [docs.easy-peasy.ai](https://docs.easy-peasy.ai), published with Mintlify. API schemas live in `api-reference/openapi.json`; endpoint guides are MDX files. Navigation is defined in `docs.json`.
+Source for [easy-peasy.ai/docs](https://easy-peasy.ai/docs) (previously docs.easy-peasy.ai), published with Mintlify. The user guides live beside the API reference; see `AGENTS.md` for structure, naming, and screenshot rules. API schemas live in `api-reference/openapi.json`; endpoint guides are MDX files. Navigation is defined in `docs.json`.
 
 ## Update model catalogs
 
@@ -21,8 +21,8 @@ When a model changes, also inspect the API handler: UI defaults can differ from 
 
 ```bash
 node scripts/validate-docs.cjs /path/to/kopi
-mint broken-links
-mint dev
+npx mint broken-links
+npx mint dev --no-open
 ```
 
 The validation script checks schema references, request/response examples, video settings, MDX compilation, local navigation links, and polling success/error/timeout cases without spending account credits. It uses the app checkout's existing dependencies.
