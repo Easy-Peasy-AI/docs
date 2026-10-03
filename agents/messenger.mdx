@@ -23,17 +23,50 @@ Your agent can reply to messages sent to your Facebook Page, from Facebook, the 
   </Step>
 </Steps>
 
+Each Page answers through one agent. If you connect a Page that's already on another agent, it's paused there.
+
+## What the agent answers
+
+| Someone sends | The agent |
+| --- | --- |
+| A message or a quick reply | Answers it |
+| A tap on **Get Started** | Greets them and says what it can help with |
+| A photo | Reads it when **Allow image attachments** is on in [Appearance](/agents/appearance#image-attachments) and the agent's model can see images; otherwise asks them to describe it |
+| A voice message, video, or file | Asks them to type their question |
+| A thumbs-up | Doesn't reply |
+
+While the agent writes, the person sees **Seen** and typing dots. Replies are plain text, because the Messenger apps show formatting symbols like `**` as they are, and long answers arrive as several messages.
+
+Your [actions](/agents/actions) work on Messenger, and conversations appear in [**Conversations**](/agents/conversations) under **Messenger**.
+
+## Take over a conversation
+
+Reply from your Page inbox in Meta Business Suite. The agent steps back in that conversation and stays quiet until an hour has passed since your last reply there; then it answers again. Other conversations aren't affected.
+
+Instant replies and away messages you set up in Meta Business Suite don't count as taking over.
+
+To stop the agent on the whole Page, switch the Page off on the manage page.
+
 ## Manage your Pages
 
-Once connected, open the Messenger card to see **Manage Facebook Pages**: every connected Page with its status and a switch to pause it. **Connect a New Facebook Page** adds another Page.
+Open the Messenger card to see **Manage Facebook Pages**: every connected Page with its status and a switch to pause it. **Connect a New Facebook Page** adds another Page.
 
-Your [actions](/agents/actions) work on Messenger, and conversations appear in [**Conversations**](/agents/conversations) under **Messenger**. The agent answers text messages.
+If Facebook disconnects a Page, for example after you change your Facebook password or remove Easy-Peasy.AI from your Business Integrations, the Page shows **RECONNECT NEEDED** and we email you. Click **Reconnect** and sign in with Facebook again.
 
 ## Tips
 
 - Train the agent on the questions your Page inbox gets most: opening hours, prices, bookings, shipping.
 - Tell it in the [instructions](/agents/instructions-and-model#instructions) what to do when it doesn't know, for example "Say a team member will reply during business hours."
-- To take over a conversation, pause the Page on the manage page and reply from your Page inbox.
+- Let people know they're talking to an AI assistant, for example with "Introduce yourself as our AI assistant" in the instructions. Meta requires this in some places, such as California and Germany.
+
+<AccordionGroup>
+  <Accordion title="The agent doesn't answer">
+    Check that the Page shows **ACTIVE** on the manage page. If it shows **RECONNECT NEEDED**, click **Reconnect**. The agent also stays quiet for an hour in a conversation where someone replied from the Page inbox.
+  </Accordion>
+  <Accordion title="Two replies arrive for each message">
+    Another app or assistant on your Page is answering too, such as a chatbot app or an AI assistant you turned on in Meta Business Suite. Turn the other one off.
+  </Accordion>
+</AccordionGroup>
 
 Instagram direct messages aren't an agent channel.
 

@@ -1739,7 +1739,7 @@
       "get": {
         "summary": "Get TTS Configuration",
         "operationId": "getTTSConfig",
-        "description": "Retrieve available filter options for text-to-speech voices.\n\nReturns a list of all available languages, accents, and total number of predefined voices.\n\nThis endpoint helps you understand what filter values you can use when calling the `/api/get-text-to-speech-voices` endpoint.\n\n**Workflow:**\n1. Call without parameters to get all available languages\n2. Choose a language\n3. Call with `language` parameter to get accents available for that language\n4. Use language and accent to filter voices in `/api/get-text-to-speech-voices`\n\n**Note:** This endpoint does not require authentication.",
+        "description": "Retrieve available filter options for text-to-speech voices.\n\nReturns the available languages, accents, genders, ages and use cases, and the total number of ready-made voices.\n\nThis endpoint helps you understand what filter values you can use when calling the `/api/get-text-to-speech-voices` endpoint.\n\n**Workflow:**\n1. Call without parameters to get all available languages\n2. Choose a language\n3. Call with `language` parameter to get accents available for that language\n4. Use language and accent to filter voices in `/api/get-text-to-speech-voices`\n\n**Note:** This endpoint does not require authentication.",
         "parameters": [
           {
             "name": "language",
@@ -1790,7 +1790,26 @@
                       ],
                       "total_voices": 150,
                       "filtered_by_language": null,
-                      "filtered_voices_count": null
+                      "filtered_voices_count": null,
+                      "genders": [
+                        "female",
+                        "male",
+                        "neutral"
+                      ],
+                      "ages": [
+                        "young",
+                        "middle_aged",
+                        "old"
+                      ],
+                      "use_cases": [
+                        "conversational",
+                        "narrative_story",
+                        "informative_educational",
+                        "social_media",
+                        "characters_animation",
+                        "entertainment_tv",
+                        "advertisement"
+                      ]
                     }
                   },
                   "filtered-config": {
@@ -1819,7 +1838,26 @@
                       ],
                       "total_voices": 150,
                       "filtered_by_language": "English",
-                      "filtered_voices_count": 85
+                      "filtered_voices_count": 85,
+                      "genders": [
+                        "female",
+                        "male",
+                        "neutral"
+                      ],
+                      "ages": [
+                        "young",
+                        "middle_aged",
+                        "old"
+                      ],
+                      "use_cases": [
+                        "conversational",
+                        "narrative_story",
+                        "informative_educational",
+                        "social_media",
+                        "characters_animation",
+                        "entertainment_tv",
+                        "advertisement"
+                      ]
                     }
                   }
                 }
@@ -1860,7 +1898,7 @@
       "get": {
         "summary": "Get TTS Voices",
         "operationId": "getTTSVoices",
-        "description": "Retrieve a list of available voices for text-to-speech generation.\n\nReturns all predefined voices (ElevenLabs and OpenAI) and optionally the user's custom cloned voices.\n\n**Filtering:**\n- Filter by language using the `language` query parameter\n- Filter by accent using the `accent` query parameter\n- Both filters can be used together\n\n**Authentication:**\n- Optional: Endpoint works without authentication for public voices\n- Required for custom voices: Include `x-api-key` header",
+        "description": "Retrieve a list of available voices for text-to-speech generation.\n\nReturns all predefined voices (ElevenLabs and OpenAI) and optionally the user's custom cloned voices.\n\n**Filtering:**\n- Filter by language using the `language` query parameter\n- Filter by accent using the `accent` query parameter\n- Filter ready-made voices by `gender`, `age` and `use_case` (values from `/api/get-text-to-speech-config`)\n- Filters can be combined\n\n**Authentication:**\n- Optional: Endpoint works without authentication for public voices\n- Required for custom voices: Include `x-api-key` header",
         "parameters": [
           {
             "name": "language",
@@ -1881,6 +1919,55 @@
             },
             "description": "Filter voices by accent (e.g., \"American\", \"British\", \"Australian\")",
             "example": "American"
+          },
+          {
+            "name": "gender",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "female",
+                "male",
+                "neutral"
+              ]
+            },
+            "description": "Filter ready-made voices by gender",
+            "example": "female"
+          },
+          {
+            "name": "age",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "young",
+                "middle_aged",
+                "old"
+              ]
+            },
+            "description": "Filter ready-made voices by age",
+            "example": "young"
+          },
+          {
+            "name": "use_case",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "conversational",
+                "narrative_story",
+                "informative_educational",
+                "social_media",
+                "characters_animation",
+                "entertainment_tv",
+                "advertisement"
+              ]
+            },
+            "description": "Filter ready-made voices by what they are made for",
+            "example": "conversational"
           },
           {
             "name": "include_custom",
@@ -1913,20 +2000,31 @@
                           "description": "calm",
                           "image": "https://media.easy-peasy.ai/voices/rachel.png",
                           "language": "English",
-                          "accent": "American"
+                          "accent": "American",
+                          "gender": "female",
+                          "age": "young",
+                          "use_case": "narrative_story",
+                          "tone": "calm"
                         },
                         {
                           "id": "alloy",
                           "name": "Alloy",
                           "description": "A neutral, balanced voice",
                           "image": "https://media.easy-peasy.ai/voices/alloy.png",
-                          "language": "English"
+                          "language": "English",
+                          "gender": "neutral",
+                          "age": null,
+                          "use_case": null,
+                          "tone": null
                         }
                       ],
                       "total": 2,
                       "filters": {
                         "language": null,
-                        "accent": null
+                        "accent": null,
+                        "gender": null,
+                        "age": null,
+                        "use_case": null
                       },
                       "available": {
                         "languages": [
@@ -1953,13 +2051,20 @@
                           "description": "calm",
                           "image": "https://media.easy-peasy.ai/voices/rachel.png",
                           "language": "English",
-                          "accent": "American"
+                          "accent": "American",
+                          "gender": "female",
+                          "age": "young",
+                          "use_case": "narrative_story",
+                          "tone": "calm"
                         }
                       ],
                       "total": 1,
                       "filters": {
                         "language": "English",
-                        "accent": null
+                        "accent": null,
+                        "gender": null,
+                        "age": null,
+                        "use_case": null
                       },
                       "available": {
                         "languages": [
@@ -2987,6 +3092,65 @@
             "nullable": true,
             "description": "Number of voices available for the filtered language, or null if no filter was used",
             "example": 85
+          },
+          "genders": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "female",
+                "male",
+                "neutral"
+              ]
+            },
+            "description": "Genders available (for the language, if given)",
+            "example": [
+              "female",
+              "male",
+              "neutral"
+            ]
+          },
+          "ages": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "young",
+                "middle_aged",
+                "old"
+              ]
+            },
+            "description": "Ages available (for the language, if given)",
+            "example": [
+              "young",
+              "middle_aged",
+              "old"
+            ]
+          },
+          "use_cases": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "conversational",
+                "narrative_story",
+                "informative_educational",
+                "social_media",
+                "characters_animation",
+                "entertainment_tv",
+                "advertisement"
+              ]
+            },
+            "description": "Use cases available (for the language, if given)",
+            "example": [
+              "conversational",
+              "narrative_story",
+              "informative_educational",
+              "social_media",
+              "characters_animation",
+              "entertainment_tv",
+              "advertisement"
+            ]
           }
         }
       },
@@ -3027,6 +3191,49 @@
             "type": "string",
             "description": "Voice accent",
             "example": "American"
+          },
+          "gender": {
+            "type": "string",
+            "nullable": true,
+            "enum": [
+              "female",
+              "male",
+              "neutral"
+            ],
+            "description": "Voice gender (ready-made voices; null for your own voices)",
+            "example": "female"
+          },
+          "age": {
+            "type": "string",
+            "nullable": true,
+            "enum": [
+              "young",
+              "middle_aged",
+              "old"
+            ],
+            "description": "Voice age (ready-made voices; null for your own voices)",
+            "example": "young"
+          },
+          "use_case": {
+            "type": "string",
+            "nullable": true,
+            "enum": [
+              "conversational",
+              "narrative_story",
+              "informative_educational",
+              "social_media",
+              "characters_animation",
+              "entertainment_tv",
+              "advertisement"
+            ],
+            "description": "What the voice is made for (ready-made voices; null for your own voices)",
+            "example": "narrative_story"
+          },
+          "tone": {
+            "type": "string",
+            "nullable": true,
+            "description": "How the voice sounds, for example calm, deep or upbeat (ready-made voices; null for your own voices)",
+            "example": "calm"
           }
         }
       },
@@ -3065,6 +3272,24 @@
                 "nullable": true,
                 "description": "Applied accent filter",
                 "example": "American"
+              },
+              "gender": {
+                "type": "string",
+                "nullable": true,
+                "description": "Applied gender filter",
+                "example": "female"
+              },
+              "age": {
+                "type": "string",
+                "nullable": true,
+                "description": "Applied age filter",
+                "example": "young"
+              },
+              "use_case": {
+                "type": "string",
+                "nullable": true,
+                "description": "Applied use case filter",
+                "example": "conversational"
               }
             },
             "description": "Filters that were applied to the results"

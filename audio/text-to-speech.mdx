@@ -27,23 +27,23 @@ description: "Turn text into natural speech in more than 30 languages, with expr
     Turn on **Use Turbo** to use half the characters, or open **Advanced Settings** to change the file format, speed, and delivery. See below.
   </Step>
   <Step title="Click Generate">
-    The audio appears at the top of **Generated Audios** a few seconds later. Click **Play** to listen.
+    The audio appears at the top of **Generated Audios**, usually within a minute. Texts over 10,000 characters are generated in the background: the card shows **Processing** and turns into a player when the audio is ready, which can take a few minutes. Click **Play** to listen.
   </Step>
 </Steps>
 
 ## Audio tags
 
-Voices marked **Audio tags** in the voice list can act out stage directions written in square brackets, such as `[laughs]`, `[whispers]`, `[sighs]`, or `[exhales]`. With one of these voices selected, **Add audio tags** adds suitable tags to your text for you.
+Voices marked **Audio tags** in the voice list, [designed voices](/audio/voices#design-a-voice), and your own [instant clones](/audio/voices#instant-clone) can act out stage directions written in square brackets, such as `[laughs]`, `[whispers]`, `[sighs]`, or `[exhales]`. With one of these voices selected, **Add audio tags** adds suitable tags to your text for you.
 
 <Frame>
   <img src="/images/audio/tts-audio-tags.webp" alt="The text box with an [exhales] tag added after the first sentence, the tooltip Insert expressive tags like [laughs] or [whispers] where they fit, and the voice Hope selected" />
 </Frame>
 
-Other voices read the brackets aloud. If your text has tags and the voice doesn't support them, you're offered **Use a voice with audio tags**. The default voice, Hope, supports audio tags.
+Other voices can't act out tags, so text in square brackets is skipped: it isn't read aloud and its characters aren't counted. If your text has tags and the voice doesn't support them, a note says so and offers **Use a voice with audio tags**. Remove the brackets from any words you do want read. At a **Speed** other than 1.00x, only designed voices and voices marked **Audio tags** (with **Use Turbo** off) act tags out, and you're offered **Set speed to 1.0x**. The default voice, Hope, supports audio tags.
 
 ## Turbo
 
-**Use Turbo** uses a faster model and counts half the characters. Try it with your voice and compare. Turbo isn't available with audio-tag voices and [Professional clones](/audio/voices#professional-clone).
+**Use Turbo** uses a faster model and counts half the characters. Try it with your voice and compare. Turbo isn't available with [designed voices](/audio/voices#design-a-voice) and [Professional clones](/audio/voices#professional-clone).
 
 ## Advanced Settings
 
@@ -54,7 +54,7 @@ Other voices read the brackets aloud. If your text has tags and the voice doesn'
 | Setting | What it does | Default |
 | --- | --- | --- |
 | **Format** | The audio file: MP3 at 64 to 192 kbps, WAV at 24 or 44.1 kHz, or Opus at 64 or 128 kbps | MP3 128kbps |
-| **Speed** | From 0.7x to 1.2x | 1.00x |
+| **Speed** | From 0.7x to 1.2x. Speeds other than 1.00x use an earlier voice model, which acts out audio tags only on voices marked **Audio tags** | 1.00x |
 | **Stability** | Lower (**Expressive**) varies the delivery more; higher (**Stable**) keeps it even | 70% |
 | **Clarity** | How closely the audio sticks to the original voice, from **Natural** to **Maximum** | 75% |
 
@@ -64,12 +64,12 @@ Other voices read the brackets aloud. If your text has tags and the voice doesn'
 
 | Voice | Characters per generation |
 | --- | --- |
-| Most voices | 10,000 (40,000 with Turbo) |
-| Audio-tag voices | 5,000 |
+| Most voices | 50,000 (20,000 in WAV format) |
 | Professional clones | 10,000 |
+| Voices marked **Saver** | 4,096 |
 | Free plan, any voice | 100 |
 
-For longer scripts, split the text and generate it in parts.
+Texts over 10,000 characters are generated in the background. The whole text has to fit in the text-to-speech characters left on your plan. For even longer scripts, split the text and generate it in parts.
 
 ## Your generated audio
 
@@ -97,7 +97,7 @@ Text to speech uses your plan's text-to-speech characters:
 
 | Voice or option | Characters used |
 | --- | --- |
-| Most voices | One per character of text, including spaces and audio tags |
+| Most voices | One per character of text, including spaces and audio tags. Tags the voice skips aren't counted |
 | **Use Turbo** | Half |
 | Voices marked **Saver** | One for every 10 characters |
 
