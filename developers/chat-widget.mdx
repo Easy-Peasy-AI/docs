@@ -12,7 +12,6 @@ The chat widget puts an [agent](/agents/overview) on any web page. It's one scri
   src="https://bots.easy-peasy.ai/chat.min.js"
   data-chat-url="https://bots.easy-peasy.ai/bot/YOUR_AGENT_ID"
   data-btn-position="bottom-right"
-  data-widget-btn-color="#6366f1"
   defer>
 </script>
 ```
@@ -22,12 +21,14 @@ Load it as a classic `<script>` tag, not a module. Your agent ID is under **Chan
 | Attribute | Values |
 | --- | --- |
 | `data-chat-url` | `https://bots.easy-peasy.ai/bot/YOUR_AGENT_ID`. Required |
-| `data-btn-position` | `bottom-right` (default), `bottom-left`, `top-right`, `top-left`, `side-right`, `side-left` |
-| `data-widget-btn-color` | The bubble color, such as `#6366f1` |
-| `data-btn-size` | `medium`, `large`, or `xlarge` (corner positions) |
-| `data-btn-label` | The text on the side tab (side positions) |
-| `data-widget-icon` | URL of an image to use as the bubble icon |
-| `data-widget-width` | Width of the open chat on desktop, in pixels, from 320 to 720. Phones always use the full screen |
+| `data-btn-position` | `bottom-right` (default), `bottom-left`, `top-right`, `top-left`, `side-right`, `side-left`. A position saved in **Appearance** > **Chat bubble** takes priority |
+| `data-widget-btn-color` | The bubble color, such as `#6366f1`. A color saved in **Appearance** > **Chat bubble** takes priority |
+| `data-btn-size` | `medium`, `large`, or `xlarge` (corner positions). A saved size takes priority |
+| `data-btn-label` | The text on the side tab (side positions). Saved text takes priority |
+| `data-widget-icon` | URL of an image, or a built-in icon name: `spark`, `bubble`, `typing`, `chats`, `message`, `smile`, `heart`, `question`, `sparkles`, `bot`, `headset`, `outline`, `classic`. An icon saved in **Appearance** > **Chat bubble** takes priority |
+| `data-widget-width` | Width of the open chat on desktop, in pixels, from 320 to 720. Phones always use the full screen. A saved width takes priority |
+
+Apart from `data-chat-url`, you don't need any of these attributes: the bubble's position, size, chat width, icon, color, and text are saved with the agent in [**Appearance** > **Chat bubble**](/agents/appearance#chat-bubble). The script reads them from `https://bots.easy-peasy.ai/bot/YOUR_AGENT_ID/launcher` when the page loads and remembers them in the browser for the next visit. If your site has a Content Security Policy, allow that host in `connect-src`; without it, the bubble uses the attributes above and the default look.
 
 ## JavaScript API
 

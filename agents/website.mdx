@@ -15,32 +15,17 @@ Open your agent, click **Channels**, and click **Manage** on **Chat bubble**. Th
 
 <Steps>
   <Step title="Style the chat bubble">
-    Choose where the bubble sits and how it looks. The preview on the right shows your choices.
-
-    <Frame>
-      <img src="/images/agents/website-channel.webp" alt="The Website page: Chat bubble with Position (Bottom Right selected), Widget Button Size, Widget Button Color #6366f1, Widget Icon, and a live preview of a page with the chat bubble at the bottom right" />
-    </Frame>
-
-    | Setting | Options |
-    | --- | --- |
-    | **Position** | **Bottom Right**, **Bottom Left**, **Top Right**, **Top Left**, or a tab on the side of the page: **Side Right**, **Side Left** |
-    | **Widget Button Size** | **Medium**, **Large**, or **Extra Large** (corner positions) |
-    | **Side Rail Label** | The text on the side tab, such as "Chat with us" (side positions) |
-    | **Widget Button Color** | The bubble's color |
-    | **Widget Icon** | A link to an image to use instead of the chat icon |
-    | **Chat window width** | **Default · 400px**, **Wide · 480px**, or **Extra wide · 560px** on computers. On phones the chat always opens full screen |
+    Click **Customize chat bubble**. It opens [**Appearance** > **Chat bubble**](/agents/appearance#chat-bubble) in the Playground, where you choose where the bubble sits, its size, icon, color, and text. The **Website** page shows your saved settings and a preview of them on a sample page.
 
     **Open full preview** shows the real chat on a sample page.
   </Step>
   <Step title="Copy the install snippet">
-    Under **Install snippet**, click **Copy**. The code includes your choices:
+    Under **Install snippet**, click **Copy**. The code is the same for every look, because the bubble's settings are saved with your agent:
 
     ```html
     <script
         src="https://bots.easy-peasy.ai/chat.min.js"
         data-chat-url="https://bots.easy-peasy.ai/bot/YOUR_AGENT_ID"
-        data-btn-position="bottom-right"
-        data-widget-btn-color="#6366f1"
         defer>
     </script>
     ```
@@ -57,7 +42,7 @@ Open your agent, click **Channels**, and click **Manage** on **Chat bubble**. Th
   </Step>
 </Steps>
 
-The style choices on this page aren't saved: they only build the snippet. To change the bubble later, choose the new style and replace the code on your site. The name, greeting, and colors inside the chat come from [**Appearance**](/agents/appearance) and update without changing the code.
+Everything about the bubble and the chat, from its position and icon to the greeting and colors, is saved with your agent and updates on your site within about a minute, without changing the code. An older install code that still sets a position, size, color, or icon keeps working; what you save in [**Appearance**](/agents/appearance#chat-bubble) takes priority over it.
 
 <Frame>
   <img src="/images/agents/website-snippet.webp" alt="Install snippet with a Copy button, Shareable link with the agent's hosted chat URL, and Iframe embed with an iframe code" />
@@ -95,7 +80,7 @@ Developers can open, close, and hide the chat from their own code, and pass the 
     - Check that the code is before `</body>` and that you published your site.
     - In [**Settings**](/agents/settings), **Is agent publicly available?** must be on.
     - If you set **Allowed Domains**, your website's domain must be in the list.
-    - If your site uses a Content Security Policy, allow `https://bots.easy-peasy.ai` for scripts and frames.
+    - If your site uses a Content Security Policy, allow `https://bots.easy-peasy.ai` for scripts, frames, and connections (`connect-src`). Without `connect-src`, the bubble shows its default look instead of the one you saved.
   </Accordion>
   <Accordion title="The chat opens but says it can't answer">
     The agent may be paused because your plan's allowance ran out. See [Limits and usage](/agents/limits-and-usage#when-an-allowance-runs-out).
