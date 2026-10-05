@@ -3,7 +3,7 @@ title: "Voice calls"
 description: "Let visitors talk to your agent out loud from the website chat, with the voice, language, and call limits you choose."
 ---
 
-With voice calls, visitors tap a call button in the chat and talk to your agent. The agent listens, answers in the voice you pick, and uses the same knowledge and actions as in text chat. Visitors can still type during a call, for names, emails, or links.
+With voice calls, visitors tap **Talk** in the chat and talk to your agent. The agent listens, answers in the voice you pick, and uses the same knowledge and actions as in text chat. Visitors can still type during a call, for names, emails, or links.
 
 For a phone number people can dial, see [Phone calls](/agents/phone-calls).
 
@@ -22,7 +22,9 @@ For a phone number people can dial, see [Phone calls](/agents/phone-calls).
     </Frame>
   </Step>
   <Step title="Turn on Enable voice calls">
-    A call button appears in the chat. In the chat, it turns into the send button as soon as you type.
+    A **Talk** button appears next to the message box. It turns into the send button as soon as the visitor types, and stays hidden while the agent is writing a reply.
+
+    **Talk** is in English. If your visitors speak another language, write your own word in **Call button text**.
   </Step>
   <Step title="Pick a voice">
     Under **Agent voice**, click **Change**, play a few voices, and click **Select**.
@@ -38,7 +40,7 @@ For a phone number people can dial, see [Phone calls](/agents/phone-calls).
     | **More voices** | Other voice families, with natural accents in several languages |
   </Step>
   <Step title="Click Save">
-    Test a call in the Playground. Reload any open preview of your website chat to see the call button there.
+    Test a call in the Playground. Reload any open preview of your website chat to see the **Talk** button there.
   </Step>
 </Steps>
 
@@ -46,6 +48,7 @@ For a phone number people can dial, see [Phone calls](/agents/phone-calls).
 
 | Setting | What it does |
 | --- | --- |
+| **Call button text** | The word on the call button next to the message box, up to 16 characters. Empty shows **Talk** |
 | **Allow text input during calls** | Keeps the message box usable during a call |
 | **Allow interruptions** | Lets callers talk over the agent to cut it off |
 | **Voice model** | The model used on calls. **Same as chat** uses the agent's model; the others are fast models, because every second the model thinks is a second of silence |
@@ -67,8 +70,8 @@ Spoken replies use your plan's words at twice the rate of a text reply, on every
 Calls appear in [**Conversations**](/agents/conversations) under **Web**, with **Voice call** as the source.
 
 <AccordionGroup>
-  <Accordion title="There's no call button in the chat">
-    Check that **Enable voice calls** is on and saved, then reload the page with the chat. On plans below Unlimited 200, the call button appears only in the Playground.
+  <Accordion title="There's no Talk button in the chat">
+    Check that **Enable voice calls** is on and saved, then reload the page with the chat. On plans below Unlimited 200, the **Talk** button appears only in the Playground.
   </Accordion>
   <Accordion title="The browser didn't ask for the microphone">
     Calls need microphone access. Allow it in the browser's site settings and try again. If you embed the chat with an iframe, keep `allow="microphone"` on it.
