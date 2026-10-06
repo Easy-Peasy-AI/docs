@@ -14,14 +14,45 @@ description: "Read what people ask your agent, see where they came from, fix wro
 Open your agent and click **Activity** > **Conversations**.
 
 - The menu at the top chooses the channel: **Web**, **WhatsApp**, **Messenger**, **LINE**, or **Telegram**. **Web** includes the website chat, the shareable link, the Playground, and voice calls.
-- Each conversation in the list shows the visitor's country, device, and browser, the time, the first message, and its sentiment once it's been analyzed.
+- Each conversation in the list shows the visitor's country, device, and browser, the time, the first message, and its sentiment once it's been analyzed. A phone icon marks conversations with a voice call, with the number of calls when there was more than one.
 - Click a conversation to read it. Scroll down and click **Load more conversations** for older ones.
+- The refresh icon beside **Conversations** loads new messages without reloading the page.
+
+## Filter conversations
+
+On the **Web** channel, click the filter icon beside **Conversations** to narrow the list. The filters apply as you pick them, appear as chips under the channel menu, and can be removed one at a time or with **Clear all**.
+
+| Filter | Shows |
+| --- | --- |
+| **Started** | Conversations started in the last 24 hours, 7, 30, or 90 days |
+| **Sentiment** | Positive, neutral, or negative conversations |
+| **Feedback** | Conversations where the visitor gave an answer a thumbs up or a thumbs down |
+| **Conversations with a voice call** | Conversations where the visitor called your agent |
+| **Visitors who shared contact details** | Conversations where you know the visitor's name, email, or phone number |
 
 Under each answer, a percentage shows how confident the agent was. Low scores point to questions its knowledge doesn't cover well.
 
 <Note>
   Conversations on Slack, email, phone calls, Basecamp, and the REST API aren't listed here.
 </Note>
+
+## Voice calls
+
+When a visitor calls your agent from the chat widget, the call is part of the same conversation as their typed messages. To list only conversations with a call, turn on **Conversations with a voice call** in the filters.
+
+In the conversation, a marker shows where each call starts, with its time and length, and another where it ends and why: the caller left, the call ended after silence, it reached the time limit, or an error ended it. A call where nobody spoke gets a single marker.
+
+Each message of a call carries a tag:
+
+| Tag | Meaning |
+| --- | --- |
+| **Spoken** | The visitor said it, or the agent said its reply out loud |
+| **Typed during the call** | The visitor typed it into the call instead of speaking |
+| **Spoken and typed** | The visitor's question combined speech and typed text |
+| **Interrupted** | The visitor spoke before the agent finished this reply |
+| **Voice call** | The message was part of a call made before October 6, 2026, before spoken and typed messages were told apart |
+
+**Details** lists every call with its date, length, number of exchanges, and how it ended, plus the total talk time.
 
 ## Conversation details
 
@@ -34,7 +65,7 @@ Click **Details** above the conversation to see who the visitor was and where th
 | Detail | What it shows |
 | --- | --- |
 | **Contact** | The visitor's name or email when they filled in a lead form or your website passed it on, or **Anonymous** |
-| **Source** | Website, Playground, or voice call |
+| **Source** | Website, Playground, or voice call: how the conversation started |
 | **Status** | **Ongoing** while the chat is active, then ended |
 | **Sentiment**, **Messages** | The mood of the conversation and how many messages it has |
 | **Country**, **Language**, **Timezone**, **Browser**, **IP address** | Where the visitor was and what they used |
@@ -55,7 +86,7 @@ The question and your answer are added to [**Knowledge**](/agents/knowledge) as 
 
 ## Export and delete
 
-- **Export** at the top downloads the conversations as a PDF or JSON file. It isn't available for Telegram.
+- To download the conversations, click the **⋯** menu beside **Conversations** and choose **Export as PDF** or **Export as JSON**. The export contains every conversation of the channel, not only the filtered ones. It isn't available for Telegram.
 - To delete a conversation, hover over it in the list and click the trash icon. Deleting can't be undone.
 
 <Columns cols={2}>
