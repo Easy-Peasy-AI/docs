@@ -12,57 +12,63 @@ description: "Add the websites, documents, text, Q&A, sitemaps, and YouTube vide
 ## Add a source
 
 <Steps>
-  <Step title="Click Add new source">
-    Open your agent, click **Knowledge**, and click **Add new source**.
+  <Step title="Click Add source">
+    Open your agent, click **Knowledge**, and click **Add source**. An agent with no knowledge yet shows the panel straight away.
 
     <Frame>
       <img src="/images/agents/knowledge-add-source.webp" alt="Select a data source: Files, Website Crawler, Text, Q&A, Sitemap XML, and Youtube" width="520" />
     </Frame>
   </Step>
-  <Step title="Choose the type and fill it in">
-    | Source | What to enter |
+  <Step title="Pick a tab and fill it in">
+    | Tab | What to enter |
     | --- | --- |
-    | **Files** | PDF, DOCX, CSV, TXT, or EPUB files, up to 10 at a time |
-    | **Website Crawler** | A website URL, how deep to follow links, and how many pages to read (up to 100) |
+    | **Website** | Your website's address, then **Find pages**. You see the pages we found and uncheck any your agent shouldn't read. Up to 100 pages are read per website, and pages the agent already knows are skipped. **Add a single page** reads just one page; **Import from a sitemap** reads the pages your sitemap lists |
+    | **Files** | PDF, DOCX, CSV, TXT, or EPUB files, up to 10 at a time. Drop them on the panel or browse |
     | **Text** | Any text you type or paste |
     | **Q&A** | A question and the answer you want the agent to give |
-    | **Sitemap XML** | Your sitemap's URL. Up to 100 new pages are added each time |
-    | **Youtube** | A video's URL and its language code, such as `en` or `fr`. The agent learns from the transcript |
+    | **YouTube** | A video's link and the language of its transcript. The agent learns from the transcript |
   </Step>
-  <Step title="Click Add">
-    The source appears in the table as **PENDING**, then **PROCESSING**, and **FINISHED** when the agent can use it. The table refreshes on its own.
+  <Step title="Add it">
+    The source appears at the top of the list as **Queued**, then **Training**, and **Trained** when the agent can use it. While a website is being read, **Training in progress** shows how many of its pages have arrived. The page refreshes on its own.
   </Step>
 </Steps>
 
-<Tip>
-  **Website Crawler** reads 5 pages unless you change **How many links to crawl**. Raise it to read a whole site, or add your **Sitemap XML** instead, which lists your pages directly.
-</Tip>
-
 ## Sources and their status
 
-Each row shows the source's type, its content or URL, how many characters it adds, and its status:
+The summary above the list shows how many sources the agent has and how many are trained, failed, or still training. Click one of those counts to list just those sources.
+
+Each row shows the source's name (for a website page, its path and page title), how many characters it adds, and its status. Filter by type with the chips above the list, by status with **All statuses**, or search.
 
 | Status | Meaning |
 | --- | --- |
-| **PENDING** | Waiting to be read |
-| **PROCESSING** | Being read |
-| **FINISHED** | Ready: the agent answers from it |
-| **FAILED** | Couldn't be read, for example a page that blocks automated reading or a video with no transcript |
+| **Queued** | Waiting to be read |
+| **Training** | Being read |
+| **Trained** | Ready: the agent answers from it |
+| **Failed** | Couldn't be read. The reason is shown under the source, for example a page that no longer exists or a site that blocks automated reading |
+| **Stuck** | Queued or being read for more than two hours. Use **Try again** |
 
-When a website crawl or a sitemap finishes, each page it found appears as its own row.
+- The **⋯** menu on each row opens the page, file, or video, shows the text of a Text or Q&A source, reads the source again (**Read again**, or **Try again** after a failure), and deletes it.
+- Select several rows with their checkboxes to delete them together. Shift-click selects a range.
+- When sources wait in the queue for a while, **Training in progress** offers **Retry them**.
 
-- The refresh icon reads a source again. Use it after a page changes, or to retry a failed source.
-- The trash icon deletes a source and everything the agent learned from it.
-- **Retry Pending** appears when sources are stuck in **PENDING**, and starts them again.
+## Training report
+
+After a website is read, a report appears above the list when something needs your attention:
+
+- Pages that couldn't be read, grouped by reason. **Show** lists them, and **Retry failed pages** reads them again, one at a time, when a later read can help. Pages that no longer exist can simply be deleted.
+- Pages with almost no text, such as forms and galleries.
+- Starter questions the agent can't answer from what it learned. **Add answer** opens a new Q&A with the question filled in.
+
+When nothing needs attention, the report shrinks to a short **Training finished** line for a few hours.
 
 ## Keep your knowledge current
 
 Your agent doesn't notice when your website changes. To update it:
 
-- **Retrain All** reads all your website pages again. Files, text, Q&A, and videos stay as they are; to replace a document, delete it and upload the new version.
-- **Auto-retrain** checks your website pages every week and relearns only the pages whose content changed. It's available on Unlimited 500 and higher plans.
+- **Retrain** reads all your website pages again and re-learns the ones whose text changed. The agent keeps answering while it runs. Files, text, Q&A, and videos stay as they are; to replace a document, delete it and upload the new version.
+- **Auto-retrain**, the switch in the summary, does the same every week. It's available on Unlimited 500 and higher plans.
 
-**Last trained** shows when the agent last learned from its sources.
+**Last trained** in the summary shows when the agent last learned something new.
 
 ## Fix a wrong answer
 
@@ -70,7 +76,7 @@ When the agent gets something wrong in a real conversation, open it in [**Conver
 
 ## Limits
 
-**Total characters** shows how much of your plan's knowledge allowance this agent uses. Each agent has its own allowance, from 1 million characters on the Free plan up to 250 million. On the Free plan, an agent can also have up to 250 sources. See [Limits and usage](/agents/limits-and-usage).
+**Characters** in the summary shows how much of your plan's knowledge allowance this agent uses. Each agent has its own allowance, from 1 million characters on the Free plan up to 250 million. On the Free plan, an agent can also have up to 250 sources. See [Limits and usage](/agents/limits-and-usage).
 
 ## How the agent uses its knowledge
 
@@ -83,14 +89,14 @@ Your content is split into short passages. For each message, the agent searches 
 By default, the agent answers only from its knowledge and says when it doesn't know. You can change this in [**Settings**](/agents/settings#answer-only-from-knowledge).
 
 <AccordionGroup>
-  <Accordion title="A source says FAILED">
-    Click the refresh icon to try again. If a web page keeps failing, the site may block automated reading: copy the page's text into a **Text** source, or upload it as a PDF. A YouTube video fails when it has no transcript in the language code you entered.
+  <Accordion title="A source failed">
+    The reason is shown under the source. Click **⋯** and **Try again**. If a web page keeps failing, the site may block automated reading: copy the page's text into a **Text** source, or upload it as a PDF. A YouTube video fails when it has no transcript in the language you chose.
   </Accordion>
   <Accordion title="The agent doesn't know something that's in a document">
-    Make sure the source is **FINISHED**. Scanned PDFs without selectable text can't be read; upload a text version. Then try asking the same question with different words, and add a **Q&A** for the answer you expect.
+    Make sure the source is **Trained**. Scanned PDFs without selectable text can't be read; upload a text version. Then try asking the same question with different words, and add a **Q&A** for the answer you expect.
   </Accordion>
-  <Accordion title="The crawler read pages I don't want">
-    Delete those rows. Next time, add a **Sitemap XML** or pick pages in the website step of a new agent, which lets you uncheck pages.
+  <Accordion title="The agent read pages I don't want">
+    Select those rows and click **Delete**. Next time, uncheck them in the page list after **Find pages**.
   </Accordion>
 </AccordionGroup>
 
