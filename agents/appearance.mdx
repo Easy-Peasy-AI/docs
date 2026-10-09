@@ -1,6 +1,6 @@
 ---
 title: "Appearance"
-description: "Set your agent's name, greeting, suggested messages, colors, font, chat features, and chat bubble, with a live preview."
+description: "Set your agent's name, welcome messages, suggested messages, notice and footer, colors, corners, font, chat features, and chat bubble, with a live preview."
 ---
 
 **Appearance** controls what visitors see in the chat: the header, the first message, the buttons under the text box, and the colors. The preview on the right updates as you edit. Click **Save** at the bottom to publish your changes to every website chat.
@@ -18,11 +18,19 @@ The chat bubble on your website is set here too, under [**Chat bubble**](#chat-b
 | **Agent Avatar** | The picture in the chat header, and next to the agent's messages if you turn that on |
 | **Agent Name** | The name in the chat header |
 | **Description** | The line under the name in the header |
-| **Greeting Message** | The first message visitors see |
+| **Greeting Message** | The first message visitors see. **Add another message** adds up to 4 more; each shows as its own message, and as its own pop-up next to the closed chat bubble |
 | **Suggested Messages** | Questions visitors can tap to start, one per line |
 | **Suggested messages layout** | **Scroll in one row** keeps the greeting in view; **Show all** wraps every suggestion onto rows |
 | **Auto show initial messages pop-ups after (in seconds)** | How long before the greeting pops up next to the closed chat bubble. Enter a negative number to turn this off |
 | **Message Placeholder** | The hint text in the message box |
+| **Notice above the message box** | Optional, up to 200 characters, for example a privacy notice. Visitors can close it; it shows again if you change the text |
+| **Footer text** | Optional, up to 200 characters, under the message box. Use it for links such as your docs or status page |
+
+The notice and the footer can hold links written as `[privacy policy](https://example.com/privacy)`, plain `https://` addresses, `**bold**` and `*italic*`.
+
+### Starting over and earlier chats
+
+Visitors can start a new chat, or go back to one they had before, from the **•••** menu in the chat header (**Start a new chat** and **Recent chats**). Earlier chats are kept in the visitor's own browser, up to 20 per agent; you see every conversation in [Conversations](/agents/conversations) either way. In the Playground, **Start a new chat** clears the test chat.
 
 ## Chat features
 
@@ -50,6 +58,7 @@ With **Allow image attachments** on, visitors can attach up to 4 images per mess
 | Setting | What it does |
 | --- | --- |
 | **Theme** | Light or dark chat |
+| **Corner radius** | **Sharp**, **Soft**, **Round**, or **Pill**: the corners of the chat window, messages, suggested messages, and the message box. **Round** is the original look. The chat window's corners reach your website within about a minute |
 | **Agent bubble style** | Background and text color of the agent's messages |
 | **Header style** | Background color of the header. Empty uses the agent bubble color |
 | **Chat font** | The font of the whole chat: a preset such as Inter, or **Custom web font…** with a font name and a stylesheet URL |
