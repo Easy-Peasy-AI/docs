@@ -1,6 +1,6 @@
 ---
 title: "Music generator"
-description: "Make a full song or an instrumental track from a description, or from your own lyrics and style, with Suno."
+description: "Make a full song or an instrumental track from a description, or from your own lyrics and style."
 ---
 
 **AI Music Generator** writes and produces songs: vocals, instruments, and cover art. Describe the song you want, or write your own lyrics and style. Each generation gives you two versions to choose from.
@@ -14,18 +14,20 @@ Use it for jingles, background music for videos and podcasts, birthday songs, an
     Click **AI Music Generator** in the sidebar, or **Audio** > **Music Generator** in the top menu. **Usage** at the top shows how many text-to-speech characters you've used this period.
   </Step>
   <Step title="Choose a model">
-    **Suno V6** is the default. You can also pick **Suno V6 Wild** or **Suno V6 Mini** and compare; all three cost the same.
+    **V6** is the default. You can also pick **V6 Wild** or **V6 Mini** and compare; all three cost the same.
   </Step>
   <Step title="Describe the song">
     With **Custom Mode** off, describe it in **Song Description**, up to 400 characters: the genre, mood, what it's about, and any names to include. The lyrics are written for you.
 
     For example: "An upbeat acoustic song for a yoga studio's anniversary, about morning classes, community, and breathing easy."
+
+    Not sure where to start? Pick one under **Start with a template**, or click **Surprise me** for a random idea. Both fill in the description, and you can edit it before you generate.
   </Step>
   <Step title="Set the vocals">
-    Tick **Instrumental Only** for music without singing. Otherwise, set **Vocal Gender** to **Male**, **Female**, or **Auto (Let AI decide)**.
+    Tick **Instrumental Only** for music without singing. Otherwise, set **Vocal Gender** to **Auto**, **Male**, or **Female**.
   </Step>
   <Step title="Click Generate">
-    The song takes a few minutes. Two versions appear under **Music**, each with its own cover.
+    **Generate** stays at the bottom of the form while you scroll. The song takes a few minutes. Two versions appear under **Music**, each with its own cover.
 
     <Frame>
       <img src="/images/audio/music-results.webp" alt="The Music tab with two generated versions of the song Calm acoustic folk, soft fingerpicked guitar, each with crayon-drawing cover art and Play, Share, Details, and Download buttons" width="600" />
@@ -33,32 +35,53 @@ Use it for jingles, background music for videos and podcasts, birthday songs, an
   </Step>
 </Steps>
 
+## Start from a template
+
+Templates are ready-made sounds, from a modern pop anthem or a 90s R&B slow jam to lo-fi study beats, a birthday song, or a podcast intro. Each one has a 30-second preview made with that exact style.
+
+<Steps>
+  <Step title="Find a template">
+    The most popular ones are under **Start with a template**. Click **Browse all** to open the **Templates** tab, where you can filter by category or search.
+  </Step>
+  <Step title="Listen first">
+    Click ▶ on a template to hear its preview. Previews don't use any characters.
+  </Step>
+  <Step title="Use it">
+    Click the template. With **Custom Mode** on, it fills in **Style**, **Exclude styles**, and the vocals, and leaves your lyrics as they are. With **Custom Mode** off, it fills in the song description. Click **Undo** in the message that appears to go back.
+  </Step>
+</Steps>
+
+If you use an instrumental template while your lyrics are filled in, your lyrics are kept and the song has vocals.
+
 ## Write your own lyrics
 
 Turn on **Custom Mode** to control the words and the sound:
 
-- **Style**: genres, instruments, mood, and tempo, up to 200 characters. For example, "Calm acoustic folk, soft fingerpicked guitar, gentle female vocals, 70 BPM".
-- **Lyrics**: up to 3,000 characters. Mark the parts with tags such as `[Verse]`, `[Chorus]`, and `[Bridge]`.
+- **Style**: genres, instruments, mood, and tempo, up to 1,000 characters (200 on the Free plan). For example, "Calm acoustic folk, soft fingerpicked guitar, gentle female vocals, 70 BPM". Click a tag under the field (**Genre**, **Mood**, **Vocals**, **Instruments**, **Tempo**, **Era & sound**) to add it, and click it again to remove it. **Recent** puts back a style you used before, and **Random style** picks a template's style.
+- **Exclude styles** (optional): sounds you don't want, separated by commas, such as "autotune, heavy distortion, choir". The AI tries to avoid them, but it can't guarantee it.
+- **Lyrics**: up to 3,000 characters. Mark the parts with tags such as `[Verse]`, `[Chorus]`, and `[Bridge]`: click a tag button above the field to add it where your cursor is. With the field empty, **Song structure** adds a full outline (intro, verses, choruses, bridge, outro) to write into.
 
 <Frame>
   <img src="/images/audio/music-custom-mode.webp" alt="AI Song Generator with Model Suno V6, Custom Mode on, a Style of calm acoustic folk, Lyrics with a Verse and a Chorus about rolling out a yoga mat and breathing, Instrumental Only off, Vocal Gender Female, and Generate" width="460" />
 </Frame>
 
-On the Free plan, the description is limited to 100 characters and the lyrics to 400.
+On the Free plan, the description is limited to 100 characters, the style and exclusions to 200 each, and the lyrics to 400.
 
 ## Your songs
 
-Each song has **Play**, **Share**, **Details** (ⓘ), and **Download** (MP3).
+Each song has **Play**, **Reuse prompt** (pencil), **Share**, **Details** (ⓘ), and **Download**.
 
 <Frame>
   <img src="/images/audio/music-details.webp" alt="Song details: the cover, the text and lyrics, Created At, Characters Used 300, Status Completed, Generate Lyric Video, and Delete, Play, Share, and Download" width="500" />
 </Frame>
 
+- **Download** offers **MP3** (a smaller file, for sharing and listening) and **WAV** (uncompressed, for editing and mastering). The first WAV download of a song takes about a minute to prepare, and it starts on its own when it's ready; after that it downloads straight away. WAV doesn't use any characters.
+- **Reuse prompt** loads the song's style and lyrics (or its description) back into the form, so you can change something and generate again.
 - **Details** shows the lyrics, the date, and the characters used, and has **Delete**.
 - **Generate Lyric Video** makes a simple video of the cover with the lyrics on screen. It's not a music video.
 - **Share** makes a public link, like it does for [speech](/audio/text-to-speech). On a Teams plan you can also share with your team.
 
-**Examples** shows songs other people have made; open **Details** on one to see its prompt. All your songs are also listed in **History** > **Music**.
+**Examples** shows songs other people have made; open **Details** on one to see its prompt, and click **Use this prompt** to load it into the form. All your songs are also listed in **History** > **Music**.
 
 ## What it costs
 
