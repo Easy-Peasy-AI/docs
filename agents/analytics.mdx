@@ -1,34 +1,59 @@
 ---
 title: "Analytics"
-description: "Track your agent's chats, messages, visitor feedback, and conversation sentiment over time."
+description: "See how many conversations your agent has, how visitors rate its replies, how they feel, and where they chat from."
 ---
 
-**Analytics** shows how much your agent is used and how visitors feel about its answers. Open your agent and click **Analytics**.
+**Analytics** shows how visitors use your agent on your website and how they rate its answers. Open your agent and click **Analytics**.
 
 <Frame>
-  <img src="/images/agents/analytics.webp" alt="Agent Analytics for the last 14 days: Total Chats 2, Total Messages 6, Positive Feedback 0, Negative Feedback 0, and a Daily Activity chart of messages and chats" />
+  <img src="/images/agents/analytics.webp" alt="Agent Analytics for the last 30 days: tabs for Conversations, Messages and Voice calls with their change from the previous period, a daily chart, and Feedback, Sentiment, Top countries and Pages people chat from panels" />
 </Frame>
 
-Choose a period at the top: the last 7, 14, 30, or 90 days, or **Custom** for any range up to 120 days.
+Choose a period at the top right: the last 7, 30, or 90 days, or **Custom range** for any dates up to 120 days. Every number is compared with the same number of days just before, and days follow your time zone. The period is part of the page address, so you can bookmark a view or share it with your team.
 
-| Section | What it shows |
+## Activity
+
+| Tab | What it counts |
 | --- | --- |
-| **Total Chats**, **Total Messages** | How many conversations and messages there were |
-| **Positive Feedback**, **Negative Feedback** | Thumbs up and down visitors gave the agent's answers. Visitors can rate answers when **Collect User Feedback** is on in [Appearance](/agents/appearance#chat-features) |
-| **Daily Activity** | Messages, chats, likes, and dislikes per day |
-| **Sentiment Distribution** | How many conversations were positive, negative, or neutral |
-| **Sentiment Trend Over Time** | How sentiment changed from day to day |
+| **Conversations** | Conversations with at least one message in the period |
+| **Messages** | Messages visitors sent. Your agent's replies aren't counted |
+| **Voice calls** | Calls visitors joined, with the total talk time. Shown once your agent has had calls |
+
+Click a tab to see it day by day. The dashed gray line is the previous period. Today's point is dashed too, because the day is still counting.
+
+The arrow next to a number shows the change from the previous period. Hover over it to see the previous number.
+
+## Feedback
+
+The share of rated replies that visitors marked helpful with a thumbs up, and how many thumbs up and down there were. **Read the conversations with a thumbs down** opens [**Conversations**](/agents/conversations) showing just those chats.
+
+Visitors can rate replies when **Collect User Feedback** is on in [Appearance](/agents/appearance#chat-features). When it's off, the panel says so and links there.
+
+## Sentiment
+
+Each conversation is rated positive, neutral, or negative from what the visitor wrote. Click a row to open those conversations. Sentiment is checked every two hours, so the newest conversations wait a little before they're counted here.
+
+## Top countries and pages
+
+Where visitors are, and the page they were on when they started chatting. Your agent's shareable link and its Preview page are shown by name. Older conversations have no location or page details, so these lists can cover fewer conversations than the total.
+
+## What's counted
+
+- Chats on your website and on your agent's shareable link, and voice calls.
+- Your own tests in the [Playground](/agents/playground) and on the Preview page are left out. Click **Include them** at the bottom of the page to count them.
+- WhatsApp, Messenger, Telegram, LINE, and email conversations aren't counted here yet. You can read them in [**Conversations**](/agents/conversations).
 
 ## Use it to improve your agent
 
-- **Negative feedback or negative sentiment** points to answers worth checking. Open the conversation in [**Conversations**](/agents/conversations), and click **Revise answer** to fix it.
-- **A jump in messages** after a change, such as a new page on your website, shows whether people find the chat.
+- **Thumbs down or negative sentiment** points to answers worth checking. Open the conversation and click **Revise answer** to fix it.
+- **A jump in conversations** after a change, such as a new page on your website, shows that people find the chat.
+- **Pages people chat from** shows where visitors have questions. Clear answers on those pages, or in your agent's [knowledge](/agents/knowledge), help them faster.
 
 <Columns cols={2}>
   <Card title="Conversations" icon="comments" href="/agents/conversations">
     Read the chats behind the numbers.
   </Card>
-  <Card title="Leads" icon="address-card" href="/agents/leads">
-    Get a daily summary by email.
+  <Card title="Knowledge" icon="book" href="/agents/knowledge">
+    Add the answers visitors are looking for.
   </Card>
 </Columns>
