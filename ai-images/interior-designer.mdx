@@ -7,7 +7,7 @@ description: "Redesign a room from a photo, stage an empty space, change paint c
 
 ## Choose a mode
 
-Click **AI Interior Designer** in the sidebar, or **Images** > **Interior Designer** in the top menu. Pick what to do under **Choose mode**:
+Click **AI Interior Designer** in the sidebar, or **Images** > **Interior Designer** in the top menu. Pick what to do under **What do you want to do?**:
 
 <Frame>
   <img src="/images/ai-images/interior-modes.webp" alt="The Choose mode menu: Edit, perfect for changing colors, materials, or adding and removing specific items; Restyle, choose from various design themes to transform your existing space; Generate, start from scratch with AI-generated room designs; 360° Panorama; and Declutter Room" width="450" />
@@ -16,32 +16,32 @@ Click **AI Interior Designer** in the sidebar, or **Images** > **Interior Design
 | Mode | What it does |
 | --- | --- |
 | **Edit** | Changes what you describe: colors, materials, furniture, decor |
-| **Restyle** | Redesigns your room in one or more design themes |
-| **Generate** | Designs a room from scratch, without a photo |
-| **360° Panorama** | Makes a 360° image of a room you can look around in |
-| **Declutter Room** | Removes clutter and loose items |
-| **Virtual Staging** | Furnishes an empty room |
-| **Empty Room** | Removes the furniture |
-| **Color / Paint Changer** | Repaints the walls in the color you describe |
+| **Restyle** | Redesigns your room in one or more styles |
+| **Create new** | Designs a room from scratch, without a photo |
+| **Virtual staging** | Furnishes an empty room |
+| **Declutter** | Removes clutter and loose items |
+| **Empty room** | Removes all furniture and decor |
+| **Paint walls** | Repaints the walls in the color you pick and keeps everything else |
+| **360° view** | Makes a panorama of a room you can look around in |
 
 ## Edit a room
 
 <Steps>
-  <Step title="Upload a photo">
-    Drag in a photo of the room, garden, or exterior: JPG, PNG, or WebP, up to 10 MB. For **Edit** and **360° Panorama**, **Add more** adds up to 6 photos of the same space.
+  <Step title="Add a photo">
+    Drag in a photo of the room, garden, or exterior, click to browse, or paste it: JPG, PNG, or WebP, up to 25 MB. No photo at hand? Pick one of the sample rooms. For **Edit** and **360° view**, **Add reference photos** adds furniture, materials, or other angles of the same space, up to 6 photos in all.
   </Step>
   <Step title="Describe the change">
-    With **Edit Mode** on **Prompt**, write it in **What would you like to edit?** Say where things go, for example "add a blue sofa on the left wall". To point at a spot instead, switch to **Visual** and click **Add Visual Markers**.
+    Write it under **Describe the change**, or click one of the suggestions below the box. Say where things go, for example "add a blue sofa on the left wall". To point at spots instead, switch to **Point on photo**, click the photo to drop a marker, and write what should change at that spot.
 
     <Frame>
       <img src="/images/ai-images/interior-edit.webp" alt="Interior Designer with a photo of an empty studio with mirrors and a barre, Add Visual Markers, Add more, mode Edit, Edit Mode Prompt, the instruction to add rolled yoga mats and round bolsters on low wooden shelves and a few sage green floor cushions, and Output Settings 16:9 and 1K" width="450" />
     </Frame>
   </Step>
-  <Step title="Choose the output settings">
-    Pick the aspect ratio and the resolution: **1K**, **2K**, or **4K**. 4K is for paid plans.
+  <Step title="Choose the settings">
+    Above **Generate**, pick the aspect ratio (**Auto** keeps the shape of your photo), the resolution (**1K**, **2K**, or **4K**; 4K is for paid plans), and how many designs to make, from 1 to 4.
   </Step>
   <Step title="Click Generate">
-    The result appears on the right in about 20 seconds.
+    The button shows what the run costs. The results appear on the right, usually within a minute.
 
     <Frame>
       <img src="/images/ai-images/interior-edit-result.webp" alt="The result: the same studio with low wooden shelves of rolled mats and bolsters along the back wall and sage green floor cushions, with Video, Upscale, Edit, and Download buttons, and the Original and the result below to compare" />
@@ -49,26 +49,27 @@ Click **AI Interior Designer** in the sidebar, or **Images** > **Interior Design
   </Step>
 </Steps>
 
-Click the thumbnails under the result to compare it with the original. To keep changing the result, describe the next change and click **Generate** again. **Start Fresh** begins again with a new photo.
+Drag the slider on a result to compare it with your photo, and click the thumbnails under it to switch between the designs of this session. **Start over** clears the session.
 
 Each result has:
 
-- **Edit**: opens it in an editing window to change it with a description, like [editing images](/ai-images/edit).
+- **Download**.
+- **Keep editing**: your next change starts from this design instead of the original photo.
+- **Animate**: turns it into a short video, such as a slow walkthrough. Paid plans only. See [Generate videos](/videos/generate).
 - **Upscale**: opens it in the Magic Upscaler in a new tab. See [Upscale images](/ai-images/upscale).
-- **Video**: turns it into a short video, such as a slow walkthrough. See [Generate videos](/videos/generate).
-- **Download**, and thumbs up and down.
+- Thumbs up and down.
 
-Your results are also saved in [AI Images](/ai-images/manage).
+Your results are also saved under **Your designs** below the tool and in [AI Images](/ai-images/manage).
 
 ## Restyle or design from scratch
 
-For **Restyle** and **Generate**, choose the **Room Type**, such as a living room, kitchen, home office, coffee shop, or front yard, and one or more **Themes**: Minimalist, Scandinavian, Industrial, Bohemian, Japanese Zen, Coastal, and many more. **Custom** lets you describe your own. You get one design per theme, so picking three themes makes three designs.
+For **Restyle** and **Create new**, choose the **Room type**, such as a living room, kitchen, home office, coffee shop, or front yard, and up to 4 **Styles**: Minimalist, Scandinavian, Industrial, Bohemian, Japanese Zen, Coastal, and many more. **Custom** lets you describe your own. The number you pick above **Generate** is per style, so 3 styles with 2 designs each makes 6 designs. A run makes at most 8.
 
 <Frame>
   <img src="/images/ai-images/interior-result.webp" alt="A generated minimalist Pilates and barre studio with mirrors, a wooden barre, light oak floors, and floor-to-ceiling windows, labeled Minimalist, with Video, Upscale, Edit, and Download" width="500" />
 </Frame>
 
-In **Generate**, you also pick the **Model** and the aspect ratio. Add details in **Additional Prompt (Optional)**, such as colors or furniture you want.
+In **Create new**, you also pick the **Quality** (**Fast**, **Standard**, or **Best quality**) and the aspect ratio. Add details in **Extra details (optional)**, such as colors or furniture you want.
 
 ## Tips
 
@@ -82,15 +83,13 @@ Interior Designer uses [image & video credits](/account/plans-and-credits):
 
 | Mode | Credits per image |
 | --- | --- |
-| **Edit**, **Restyle**, **Declutter Room**, **Virtual Staging**, **Empty Room**, **Color / Paint Changer** | 7 at 1K or 2K, 12 at 4K |
-| **Generate** | Depends on the model: 4 with the default, Nano Banana 2 |
-| **360° Panorama** | 3, or 11 with your own photos |
+| **Edit**, **Restyle**, **Virtual staging**, **Declutter**, **Empty room**, **Paint walls** | 2 at 1K, 3 at 2K, 6 at 4K |
+| **Create new** | **Fast** 1, **Standard** 3, **Best quality** 7 |
+| **360° view** | 3, or 11 with your own photos |
 
-<Note>
-  For the photo modes, the **Generate** button currently shows a lower number than what's charged. The table above is what's used.
-</Note>
+The **Generate** button shows the total for the run and the line under it shows the credits you have left. A design that fails is not charged.
 
-On the Free plan, you can pick one theme at a time, and the photo modes need more credits than the Free plan's 3 a month.
+On the Free plan, you pick one style at a time and 4K is locked. The Free plan's 3 credits a month cover one design at 2K.
 
 <Columns cols={2}>
   <Card title="Edit images" icon="pen-to-square" href="/ai-images/edit">
