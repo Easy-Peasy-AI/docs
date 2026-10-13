@@ -1,6 +1,6 @@
 ---
 title: "Knowledge"
-description: "Add the websites, documents, text, Q&A, sitemaps, and YouTube videos your agent answers from, and keep them up to date."
+description: "Add the websites, documents, Google Drive and OneDrive files, text, Q&A, sitemaps, and YouTube videos your agent answers from, and keep them up to date."
 ---
 
 **Knowledge** is everything your agent knows about your business. When someone asks a question, the agent looks up the most relevant parts of its knowledge and answers from them. The better and more current this content is, the better the answers.
@@ -23,7 +23,7 @@ description: "Add the websites, documents, text, Q&A, sitemaps, and YouTube vide
     | Tab | What to enter |
     | --- | --- |
     | **Website** | Your website's address, then **Find pages**. You see the pages we found and uncheck any your agent shouldn't read. Up to 100 pages are read per website, and pages the agent already knows are skipped. **Add a single page** reads just one page; **Import from a sitemap** reads the pages your sitemap lists |
-    | **Files** | PDF, DOCX, CSV, TXT, or EPUB files, up to 10 at a time. Drop them on the panel or browse |
+    | **Files** | PDF, DOCX, CSV, TXT, or EPUB files, up to 10 at a time. Drop them on the panel or browse. To add files that stay in sync, use **Google Drive** or **OneDrive** under **Or add from** (see [below](#sync-files-from-google-drive-and-onedrive)) |
     | **Text** | Any text you type or paste |
     | **Q&A** | A question and the answer you want the agent to give |
     | **YouTube** | A video's link and the language of its transcript. The agent learns from the transcript |
@@ -32,6 +32,41 @@ description: "Add the websites, documents, text, Q&A, sitemaps, and YouTube vide
     The source appears at the top of the list as **Queued**, then **Training**, and **Trained** when the agent can use it. While a website is being read, **Training in progress** shows how many of its pages have arrived. The page refreshes on its own.
   </Step>
 </Steps>
+
+## Sync files from Google Drive and OneDrive
+
+Add documents straight from Google Drive or OneDrive and your agent keeps them up to date: when someone edits a file, the agent learns the new version.
+
+<Steps>
+  <Step title="Open the picker">
+    Click **Add source**, open the **Files** tab, and under **Or add from** click **Google Drive** or **OneDrive**. The first time, sign in to connect your account. It's the same connection Marky uses, so if you connected it in Marky's **Connectors**, you're already set.
+  </Step>
+  <Step title="Pick files or folders">
+    Check the files you want. To keep a whole folder in sync, check the folder, or open it and check **Sync the whole folder**. Click **Add**. You can add up to 25 files or folders at a time (10 on the Free plan).
+  </Step>
+  <Step title="Let the agent read them">
+    Each file becomes a source of its own, marked with the Google Drive or OneDrive logo. A folder's files are listed under the folder, with the path they're in.
+  </Step>
+</Steps>
+
+| What can be added | Details |
+| --- | --- |
+| Google Docs, Sheets, and Slides | Docs keep their headings and tables. Each sheet of a spreadsheet is read row by row; a spreadsheet too large for Google to export is read from its first sheet only |
+| PDF, Word, Excel, PowerPoint, CSV, and text files | Up to 30 MB per file. A scanned PDF needs text you can select |
+| Older Office files, RTF, OpenDocument, and EPUB | From OneDrive only |
+| Folders | Up to 200 files, subfolders included. Images, videos, and other files the agent can't read are skipped, and the folder's row says how many |
+
+### How syncing works
+
+- On paid plans, every synced file is checked every 6 hours. A file that hasn't changed isn't read again. A changed file is learned again, and the agent keeps answering from the previous version until the new one is ready.
+- A synced folder also adds files that appear in it and removes files that were deleted from it. A file you delete from the folder's list here isn't added back.
+- When a file is deleted, moved to the trash, or no longer shared with you, the agent stops using it and the row says why.
+- **Sync now** in a row's **⋯** menu checks it right away. On the Free plan, files update only when you use **Sync now**; a large folder still finishes adding its files on its own.
+- Synced files count toward the agent's characters and, on the Free plan, toward its 250 sources.
+
+### If the connection stops working
+
+Files sync through the account of the person who added them. If that account is disconnected, or connected to a different Google or Microsoft account, the agent keeps answering from the last version it learned, and a banner above the list asks to reconnect. Click **Reconnect** and sign in with the same account: the files that were waiting sync right away. A teammate sees a note asking the person who added the files to reconnect.
 
 ## Sources and their status
 
@@ -65,8 +100,8 @@ When nothing needs attention, the report shrinks to a short **Training finished*
 
 Your agent doesn't notice when your website changes. To update it:
 
-- **Retrain** reads all your website pages again and re-learns the ones whose text changed. The agent keeps answering while it runs. Files, text, Q&A, and videos stay as they are; to replace a document, delete it and upload the new version.
-- **Auto-retrain**, the switch in the summary, does the same every week. It's available on Unlimited 500 and higher plans.
+- **Retrain** reads all your website pages again and re-learns the ones whose text changed. The agent keeps answering while it runs. Uploaded files, text, Q&A, and videos stay as they are; to replace an uploaded document, delete it and upload the new version, or add it from [Google Drive or OneDrive](#sync-files-from-google-drive-and-onedrive) so it updates on its own.
+- **Auto-retrain**, the switch in the summary, does the same every week. It's available on Unlimited 500 and higher plans. Google Drive and OneDrive files don't need it: they're checked every 6 hours on every paid plan.
 
 **Last trained** in the summary shows when the agent last learned something new.
 
@@ -94,6 +129,9 @@ By default, the agent answers only from its knowledge and says when it doesn't k
   </Accordion>
   <Accordion title="The agent doesn't know something that's in a document">
     Make sure the source is **Trained**. Scanned PDFs without selectable text can't be read; upload a text version. Then try asking the same question with different words, and add a **Q&A** for the answer you expect.
+  </Accordion>
+  <Accordion title="A Google Drive or OneDrive file didn't update">
+    Changes are picked up within about 6 hours on paid plans. To pick them up now, click **⋯** and **Sync now** on the file's row (on the Free plan this is the only way). If the row shows a warning, it says why: for example, the account was disconnected or the file is no longer shared with you. A file with more than 3 million characters of text is learned from its first part only.
   </Accordion>
   <Accordion title="The agent read pages I don't want">
     Select those rows and click **Delete**. Next time, uncheck them in the page list after **Find pages**.
