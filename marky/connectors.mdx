@@ -67,15 +67,15 @@ Custom MCP servers connect with URLs and headers; signing in with OAuth works on
 ## Privacy and Google data
 
 - Marky reads your data only while it works on a task that needs it.
-- In Gmail, Outlook, Google Calendar, Outlook Calendar, Google Drive, OneDrive, OneNote, Notion, and GitHub, Marky asks in the chat before it sends an email, changes your calendar, or creates or changes files, pages, and issues. For other apps, say in your request if you want Marky to check with you first, for example "show me the refund before you issue it".
+- In Gmail, Outlook, Google Calendar, Outlook Calendar, Google Drive, OneDrive, OneNote, Notion, and GitHub, Marky asks in the chat before it sends an email, changes your calendar, or creates or changes files, pages, and issues. For other apps, say in your request if you want Marky to check with you first, for example "show me the refund before you issue it". In [automations](/marky/automations#approvals), what Marky sends or changes in any app waits for your approval on the Automations page.
 - Grok (xAI) and DeepSeek models can't use Gmail, Google Calendar, or Google Drive, because of Google's rules for how its data may be used. While those connectors are on, these models are unavailable in the model picker. Turn the Google connectors off to use them.
 
 <AccordionGroup>
   <Accordion title="Marky says an app isn't connected, but it is">
     The app's sign-in may have expired, for example after you changed your password or haven't used it for a long time. Open **Connectors** and connect the app again. If it still shows **Connected**, click its name, then **Disconnect**, and connect it again.
   </Accordion>
-  <Accordion title="Can my scheduled tasks use connectors?">
-    Yes. [Scheduled tasks](/marky/scheduled-tasks) can use every connector that's connected and on.
+  <Accordion title="Can my automations use connectors?">
+    Yes. [Automations](/marky/automations) can use every connector that's connected and on. What they send or change waits for your approval, unless you turn that off in the automation's **Approvals**.
   </Accordion>
   <Accordion title="Which OneNote notebooks can Marky see?">
     Notebooks stored in your own OneDrive or OneDrive for Business. Notebooks on SharePoint team sites or in Microsoft 365 groups aren't available.
@@ -86,7 +86,7 @@ Custom MCP servers connect with URLs and headers; signing in with OAuth works on
   <Card title="Browse the web" icon="window-maximize" href="/marky/browser">
     For websites without a connector, let Marky use a browser.
   </Card>
-  <Card title="Scheduled tasks" icon="calendar-clock" href="/marky/scheduled-tasks">
-    Run a connector job every day or week.
+  <Card title="Automations" icon="arrows-rotate" href="/marky/automations">
+    Run a connector job on a schedule, or when a new email or file arrives.
   </Card>
 </Columns>

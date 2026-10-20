@@ -1,0 +1,263 @@
+---
+title: "Automations"
+description: "Have Marky work on its own, on a schedule or when a webhook call, a new email, or a change in a connected app starts it, and read what it did in Updates."
+---
+
+An automation is work Marky does on its own while you're away. It runs on a schedule, such as every weekday at 8 or once next Friday. Or it runs when something happens: another service calls its webhook, an email arrives in your Gmail or Outlook, or something changes in an app you've connected, such as a new file in a Google Drive folder or a meeting that's about to start. At each run, Marky follows the automation's instructions with all its usual tools, such as web search, your connectors, and file creation, and reports back on the **Automations** page.
+
+Use automations for work that repeats or waits for something: a morning news brief, a plan for the week, a draft reply to each customer email, a summary of every paid order, or a briefing before each meeting.
+
+<Note>
+Automations replace Marky's **Scheduled** window. Tasks you scheduled before are on the Automations page and keep posting their results in the same chat as before.
+</Note>
+
+## Create an automation by asking
+
+The easiest way is to tell Marky what you want and when, in any chat:
+
+> Every weekday at 8am, find the latest news about the yoga and wellness industry and give me the five most important stories, one line each, with links.
+
+Marky writes detailed instructions for the automation, sets it up, and shows a card under its reply: what starts it, what Marky will do, where the results go, which emails you get, and the next run. Click **View in Automations** to open it.
+
+<Frame>
+  <img src="/images/marky/automations-chat-card.webp" alt="The card Marky shows after creating an automation: Yoga and wellness news brief, every weekday at 8:00 AM, Active, with what Marky will do, results in its own conversation, emails after every run, approvals that ask before sending or changing anything, the next run, and the Open its conversation and View in Automations links" />
+</Frame>
+
+Ask for the other triggers the same way: "when an email from a customer arrives, draft a reply", "15 minutes before each meeting in my Google Calendar, brief me on the people in it", "when someone opens an issue in my GitHub repository, sort it". For a webhook, the card shows the automation's private URL, ready to copy. Marky can also list, change, pause, resume, and delete your automations when you ask.
+
+Each automation Marky creates gets a conversation of its own. For a schedule, you can ask Marky to post the results in the chat you're in instead: "post the results here".
+
+Automations Marky creates ask you before they send messages, change your calendar, or act in your apps. Only you can change that, on the Automations page. See [Approvals](#approvals).
+
+## Find your automations
+
+Click **Automations** in the Marky sidebar, or go to [easy-peasy.ai/automations](https://easy-peasy.ai/automations). A dot on **Automations** means new results are waiting.
+
+<Frame>
+  <img src="/images/marky/automations-updates.webp" alt="The Updates page with three unread results from today: Monday Instagram ideas and Yoga and wellness news brief from test runs, and New form submissions from a webhook call, each with the start of its result, next to the menu with Updates, Manage, the three automations, and Automations in use 3 of 10" />
+</Frame>
+
+| Section | What it shows |
+| --- | --- |
+| **Updates** | What your automations did, newest first and grouped by day, with the start of each result. New results have a dot until you open them: **Unread** shows only those, and **Mark all as read** clears the dots. Click a result to read all of it in its conversation. |
+| **Manage** | Your automations as cards, with what starts each one and when it runs next. The buttons at the top filter them by trigger. |
+| An automation's page | **Details**: what starts it, its instructions, how it runs, and its email and approval settings. **History**: every run, with its result. |
+
+The menu on the left also lists each automation, and **Automations in use** at the bottom shows how many you have out of 10.
+
+## Create an automation on the page
+
+<Steps>
+  <Step title="Open the form">
+    Click **New automation**. If you have no automations yet, **Manage** also shows examples under **Start with an example**, such as **Morning news brief**, **Emails that need me today**, and **Prepare me for meetings**. An example fills in the form; nothing is created until you save.
+  </Step>
+  <Step title="Choose what starts it">
+    Under **When should it run?**, pick **On a schedule**, **When a webhook is called**, **When an email arrives**, or **When something happens in an app**, and fill in the settings that appear. See [What can start an automation](#what-can-start-an-automation).
+
+    <Frame>
+      <img src="/images/marky/automations-new.webp" alt="The New automation form with the four triggers On a schedule, When a webhook is called, When an email arrives, and When something happens in an app, Who runs it set to Marky, and the name Morning news brief" width="560" />
+    </Frame>
+  </Step>
+  <Step title="Name it and say what to do">
+    Type a **Name**, then write the instructions in **What should Marky do?** as a message to Marky. See [Write good instructions](#write-good-instructions).
+  </Step>
+  <Step title="Choose emails, approvals, and the model">
+    **Email me** sets when you get an email about a run, **Approvals** what Marky must ask you first, and **Model** the model that runs it. See [Emails and approvals](#emails-and-approvals).
+  </Step>
+  <Step title="Save and test it">
+    Click **Create automation**, and its page opens. Click **Test run** to run it now, or **Send a test event** for an automation that starts from a webhook, an email, or an app. The result shows up in **Updates** in a minute or two.
+  </Step>
+</Steps>
+
+**Who runs it** is **Marky**. If you have AI Employees, you can pick one of them instead, and it runs the automation with its own model, apps, and approvals.
+
+## What can start an automation
+
+### On a schedule
+
+| Option | Settings |
+| --- | --- |
+| **Every day**, **Every weekday**, **Every week**, **Every month** | A time, plus the day of the week or the day of the month (1 to 28). |
+| **Every hour** | The minute of the hour, in steps of 5. |
+| **Once** | A date and time. |
+| **Custom (cron)** | A cron expression with six fields: second, minute, hour, day of the month, month, and day of the week. `0 30 8 * * 1-5` means 8:30 on weekdays. |
+
+The form shows the schedule in words, such as "Every weekday at 8:00 AM". **Stop after (optional)** ends a repeating schedule on a date, for example at the end of a campaign.
+
+Times are in the time zone shown under **Schedule**, which is your browser's time zone when you create the automation. A schedule runs at most every 5 minutes. Schedules Marky set up in chat, such as "every 2 hours", stay as they are when you edit the automation, unless you pick a new schedule.
+
+### When a webhook is called
+
+A webhook automation runs each time another service calls its private URL: Stripe when an order is paid, Shopify when an order comes in, a form on your website, Zapier, or your own code. Marky gets the data that was sent (JSON, form fields, or text) along with its instructions.
+
+After you save, the automation's page shows the **Webhook URL**. Click **Copy URL** and paste it into the other service's webhook settings. **Example request** shows a test call you can send from a terminal.
+
+Anyone with the URL can start the automation, so keep it private. If it leaks, click **Reset URL** to get a new one. The old URL stops working right away.
+
+For more control, open **Conditions and security (optional)** in the form:
+
+| Option | What it does |
+| --- | --- |
+| **Fields to test** | Names values from each call: a path into the JSON body, such as `data.object.amount`, a query parameter, or a header. Give each a type: text, number, yes or no, date, or list. |
+| **Run only when** | Conditions on those fields. A call that doesn't meet them gets an answer but starts nothing, and the automation's page counts it. |
+| **Answer URL verification checks** | Answers the checks that Slack, Meta (WhatsApp, Instagram, Messenger), Microsoft Graph, and Dropbox send before they deliver events. For Meta, you can also enter the token you typed in the Meta app settings under **Verify token (Meta, optional)**. Checks never start a run. |
+| **Require a secret header** | Refuses calls without this header and value, `X-Webhook-Secret` by default. Copy the value before you save: only a fingerprint of it is kept. |
+
+You set these options on the Automations page, not in chat.
+
+### When an email arrives
+
+An email automation runs when a new email arrives in your Gmail or Outlook inbox. Connect the inbox in Marky's [Connectors](/marky/connectors) first, then pick it under **Inbox**. Inboxes are checked every 2 minutes, and only emails that arrive after you save start a run.
+
+| Setting | What it does |
+| --- | --- |
+| **Only emails from (optional)** | Addresses or domains, separated by commas, such as `stripe.com, anna@client.com`. |
+| **Subject contains (optional)** | Words, separated by commas, such as `refund, invoice`. |
+| **Also run on newsletters, receipts and other automated emails** | Off by default, so those emails are skipped. Auto-replies and delivery reports never start a run. |
+| **More conditions (optional)** | Conditions on the sender's address, name, or domain, **To and Cc**, the subject or body, attachments, or **Label or folder** (Gmail labels; Outlook categories, Focused, or Other). |
+
+**Send a test event** runs the automation on your latest matching email.
+
+### When something happens in an app
+
+| Source | What starts a run | Settings |
+| --- | --- | --- |
+| **RSS feed** | A new post in a blog, news, or podcast feed | **Feed address**. A page that has a feed works too. |
+| **Google Calendar** | Each event, a set time before it starts | **Minutes before it starts** (0 to 1440, 15 by default) and **Calendar**: `primary` for your main calendar, or a calendar's ID. |
+| **Outlook Calendar** | Each event, a set time before it starts | **Minutes before it starts**. |
+| **Google Drive** | A new file in a folder | **Folder**: click **Choose a folder**, or paste the folder's link. |
+| **OneDrive** | A new file in a folder | **Folder**: click **Choose a folder**. |
+| **GitHub** | A new issue, pull request, or release | **Repository**, as `owner/name`. |
+| **Notion** | A new or changed item in a database | **Database**: paste its link. First share the database with the Easy-Peasy.AI connection in Notion (**•••** > **Connections**). |
+
+Apart from RSS feeds, the app must be connected in Marky's [Connectors](/marky/connectors). If it isn't, the form shows a **Connect** button.
+
+Click **Check the source** to see the five latest items, each marked by whether it meets your conditions. Add conditions under **Run only when (optional)**: for example, only files whose name contains "invoice", or only meetings with more than two attendees.
+
+Calendars are checked every 2 minutes; Google Drive, OneDrive, GitHub, and Notion every 5; and feeds every 15. Only what's new after you save starts a run. If more than 10 new items show up in one check, the 10 newest start runs and the rest are skipped.
+
+### Conditions
+
+Email, webhook, and app automations can run only when conditions are met. Click **Add a condition**, then pick a field, a test such as **contains**, **is**, **starts with**, **is more than**, or **is before**, and a value. **And** adds a condition to the same set, and all the conditions in a set must hold. **Or another set of conditions** adds an alternative: the automation runs when any one set holds. For dates, enter a date (`2026-10-31`), `now`, or a time from now such as `-3d`, `+2h`, or `-30m`.
+
+For a webhook, name the fields under **Fields to test** first, then add conditions on them.
+
+Conditions are checked before a run starts, so whatever they filter out uses no words.
+
+## Write good instructions
+
+At run time you're not there to answer questions, so the instructions have to stand on their own. When Marky creates an automation for you, it writes them this way. When you write them yourself, include:
+
+- **The goal and who it's for**: "Write three Instagram post ideas for Example Yoga Studio."
+- **Where to look**: the websites, files, or connected apps to use.
+- **What to do with what arrives**: for a webhook, email, or app automation, say how to use the data: "An order was paid. Check it in Stripe, then send me a two-line summary."
+- **How to avoid repeats**: "Check the earlier runs in this conversation and don't repeat an idea."
+- **The format of the result**: a table, three bullets, a one-page report.
+
+Describe the job, not the timing: the schedule or the trigger already says when.
+
+## Where results go
+
+Each automation has its own conversation, named "Automation:" followed by the automation's name, in the **Automations** folder of the Marky sidebar. Each run adds to it, under an **Automation ran** line that you can open to see the instructions and the data the run started from. **Open conversation** on the automation's page takes you there.
+
+Tasks you scheduled before Automations keep posting in the same chat as before, and schedules you asked Marky to post "here" post in the chat where you asked.
+
+Every run also shows in **Updates** and in the automation's **History**, as **Succeeded**, **Failed**, **Skipped** (for example, when your plan is out of words), or **Running**. When Marky flags a run for you, it shows **Needs your attention** with the reason.
+
+## Emails and approvals
+
+Set these under **Email me** and **Approvals** when you create or edit an automation. The automation's page shows them under **Notifications and approvals**.
+
+<Frame>
+  <img src="/images/marky/automations-email-approvals.webp" alt="The New automation form scrolled to Email me, with Only when it needs me selected next to After every run and Never; Approvals, with Sending messages, Changing calendars, and Acting in connected apps all set to Ask me first; and Model, set to GLM 5.3 Flash" width="560" />
+</Frame>
+
+### Email me
+
+| Option | When you get an email |
+| --- | --- |
+| **Only when it needs me** | When a run fails, when an action waits for your approval, or when Marky flags something for you. This is the default. |
+| **After every run** | After each run, with the start of the result. |
+| **Never** | Never. Every run is still in **Updates**. |
+
+When Marky creates an automation in chat, it picks this setting from your request, and its card shows the choice under **Emails**. A failing automation emails you once, when it starts failing, not after every failed run. Tasks you scheduled before Automations email you after every run until you change the setting.
+
+### Approvals
+
+Nobody watches a run, so Marky asks you before it acts on your behalf. Each group is set to **Ask me first** or **Run without asking**:
+
+| Group | What it covers |
+| --- | --- |
+| **Sending messages** | Emails and WhatsApp messages. An email only to you, at your account address or a connected Gmail or Outlook address, never waits. |
+| **Changing calendars** | Creating, moving, or deleting events. |
+| **Acting in connected apps** | Creating or changing things in Notion, GitHub, Google Drive, OneDrive, and your other connectors, such as Stripe. Reading never needs approval. |
+
+All three start as **Ask me first**, also for automations Marky creates in chat.
+
+When a run wants to do one of these, the action waits and the run finishes without it. You find it at the top of **Updates**, under **Waiting for your approval**, on the automation's page, and in its conversation:
+
+- **Approve** does it now.
+- **Edit** lets you change it first, such as the text of an email. Then click **Approve with changes**.
+- **Reject**, then **Don't do it**, cancels it.
+
+A request you don't answer within 7 days expires.
+
+This applies to tasks you scheduled before Automations too. If one of them emails other people, approve each email in **Updates**, or set **Sending messages** to **Run without asking** with **Edit**.
+
+### Model
+
+**Model** is the model that runs the automation. Automations Marky creates in chat use the chat's model. Grok and DeepSeek models can't work with Gmail, Google Calendar, or Google Drive data, so pick another model for an automation that starts from one of them.
+
+## Manage an automation
+
+Open an automation from **Manage** or the menu on the left. The buttons at the top of its page, and the **⋯** menu on its card, have these actions:
+
+<Frame>
+  <img src="/images/marky/automations-detail.webp" alt="The page of the New form submissions webhook automation: the Send a test event, Pause, Edit, and Open conversation buttons, then the Details tab with the Webhook URL and Copy URL, the instructions, recent events, How it runs, and Notifications and approvals" />
+</Frame>
+
+| Action | What it does |
+| --- | --- |
+| **Test run** | Runs it now, without moving its schedule. |
+| **Send a test event** | For webhook, email, and app automations: sends a sample webhook call, your latest matching email, or the newest item from the app, handled like a real one. |
+| **Pause**, **Resume** | Stops it without deleting it, and starts it again. While it's paused, webhook calls are refused, and new emails and app changes are skipped. |
+| **Edit** | Changes the name, the instructions, the trigger's settings, the model, and the email and approval settings. Changes apply from the next run. To change what starts it, create a new automation. |
+| **Open conversation** | Opens the conversation its results go to. |
+| **Delete** | Stops it for good. Its conversation and past results stay. |
+
+Each automation shows its status: **Active**, **Running**, **Paused**, **Finished** (a one-time automation that ran), **Ended** (past its **Stop after** date), or **Failed**.
+
+## Limits
+
+- You can have up to 10 automations, paused ones and AI Employee routines included. Delete one to add another.
+- A schedule runs at most every 5 minutes.
+- A webhook call can carry up to 256 KB.
+- A webhook, email, or app automation runs at most 20 times an hour. More calls, emails, or items wait their turn, and one run can handle up to 5 that arrived together. One that waits more than a day is skipped.
+
+## Credits
+
+Each run uses words like any other message to Marky, at the rate of the automation's model, plus image & video credits for anything it generates, such as images. Test runs count too. Frequent schedules and busy webhooks add up, so check [Usage](/account/usage) after the first few runs. See [Models and words](/marky/models) for how words are counted.
+
+<AccordionGroup>
+  <Accordion title="Can an automation use my Gmail, Calendar, or other apps?">
+    Yes. A run can use every app you've connected in **Connectors**, so "every morning, summarize the unread emails from clients" works. Sending, changing your calendar, and acting in your apps wait for your approval unless you change **Approvals**. See [Connectors](/marky/connectors).
+  </Accordion>
+  <Accordion title="An automation ran at the wrong time">
+    Schedules run in the time zone shown under **Schedule** when you edit the automation. It's set from your browser when the automation is created, and editing doesn't change it. If it's wrong, check the time zone setting of your computer, then create the automation again.
+  </Accordion>
+  <Accordion title="My email automation didn't run">
+    Only emails that arrive after you save start a run, and newsletters, receipts, and other automated emails are skipped unless you turned them on. Emails that arrive while the automation is paused are skipped too. The automation's page shows its filters and when the inbox was **Last checked**.
+  </Accordion>
+  <Accordion title="Can Marky ask me questions during a run?">
+    No. Runs happen without you, so Marky can't ask you to clarify anything. It asks for approval before it sends, changes, or acts in your apps, and when something else needs your input, it flags the run: you see **Needs your attention** in **Updates** and get an email, unless **Email me** is set to **Never**.
+  </Accordion>
+</AccordionGroup>
+
+<Columns cols={2}>
+  <Card title="Connectors" icon="plug" href="/marky/connectors">
+    Let Marky work with Gmail, Google Calendar, Notion, GitHub, and more.
+  </Card>
+  <Card title="Usage" icon="chart-simple" href="/account/usage">
+    See how many words your automations use.
+  </Card>
+</Columns>

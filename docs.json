@@ -45,7 +45,7 @@
               "marky/skills",
               "marky/prompts-and-brand-voice",
               "marky/memory",
-              "marky/scheduled-tasks"
+              "marky/automations"
             ]
           },
           {
@@ -272,6 +272,12 @@
       }
     ]
   },
+  "redirects": [
+    {
+      "source": "/marky/scheduled-tasks",
+      "destination": "/marky/automations"
+    }
+  ],
   "logo": {
     "light": "/logo/marky.png",
     "dark": "/logo/marky.png",
