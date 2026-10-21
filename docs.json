@@ -115,6 +115,7 @@
                 "pages": [
                   "agents/channels",
                   "agents/website",
+                  "agents/wordpress",
                   "agents/website-platforms",
                   "agents/whatsapp",
                   "agents/messenger",
