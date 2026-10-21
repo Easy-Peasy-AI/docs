@@ -922,7 +922,7 @@
       "post": {
         "summary": "Generate Image",
         "operationId": "generateImage",
-        "description": "Generate images from a prompt, or edit supplied images. model selects the text-to-image generator; editModel selects the editor for Edit Image with AI. API-key requests wait for standard generation results. Check every returned image_url. Premium models and available credits depend on the account plan.",
+        "description": "Generate images from a prompt, or edit supplied images. model selects the text-to-image generator; editModel selects the editor for Edit Image with AI, and when editModel is omitted, a model that is one of the editModel values selects it instead. API-key requests wait for standard generation results. Check every returned image_url. Premium models and available credits depend on the account plan.",
         "requestBody": {
           "description": "The prompt and model to generate the image",
           "required": true,
@@ -2756,7 +2756,7 @@
           },
           "model": {
             "type": "string",
-            "description": "Exact text-to-image model title. Defaults to Nano Banana 2. For Edit Image with AI, choose editModel instead. Unknown titles may fall back to another generator; use a listed value.",
+            "description": "Exact model title. For text-to-image, defaults to Nano Banana 2. With image or images, no action and no editModel, it also selects the editor when it is one of the editModel values; any other model edits with the default editor (currently OpenAI GPT Image 2.5 Flare Medium). Unknown titles may fall back to another generator; use a listed value.",
             "enum": [
               "Nano Banana 2 Lite",
               "Nano Banana 2",
@@ -2859,7 +2859,7 @@
           "image": {
             "type": "string",
             "format": "uri",
-            "description": "Public input image URL. With no action, selects Edit Image with AI. Choose editModel to select the editor. For several reference images use images."
+            "description": "Public input image URL. With no action, selects Edit Image with AI. Choose the editor with editModel, or with model when it is one of the editModel values. For several reference images use images."
           },
           "images": {
             "type": "string",
@@ -2894,7 +2894,7 @@
           },
           "editModel": {
             "type": "string",
-            "description": "Editor used with action: Edit Image with AI. Without an explicit action, image/images selects OpenAI GPT Image 2 Medium when editModel is omitted or Qwen Image. With an explicit Edit Image with AI action, the omitted editModel defaults to Qwen Image. Send editModel explicitly for predictable behavior.",
+            "description": "Editor used with action: Edit Image with AI; takes precedence over model. Without an explicit action, image/images selects this editor; when editModel is omitted, model selects it if model is one of these values, and otherwise the default editor (currently OpenAI GPT Image 2.5 Flare Medium) is used. editModel Qwen Image without an action also selects the default editor; send action: Edit Image with AI to use Qwen Image. With that action, the omitted editModel defaults to Qwen Image. Send editModel explicitly for predictable behavior.",
             "enum": [
               "Nano Banana 2 Lite",
               "Nano Banana 2",

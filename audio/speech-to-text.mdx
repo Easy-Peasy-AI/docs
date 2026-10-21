@@ -9,7 +9,7 @@ description: "Transcribe audio and video files, YouTube, Instagram, TikTok, and 
 
 <Steps>
   <Step title="Choose a source">
-    Click **AI Speech to Text** in the sidebar, then **Upload new**.
+    Click **AI Speech to Text** in the sidebar, then **New transcription**.
 
     <Frame>
       <img src="/images/audio/stt-sources.webp" alt="Source options: Transcribe a YouTube Video, an Instagram Video, a TikTok Video, a Google Drive File, Import URL, Transcribe an Uploaded File, Record Audio, and Integrate with Zapier" width="560" />
@@ -17,16 +17,13 @@ description: "Transcribe audio and video files, YouTube, Instagram, TikTok, and 
 
     | Source | What to give |
     | --- | --- |
-    | **Transcribe an Uploaded File** | An audio or video file from your computer |
-    | **Transcribe a YouTube Video** | A YouTube link, including Shorts |
-    | **Transcribe an Instagram Video**, **a TikTok Video** | The post's link |
-    | **Transcribe a Google Drive File** | A Google Drive link that anyone with the link can open |
-    | **Import URL** | A public link to an audio or video file |
-    | **Record Audio** | Opens [Record & Transcribe](/audio/record) |
-    | **Integrate with Zapier** | Sends recordings from other apps through Zapier |
+    | **Upload a file** | An audio or video file from your computer. You can also drag it onto the card |
+    | **Record audio** | Opens [Record & Transcribe](/audio/record) |
+    | **Or paste a link** | A YouTube link (Shorts included), an Instagram or TikTok post, a Google Drive file that anyone with the link can open, or any public link to an audio or video file |
+    | **Transcribe automatically from your other apps with Zapier** | Sends recordings from other apps through Zapier |
   </Step>
-  <Step title="Add the file or link">
-    For a file, drag it in or click to choose it. Audio: MP3, M4A, WAV, FLAC, OGG, AAC, Opus, WMA. Video: MP4, MOV, WebM, AVI, MKV, FLV.
+  <Step title="Check the file or link">
+    The next page opens with your file or link filled in. **Change** picks another file. Audio: MP3, M4A, WAV, FLAC, OGG, AAC, Opus, WMA. Video: MP4, MOV, WebM, AVI, MKV, FLV.
 
     <Frame>
       <img src="/images/audio/stt-upload.webp" alt="The upload form with front-desk-call.mp3 uploaded, Type of Audio Phone Call, Language spoken in the audio English, and Detect Speakers on" />
@@ -39,14 +36,14 @@ description: "Transcribe audio and video files, YouTube, Instagram, TikTok, and 
 
     | Option | What it does |
     | --- | --- |
-    | **Type of Audio** | Podcast, Meeting, Lecture, Sales Call, Therapy Session, and so on. It decides which [AI Content](/audio/transcripts#ai-content) you get |
-    | **Language spoken in the audio** | The language, or **Auto** to detect it. Choosing the language gives better results, especially with accents |
-    | **Detect Speakers?** | Labels who is speaking |
+    | **Type of Audio** | Optional: Meeting, Podcast, Lecture, Sales Call, Therapy Session, and so on. It decides which [AI Content](/audio/transcripts#ai-content) you get |
+    | **Language spoken in the audio** | The language, or **Detect automatically**. Choosing the language gives better results, especially with accents |
+    | **Detect speakers** | Labels who is speaking, with times you can play from. On by default for links, except Instagram and TikTok |
     | **Speakers expected** | How many people speak. Leave it empty to detect automatically |
-    | **Redact Personal Identifiable Information (PII)** | Replaces personal details with `####`: names, organizations, email addresses, dates of birth, passport, social security, health care, account, and credit card numbers, and banking details |
-    | **Use Transcription 2.0** | The current engine, on by default. It adds subtitle downloads and speaker counts. Leave it on |
+    | **Redact personal information** | Replaces personal details with `####`: names, organizations, email addresses, dates of birth, passport, social security, health care, account, and credit card numbers, and banking details (files only) |
+    | **Advanced** > **Use Transcription 2.0** | The current engine, on by default. It adds subtitle downloads and speaker counts. Leave it on |
 
-    **Specialized Terminology** and **Enhanced Quality Transcription** currently only affect the older engine, used when **Use Transcription 2.0** is off.
+    For links you choose the type, the language and **Detect speakers**. **Enhanced Quality Transcription** and **Specialized Terminology** only affect the older engine, so they appear under **Advanced** when you turn **Use Transcription 2.0** off.
   </Step>
   <Step title="Click Transcribe">
     The file uploads and transcription starts. Short recordings are done in a minute or two; long ones can take 10 to 20 minutes. You can leave the page; you'll get an email when it's ready.
@@ -61,17 +58,21 @@ Then [read and work with the transcript](/audio/transcripts).
 
 ### YouTube videos
 
-When a YouTube video has captions, the transcript is ready in seconds as plain text, without speakers or timestamps, and subtitle downloads aren't available. Videos without captions are transcribed like a file, with speakers and timestamps.
+With **Detect speakers** on (the default), the video's audio is transcribed like a file: speakers, times you can play from, and subtitle downloads. It takes a minute or two longer than using the captions. If the audio can't be downloaded (a live stream, a video longer than 6 hours, or a download YouTube refuses), the transcript uses the video's captions instead and has no speakers; the page tells you when that happens.
+
+With **Detect speakers** off, a video with captions is ready in seconds from its captions, as plain text without speakers or subtitle downloads. When the captions mark who is talking, the transcript shows each turn on its own line. Videos without captions are always transcribed from their audio.
 
 ## Your transcriptions
 
-**AI Speech to Text** lists your transcriptions, 20 per page, each with its status: **Processing**, **Transcribed**, **No speech**, or **Failed**. Click one, or **Edit**, to open it.
+**AI Speech to Text** lists your transcriptions, 20 per page, newest first. **Search by name** finds one. Each shows its source, type and date, and its status when it isn't done yet: **Processing**, **No speech**, **Failed**, or **Draft** (a file or link you picked but never sent to transcribe). Click one to open it.
 
 <Frame>
   <img src="/images/audio/stt-list.webp" alt="The AI Transcription page with Record Audio and Upload new buttons, and one item, Front desk call, marked Transcribed" />
 </Frame>
 
-On a Teams plan, transcriptions teammates share with the team appear here too.
+The **⋯** menu on a row opens it in a new tab, copies its link, or deletes it. A transcription that is still processing can be deleted two hours after it started.
+
+On a Teams plan, transcriptions teammates share with the team appear here too, with the teammate's name.
 
 ## If a transcription fails
 

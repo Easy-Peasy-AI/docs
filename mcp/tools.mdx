@@ -69,7 +69,7 @@ Call `get_template` before `generate_text` so the agent knows which `extra_field
     | Parameter | Type | Description |
     | --- | --- | --- |
     | `prompt` * | string | Description of the image. |
-    | `model` | string | Model name, for example `Nano Banana 2`, `FLUX.2 [max]`, `Seedream 5.0 Pro`. |
+    | `model` | string | Model name, for example `Nano Banana 2`, `FLUX.2 [max]`, `Seedream 5.0 Pro`. With `source_images` it also picks the edit model, so it must be one of the `editModel` values in [Generate Image](/api-reference/endpoint/generate-image); other names return an error. Leave it out to edit with the default editor. |
     | `dimensions` | string | Size as `WIDTHxHEIGHT`, for example `1024x1024` (default). |
     | `outputs` | number | Number of images (default `1`). |
     | `style` | string | Optional style preset name. |

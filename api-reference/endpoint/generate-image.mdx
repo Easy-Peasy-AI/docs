@@ -6,10 +6,16 @@ openapi: 'POST /api/generate-image'
 ## Generate or edit an image
 
 - **Text-to-image** — Provide `prompt` + `model`. The `model` picks the generator (e.g. `Nano Banana 2`, `OpenAI GPT Image 2.5 Flare Medium`).
-- **Editing / reference image** — Provide `prompt` + `image` (or `images`). With no explicit `action`, this selects **Edit Image with AI** and uses `editModel` to select the editor. Other actions, such as background removal, have their own behavior.
+- **Editing / reference image** — Provide `prompt` + `image` (or `images`). With no explicit `action`, this selects **Edit Image with AI**. Pick the editor with `editModel`, or with `model` when it is one of the edit models. Other actions, such as background removal, have their own behavior.
 
 <Note>
-Send **`editModel` explicitly** when editing. With an image and no `action`, omitting `editModel` selects `OpenAI GPT Image 2 Medium`. If you explicitly set `action: "Edit Image with AI"` and omit `editModel`, the default is `Qwen Image`. To select Qwen Image explicitly, include that action too. Text-to-image defaults to `model: "Nano Banana 2"`.
+With an image and no `action`, the editor is:
+
+1. `editModel`, when you send it. An unknown value returns a `400` error.
+2. Otherwise `model`, when it is one of the `editModel` values. `model: "Nano Banana Pro"` edits with Nano Banana Pro.
+3. Otherwise the default editor, currently `OpenAI GPT Image 2.5 Flare Medium`. A `model` that only generates new images is ignored for edits, so send `editModel` if you'd rather get an error.
+
+Without an `action`, `editModel: "Qwen Image"` also selects the default editor; send `action: "Edit Image with AI"` with it to edit with Qwen Image. With that action and no `editModel`, the editor is `Qwen Image` and `model` isn't used. Text-to-image defaults to `model: "Nano Banana 2"`.
 </Note>
 
 The reference image does not need to be hosted on Easy-Peasy, but it **must be downloadable server-side** — some hosts (e.g. Wikimedia, or sites that block hotlinking / non-browser requests) return **HTTP 403** to automated fetches and will fail. If in doubt, host it on your own public CDN/bucket. Write the `prompt` as an instruction about the image (e.g. "change the color to yellow", "place this product on a marble counter").
@@ -50,7 +56,7 @@ curl -X POST https://easy-peasy.ai/api/generate-image \
 - **GPT Image 2.5** uses exact quality names such as `OpenAI GPT Image 2.5 Flare Medium` and `OpenAI GPT Image 2.5 Sunburst High`. The schemas list all available tiers.
 - **New image models** include `Nano Banana 2 Lite`, `Seedream 5.0 Pro`, `Muse Image`, `Grok Imagine 2.0`, `WAN 2.7`, and others listed below. The generation and editing lists differ.
 - **Reve** is `REVE` for text-to-image (`model`), and `Reve` / `Reve Fast` for editing (`editModel`). There is no `"Reve 2.0"`.
-- Model names are matched **exactly** — always send a value as listed in the schema enums below. An unrecognized `editModel` returns a `400` error; an unrecognized `model` may fall back to a default generator, so a typo can silently produce the wrong model.
+- Model names are matched **exactly** — always send a value as listed in the schema enums below. An unrecognized `editModel` returns a `400` error; an unrecognized `model` may fall back to a default generator (or, when editing, the default editor), so a typo can silently produce the wrong model.
 
 ## Read the result
 
