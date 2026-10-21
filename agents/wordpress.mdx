@@ -1,0 +1,112 @@
+---
+title: "WordPress"
+description: "Add your agent's chat bubble to every page of your WordPress site with the free Easy-Peasy.AI Chatbot plugin."
+---
+
+The **Easy-Peasy.AI Chatbot** plugin puts your agent's chat bubble on every page of your WordPress site, with no code and no theme editing. You paste your agent's ID once. The bubble's look is saved with your agent, so you style it in Easy-Peasy.AI, and your site follows.
+
+<Note>
+  The plugin works on every plan, including Free. Your site needs WordPress 5.3 or later and must be able to install plugins: any self-hosted WordPress site, or a WordPress.com plan that allows plugins.
+</Note>
+
+## Install the plugin
+
+<Steps>
+  <Step title="Add the plugin">
+    In your WordPress admin, go to **Plugins** > **Add Plugin** (**Add New** in older versions), search for **Easy-Peasy.AI Chatbot**, click **Install Now**, and then **Activate**.
+  </Step>
+  <Step title="Copy your Agent ID">
+    In Easy-Peasy.AI, open your agent, click **Channels**, click **Manage** on **Chat bubble**, and copy **Your Agent ID** at the bottom of the page. See [Your Agent ID](/agents/website#your-agent-id).
+  </Step>
+  <Step title="Paste it into the plugin">
+    In WordPress, go to **Settings** > **Easy-Peasy.AI Chatbot**, paste the ID into **Agent ID**, and click **Save Settings**. You can also paste the agent's shareable link or its whole install snippet: the plugin finds the ID in it.
+
+    <Frame>
+      <img src="/images/agents/wordpress-settings.webp" alt="Settings > Easy-Peasy.AI Chatbot in WordPress: Connected to Example Yoga Studio, with View your site, Customize the chat bubble, and Open your agent buttons above the Agent ID field" />
+    </Frame>
+  </Step>
+  <Step title="Check your site">
+    Open your site. If you use a caching plugin, or your host or CDN caches pages, clear the cache first. The chat bubble shows in the corner of every page, and your greeting pops up next to it.
+
+    <Frame>
+      <img src="/images/agents/wordpress-bubble.webp" alt="A WordPress site for Example Yoga Studio with the chat bubble at the bottom right and the greeting Welcome to Example Yoga Studio! How can I help you? next to it" />
+    </Frame>
+  </Step>
+</Steps>
+
+When you save, the plugin checks the ID with Easy-Peasy.AI, and the box at the top of the settings page shows the result:
+
+| Message | What it means |
+| --- | --- |
+| **Connected to** your agent's name | The chat is on every page of your site |
+| **Easy-Peasy.AI can't find an agent with this ID** | The ID wasn't saved. Copy it again, all 36 characters |
+| **The agent's Allowed Domains don't include** your domain | The ID is saved, but the agent won't answer on your site until you add the domain to [**Allowed Domains**](/agents/settings#allowed-domains) |
+| **Easy-Peasy.AI couldn't be reached to check the agent** | The ID is saved. Open your site to check that the chat appears |
+
+Until an Agent ID is saved, the **Plugins** screen shows a reminder with an **Add your Agent ID** link, and the plugin adds nothing to your pages.
+
+### Install from a zip file
+
+If your site can't search the plugin directory, download the plugin from [wordpress.org/plugins/easy-peasy-ai-chatbot](https://wordpress.org/plugins/easy-peasy-ai-chatbot/). In WordPress, go to **Plugins** > **Add Plugin** > **Upload Plugin**, choose the zip file, click **Install Now**, and then **Activate**. A plugin installed this way still gets updates.
+
+## Change how the chat looks
+
+The bubble's position (a corner, or a tab on the side of the page), size, icon, color, and label, the greeting next to it, and the chat window's colors are all saved with your agent. To change them, click **Customize the chat bubble** on the plugin's settings page, or open your agent's **Playground** > **Appearance** in Easy-Peasy.AI. See [Appearance](/agents/appearance#chat-bubble).
+
+Your site updates within about a minute, with nothing to change in WordPress.
+
+<Frame>
+  <img src="/images/agents/wordpress-chat.webp" alt="The chat open on the Example Yoga Studio WordPress site: a visitor asks Is my first class free? and the agent answers that it is, with the studio's phone number" />
+</Frame>
+
+### Older look settings
+
+Version 1.0 of the plugin had its own position, button color, and icon settings. If you changed them, they stay under **Older look settings** after you update the plugin, and the chat uses each of them only while no value is saved for it in **Appearance**. Clear a field to use your agent's look.
+
+## Leave the chat off some pages
+
+The plugin adds the chat to every page. To leave it off some of them, add a filter to your theme's `functions.php` file or to a code snippets plugin. This one leaves it off the page with the slug `checkout`:
+
+```php
+add_filter( 'epai_chatbot_enabled', function () {
+    return ! is_page( 'checkout' );
+} );
+```
+
+To open, close, or hide the chat from your site's own JavaScript, see [Chat widget for developers](/developers/chat-widget).
+
+## Update or remove the plugin
+
+- **Update:** new versions show up under **Plugins** like any other plugin. Click **Enable auto-updates** next to the plugin to get them automatically.
+- **Deactivate:** the chat leaves your site. Your settings stay, so activating the plugin again brings the chat back.
+- **Delete:** also removes the plugin's settings.
+
+Your agent, its knowledge, and its conversations stay in Easy-Peasy.AI either way.
+
+<AccordionGroup>
+  <Accordion title="The chat bubble doesn't appear">
+    - Check that the box at the top of **Settings** > **Easy-Peasy.AI Chatbot** says **Connected**.
+    - Clear your site's cache (caching plugin, host, or CDN) and reload the page.
+    - In your agent's [**Settings**](/agents/settings#public-access), **Is agent publicly available?** must be on.
+    - If an optimization plugin combines or delays JavaScript, exclude `bots.easy-peasy.ai/chat.min.js` from it.
+    - If your site sends a Content Security Policy, allow `https://bots.easy-peasy.ai` in `script-src`, `frame-src`, and `connect-src`.
+  </Accordion>
+  <Accordion title="The plugin I installed from easy-peasy.ai doesn't update">
+    Copies downloaded from easy-peasy.ai before October 2026 used a different folder name, so WordPress can't match them to the plugin directory. Under **Plugins**, deactivate and delete the old copy, then install the plugin from **Plugins** > **Add Plugin**. Your Agent ID is kept, because the old version doesn't remove its settings when deleted.
+  </Accordion>
+  <Accordion title="My WordPress.com plan doesn't allow plugins">
+    Put the chat inside a page instead: copy the **Iframe embed** code from [**Channels** > **Chat bubble** > **Manage**](/agents/website#iframe-embed) and paste it into a **Custom HTML** block.
+  </Accordion>
+  <Accordion title="The chat opens but says it can't answer">
+    The agent may be paused because your plan's allowance ran out. See [Limits and usage](/agents/limits-and-usage#when-an-allowance-runs-out).
+  </Accordion>
+</AccordionGroup>
+
+<Columns cols={2}>
+  <Card title="Add your agent to your website" icon="window-maximize" href="/agents/website">
+    The install snippet, shareable link, and iframe embed.
+  </Card>
+  <Card title="Appearance" icon="palette" href="/agents/appearance">
+    The greeting, colors, and chat bubble.
+  </Card>
+</Columns>
