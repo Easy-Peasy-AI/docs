@@ -1,0 +1,95 @@
+---
+title: "Slack"
+description: "Let your team talk to your AI employees in your Slack workspace: mention them in a channel or send a direct message, and they reply in the thread."
+---
+
+Your team can talk to your AI employees in your own Slack workspace. Someone writes "@AI Team Nova, pull last week's sales" in a channel, and Nova replies in the thread, with her own name and portrait. Each employee answers with the same instructions, knowledge, and quality as in Easy-Peasy.AI, and what people in Slack can use is up to you.
+
+<Note>
+  You need permission to add apps to your Slack workspace. If your workspace requires approval for new apps, a Slack admin approves **Easy-Peasy.AI Employees** first.
+</Note>
+
+## Connect Slack
+
+<Steps>
+  <Step title="Open an employee's Apps">
+    Open the employee's workspace (**Manage** in its direct message) and click **Apps**. Find the **Slack** card.
+  </Step>
+  <Step title="Add to Slack">
+    Click **Add to Slack**, check that the right workspace is selected in the top corner of Slack's page, and click **Allow**.
+  </Step>
+  <Step title="Done">
+    You come back to the same page. The employee now answers in Slack, and it's the default employee for messages that don't name anyone.
+  </Step>
+</Steps>
+
+The app shows in Slack as **AI Team**. It's the same app for all your employees.
+
+## Choose which employees answer
+
+Slack is connected once for your account. For each employee, open its **Apps**, click **Manage** on the **Slack** card, and turn on whether it answers in Slack.
+
+Messages that don't name an employee go to your default employee. To change it, open another employee's Slack card and click **Make**, followed by its name, **the default**.
+
+## How your team talks to employees
+
+| Where | How |
+| --- | --- |
+| **In a channel** | Invite **@AI Team** to the channel, then write `@AI Team Nova, …`. Nova replies in a thread. Replies in that thread go on to Nova without mentioning the app again. |
+| **In a direct message** | Message **AI Team** directly. Start with the employee's name, such as `Nova, …`; after that, the conversation stays with Nova. |
+
+While an employee works on a message, the message gets an 👀 reaction. People can attach files in Slack, up to 25 MB each, and the employee reads them. Files the employee makes come back as links.
+
+Each Slack thread, and each person's direct message, is its own conversation, kept apart from your private chats with the employee. It works on a separate [computer](/ai-employees/computer) too.
+
+## What people in Slack can use
+
+People in Slack aren't you, so your employees work for them with less access. Your employees don't use what they learned in your private conversations, don't save anything from Slack to their memory, and don't use your browser sign-ins. Anything that sends or changes something follows the employee's [approval settings](/ai-employees/approvals).
+
+On any employee's Slack card, under **What people in Slack can use**, you set for all your employees in the workspace:
+
+| Setting | What it allows | Default |
+| --- | --- | --- |
+| **Your connected apps** | Gmail, calendars, Stripe, and the other apps you attached to an employee. | Off |
+| **Videos** | Video generation. Images, music, and speech are always allowed. | Off |
+| **Guests and other organizations** | Answers guests, and people from shared Slack Connect channels. | Off |
+| **Messages per person per day** | 10, 25, 50, 100, or **No limit**. When someone reaches it, the app tells them they can write again tomorrow. | 50 |
+
+Replies run on your plan, so they use your words and credits like a chat. If your plan runs out, the employee says it can't reply right now.
+
+## Approvals from Slack
+
+When an employee wants to send an email or change something in an app for someone in Slack, the request waits in your **Approvals** and you get an email. After you decide, a note in the Slack thread says whether it was done. See [Approvals](/ai-employees/approvals#when-nobody-is-watching).
+
+## See and disconnect
+
+The **Slack** card lists **Recent Slack conversations**, with **Open in Slack** links.
+
+To disconnect, click **Disconnect Slack** on the card. The app is removed from your Slack workspace for all your employees.
+
+## Limits
+
+- One Slack workspace per account, and one account per Slack workspace.
+- Install the app into one workspace. Organization-wide installs on Slack Enterprise Grid aren't supported.
+- Results of long background work, such as a video that takes several minutes to render, don't come back to Slack. Ask in the employee's direct message for those.
+
+<AccordionGroup>
+  <Accordion title="The employee doesn't answer in a channel">
+    Check that **@AI Team** is in the channel and that the message mentions it. In a thread the employees are already in, a reply without a mention works too, unless it mentions someone else. Also check that the employee is turned on for Slack and isn't paused.
+  </Accordion>
+  <Accordion title="A guest or a Slack Connect user gets no answer">
+    Turn on **Guests and other organizations** on the Slack card.
+  </Accordion>
+  <Accordion title="It says the workspace is connected to another account">
+    A Slack workspace can be connected to one Easy-Peasy.AI account only. Disconnect it from the other account first, or use that account.
+  </Accordion>
+</AccordionGroup>
+
+<Columns cols={2}>
+  <Card title="Apps" icon="puzzle-piece" href="/ai-employees/apps">
+    The apps each employee can use.
+  </Card>
+  <Card title="Agents in Slack" icon="slack" href="/agents/slack">
+    Put an agent that answers customers in Slack instead.
+  </Card>
+</Columns>

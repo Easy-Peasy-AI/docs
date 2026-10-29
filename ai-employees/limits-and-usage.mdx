@@ -1,0 +1,75 @@
+---
+title: "Limits and usage"
+description: "How many employees your plan includes, what their work uses from your allowance, and the limits on routines, group chats, invited people, and calls."
+---
+
+## How many employees you can have
+
+| Plan | Employees |
+| --- | --- |
+| Free | 1 |
+| Starter | 3 |
+| Unlimited plans | 10 |
+| Teams plans | 20 for each person on the team |
+| Enterprise | 50 |
+
+Older plans: Basic includes 2 employees, and Lifetime Starter and AppSumo plans include 3. Compare plans on the [pricing page](https://easy-peasy.ai/pricing).
+
+Every plan includes every role, group chats, tasks, routines, approvals, and the company profile.
+
+## What employees use
+
+Employees use the same allowance as [Marky](/marky/overview):
+
+- **Words.** Each reply uses your plan's words, at the rate of the employee's model, just like a message to Marky on that model. What the model reads and thinks counts too. See [Models and words](/marky/models). **Standard** quality is one of the cheapest models; **Best quality** uses about 6 times more per task.
+- **Image & video credits.** Images, videos, music, and speech an employee generates use credits as they do in Marky.
+- **Voice calls.** On Unlimited 200 and higher, Teams 200 and Teams 300, and Enterprise, spoken answers use words at twice the rate of a chat reply. On other plans, the 10 free minutes don't use words. See [Voice calls](/ai-employees/voice-calls#what-calls-cost).
+
+Routine runs, group chat replies, requests from [people you invite](/ai-employees/invite-people), and [Slack](/ai-employees/slack) conversations all use your allowance, the same way. In a group chat, each employee that replies uses words, so a job four employees work on costs about four replies.
+
+Hiring, the company profile, approvals, tasks, and knowledge don't use anything. Check your usage on [**Settings** > **Usage**](/account/usage).
+
+## When your allowance runs out
+
+When your words are used up, employees stop replying until your plan renews, you upgrade, or you [buy more words](/account/buy-credits). Routines that would have run are skipped, and Slack messages get a note that the employee can't reply right now.
+
+## On the Free plan
+
+| | Free plan |
+| --- | --- |
+| Employees | 1 |
+| Quality | **Standard**. **Best quality** and models for paid plans are locked. |
+| Group chats | Yes, with your one employee |
+| Invited people | 2 per group chat |
+| Voice calls | 10 minutes every 30 days, up to 3 minutes per call |
+| Words | Your plan's 2,000 words a month, shared with Marky and the tools |
+
+If your paid plan ends, the employees you have keep working, but you can't hire more until you're under the Free plan's number. Employees set to a model for paid plans answer with the **Standard** model.
+
+## Other limits
+
+| What | Limit |
+| --- | --- |
+| Routines and automations | 10 in all, counting Marky's automations and paused ones |
+| A scheduled routine | At most every 5 minutes |
+| A webhook or email routine | 20 runs an hour, up to 5 events per run; events that wait more than a day are skipped |
+| A webhook call | Up to 256 KB; 60 calls a minute per routine |
+| Group chats | 50 per account, up to 12 employees each |
+| Invited people per group chat | Free 2, paid plans 10, Teams and Enterprise 20 |
+| Email invites | 20 a day; each one works once, for 14 days |
+| Files in a group chat message | Up to 5, of up to 25 MB each |
+| A voice call | 20 minutes on plans with calls, 3 minutes on free minutes; up to 5 tasks per call |
+| Approvals | Expire after 7 days without an answer |
+| Instructions | 20,000 characters per employee |
+| Instructions for an app | 500 characters per app |
+| Memory notes | 4,000 characters each |
+| Slack | One workspace per account; 50 messages per person a day by default |
+
+<Columns cols={2}>
+  <Card title="Plans and credits" icon="coins" href="/account/plans-and-credits">
+    How words and credits work across Easy-Peasy.AI.
+  </Card>
+  <Card title="Models and words" icon="microchip" href="/marky/models">
+    How each model counts words.
+  </Card>
+</Columns>

@@ -49,6 +49,27 @@
             ]
           },
           {
+            "group": "AI Employees",
+            "pages": [
+              "ai-employees/overview",
+              "ai-employees/hire",
+              "ai-employees/company-profile",
+              "ai-employees/direct-messages",
+              "ai-employees/group-chats",
+              "ai-employees/tasks",
+              "ai-employees/invite-people",
+              "ai-employees/approvals",
+              "ai-employees/routines",
+              "ai-employees/voice-calls",
+              "ai-employees/computer",
+              "ai-employees/profile",
+              "ai-employees/apps",
+              "ai-employees/knowledge-memory-skills",
+              "ai-employees/slack",
+              "ai-employees/limits-and-usage"
+            ]
+          },
+          {
             "group": "Tools",
             "pages": [
               "tools/overview",

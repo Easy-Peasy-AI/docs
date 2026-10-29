@@ -1,0 +1,85 @@
+---
+title: "Knowledge, memory, and skills"
+description: "Give an employee documents to answer from, see and edit what it remembers, and choose the skills it uses."
+---
+
+Three things make an employee good at your work: **Knowledge** (your documents and pages, which it searches before it answers), **Memory** (what it learns about you and your business as it works), and **Skills** (step-by-step guides for jobs such as research reports). You find all three in the employee's workspace (**Manage** in its direct message).
+
+What every employee should know, such as what your business does and your brand voice, belongs in the [company profile](/ai-employees/company-profile) instead. You write it once, and every employee reads it.
+
+## Knowledge
+
+Knowledge is the material an employee works from: product docs, policies, price lists, FAQs. It searches its knowledge before it answers, so replies are grounded in your sources instead of guesses.
+
+<Steps>
+  <Step title="Open Knowledge">
+    In the employee's workspace, click **Knowledge**.
+  </Step>
+  <Step title="Add your sources">
+    Click **Add knowledge**, then upload files, add websites, or paste text. Sources work like an agent's knowledge; see [Knowledge](/agents/knowledge) in the Agents docs for every kind of source.
+  </Step>
+  <Step title="Wait for training">
+    Each source shows its status. When it's ready, the employee can search it.
+  </Step>
+</Steps>
+
+To have an employee answer from the same knowledge as one of your [agents](/agents/overview), pick that agent under **Knowledge base** in the employee's [Profile](/ai-employees/profile#knowledge-base). **Knowledge** then shows which agent it uses, and **Manage sources** opens that agent's knowledge, where you change it for both.
+
+Only you can add knowledge to your employees.
+
+## Memory
+
+An employee remembers what matters between conversations. It writes most of its memory itself, and you can read and edit all of it under **Memory**.
+
+### Notes
+
+Four notes that are in the employee's mind in every conversation:
+
+| Note | What it holds |
+| --- | --- |
+| **Persona notes** | How it refined its role and voice. |
+| **About your business** | Facts about your company, products, and customers. |
+| **Working memory** | Current projects, logs, and numbers to compare against. |
+| **Your preferences** | How you like things done. |
+
+Click into a note to change it, then click **Save**. Each note holds up to 4,000 characters.
+
+### Learned facts
+
+After conversations and routine runs, the employee saves short, dated facts it picked up, such as "Ana at Luma Boutique orders 24 bottles each season". **Profile** facts are always in mind; the rest are recalled when they're recent or relevant, and the employee can search them.
+
+- **To add a fact**, pick its kind (**Profile**, **Log**, or **Note**), type it, and add it.
+- **To remove a fact**, click **Forget this fact** next to it.
+
+You can also tell the employee in a chat: "Remember that we never ship on Fridays" or "Forget what I said about the spring discount."
+
+### What doesn't become memory
+
+To keep outside text from changing how an employee behaves, some work never writes to its memory:
+
+- [Routines](/ai-employees/routines) that start from a webhook call or an email. They can read memory but not change it.
+- Requests from people you [invited to a group chat](/ai-employees/invite-people), and conversations in [Slack](/ai-employees/slack). There the employee reads its four notes, but not its learned facts, which come from your private conversations.
+
+Marky's [memory](/marky/memory) is separate. Your employees don't read it, and Marky doesn't read theirs.
+
+## Skills
+
+Skills are step-by-step guides an employee follows for specific jobs, such as research reports, data analysis, or documents. They come from the same library as [Marky's skills](/marky/skills), including skills you write yourself.
+
+In the employee's workspace, click **Skills** and choose:
+
+| Option | What the employee uses |
+| --- | --- |
+| **Every active skill** | Every skill that's turned on in your library, including skills you add later. |
+| **Only the skills I pick** | Only the skills you tick: a focused toolbox for its role. **Use the recommended set** ticks the skills suggested for the role. |
+
+Click **Manage the library** to add, write, or turn off skills. A skill turned off in the library isn't used by any employee.
+
+<Columns cols={2}>
+  <Card title="Company profile" icon="building" href="/ai-employees/company-profile">
+    What every employee knows about your business.
+  </Card>
+  <Card title="Agents knowledge" icon="book" href="/agents/knowledge">
+    Every kind of knowledge source, and how training works.
+  </Card>
+</Columns>
