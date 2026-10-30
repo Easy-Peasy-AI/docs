@@ -1,0 +1,93 @@
+---
+title: "Apps"
+description: "Give each employee the apps it needs, such as Gmail, Google Calendar, Notion, or Stripe, pick the account it uses, and tell it how to use each app."
+---
+
+Each employee works only with the apps you turn on for it: the support inbox for your support rep, Canva for your designer, Stripe and PostHog for your analyst. Turning on an app for one employee doesn't give it to your other employees.
+
+Connections themselves belong to your account. An account you connect from an employee's page is also listed in Marky's [Connectors](/marky/connectors), where Marky can use it unless you turn it off there.
+
+Open the employee's workspace (**Manage** in its direct message) and click **Apps**. The page has two lists: **Connected for**, followed by the employee's name, and **Available**. Apps the role usually needs are marked **Suggested**.
+
+## Which apps employees can use
+
+The same apps as Marky's [connectors](/marky/connectors): Gmail, Google Calendar, Google Drive, Outlook mail and calendar, OneDrive, OneNote, Notion, GitHub, Canva, and more than 30 others such as Stripe, PostHog, Supabase, Airtable, Linear, and Zapier. You can also add your own MCP server or API.
+
+## Give an employee an app
+
+<Steps>
+  <Step title="Find the app">
+    Under **Available**, find the app's card.
+  </Step>
+  <Step title="Connect it">
+    If you already connected the app for Marky or another employee, click **Use**, followed by the account, to give this employee the same account. Otherwise click **Connect** and sign in to the app. You come back to the same page, and the app is turned on for the employee.
+  </Step>
+  <Step title="Check the account">
+    The card moves to **Connected for** and shows the account. For Gmail, pick which mailbox this employee uses, or click **Connect another account** to add one. Each employee can use a different Gmail account, for example your support address for your support rep and your own address for your assistant. Marky uses the Gmail account you connected first.
+  </Step>
+</Steps>
+
+To take an app away, click **Detach** on its card. The connection stays in your account for Marky and other employees.
+
+<Frame>
+  <img src="/images/ai-employees/apps-connected.webp" alt="Maya's Apps: Gmail and Google Calendar under Connected for Maya, with the account blurred, and Google Drive, Outlook Mail and Outlook Calendar under Available" />
+</Frame>
+
+Only you can connect apps for your employees. People you invite to a group chat or who talk to your employees in Slack never connect their own apps.
+
+## Tell the employee how to use an app
+
+Click **Instructions** on a connected app's card and write how this employee should use it, up to 500 characters. For example, for Stripe: "Reports only. Never issue refunds." Or for Gmail: "Never email customers directly. Draft for me."
+
+The employee reads these instructions every time it uses the app. Click **Edit instructions** to change them.
+
+## Add your own app
+
+Click **Add custom** at the top of the page:
+
+| Option | What it's for |
+| --- | --- |
+| **Custom MCP server** | Any service with an MCP server URL. |
+| **Custom API** | Any REST API, with the endpoints and authentication you set. |
+| **Import MCP servers from JSON** | Several MCP servers at once, from a configuration file. |
+
+After you save, the new app is turned on for the employee. See [Connectors](/marky/connectors) for how to set them up.
+
+## When an employee asks for an app
+
+If a job needs an app the employee doesn't have, it asks in the chat with a card:
+
+- **Connect** signs you in to the app, then gives it to the employee.
+- **Allow** gives the employee an app you already connected.
+- **Not now** lets the employee carry on without it.
+
+After you connect or allow the app, the employee picks up where it stopped.
+
+## Approvals still apply
+
+Reading from an app never needs approval. Sending a message, changing your calendar, or creating and changing things in an app waits for your approval, unless you turned that off. See [Approvals](/ai-employees/approvals).
+
+## Talk to employees in Slack
+
+The **Apps** page also has a **Slack** card, where you let your team talk to the employee in your Slack workspace. See [Slack](/ai-employees/slack).
+
+<AccordionGroup>
+  <Accordion title="An app card says it needs reconnection">
+    The app's sign-in expired or was revoked. Click **Reconnect** on the card and sign in again. Until then, the employee can't use the app.
+  </Accordion>
+  <Accordion title="Gmail, Google Calendar, or Google Drive says it's not available">
+    Google's data policy doesn't allow Grok and DeepSeek models to use Gmail, Google Calendar, or Google Drive data. Pick another model in the employee's [Profile](/ai-employees/profile#quality).
+  </Accordion>
+  <Accordion title="I turned an app off for Marky. Does my employee lose it?">
+    No. Turning a connector off for Marky doesn't affect your employees. An employee loses an app when you detach it, when you disconnect that account in Marky's **Connectors**, or when the connection stops working.
+  </Accordion>
+</AccordionGroup>
+
+<Columns cols={2}>
+  <Card title="Approvals" icon="shield-check" href="/ai-employees/approvals">
+    What employees ask before acting in your apps.
+  </Card>
+  <Card title="Routines" icon="clock" href="/ai-employees/routines">
+    Run an employee when an email arrives in its inbox.
+  </Card>
+</Columns>

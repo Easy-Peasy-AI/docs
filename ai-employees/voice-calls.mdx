@@ -1,0 +1,102 @@
+---
+title: "Voice calls"
+description: "Call an employee from its direct message, talk through work out loud, and get the transcript, a recap, and the tasks it started in your chat."
+---
+
+You can call an employee and talk through work out loud, like a call with a colleague. It answers in its own voice, looks things up while you talk, and turns anything bigger into a task it works on in your chat after you hang up. The transcript and a recap are saved in your direct message.
+
+<Note>
+  Calls are included on Unlimited 200 and higher plans, Teams 200 and Teams 300, and Enterprise, for up to 20 minutes each. On other plans, including Free, you get 10 free minutes of calls every 30 days, up to 3 minutes per call. See [What calls cost](#what-calls-cost).
+</Note>
+
+## Call an employee
+
+<Steps>
+  <Step title="Open the direct message">
+    Open the employee's [direct message](/ai-employees/direct-messages).
+  </Step>
+  <Step title="Click Call">
+    Click **Call** at the top. Allow your browser to use the microphone when it asks.
+  </Step>
+  <Step title="Talk">
+    The employee greets you, then listens. Talk as you would to a colleague. You can interrupt it while it speaks.
+  </Step>
+  <Step title="Hang up">
+    Click **End call**. The call is saved to your chat, and the employee writes a recap.
+  </Step>
+</Steps>
+
+During a call:
+
+- The mute button turns your microphone off, and stays amber while it's off. Click it again to turn the microphone back on.
+- The button next to it lets you type instead of talking, for names, email addresses, or links.
+- Requests that need your approval show as cards on the call screen. Approve them there, or later in **Approvals**.
+
+A call hangs up by itself after 90 seconds with nobody speaking.
+
+## What an employee can do on a call
+
+On a call, the employee answers from its instructions, [memory, and knowledge](/ai-employees/knowledge-memory-skills), the company profile, and the web. It can also use its [apps](/ai-employees/apps): "check last week's orders in Stripe" or "what's on my calendar tomorrow?" It says a few words before it looks something up, so you know it's working.
+
+Anything that sends or changes something waits for your [approval](/ai-employees/approvals), as in a chat.
+
+For bigger work, like a report, a file, or images, the employee starts a task in your direct message, with everything you said about it. It works on it there with all its usual tools, after or during the call. A call can start up to 5 tasks.
+
+## After the call
+
+Your direct message shows a card for the call, with its length and the tasks it started. Click **Transcript** to read what each of you said. Below it, the employee posts a short recap. Tasks the call started run in the same chat, and their results appear there as they finish.
+
+<Frame>
+  <img src="/images/ai-employees/voice-calls-card.webp" alt="A call card: Call with Nova, 57 seconds, 2 tasks started, with the tasks and the transcript open" width="460" />
+</Frame>
+
+The employee remembers the call in later conversations: you can say "Do what we discussed on the call."
+
+## Set the employee's voice
+
+Open the employee's workspace (**Manage** in its direct message), click **Profile**, and scroll to **Voice on calls**:
+
+| Setting | What it does |
+| --- | --- |
+| **Voice** | The voice it speaks in. Click **Change** to pick from the voice library, more voice families, or **My voices**, the voices you cloned with an Instant clone in [text to speech](/audio/voices#instant-clone). New employees get a voice that fits their portrait. |
+| **Language you speak** | The language you speak on calls. **Detect automatically** works for most languages; pick yours if the employee mishears you. |
+| **Answers written by** | The model that writes its spoken answers. **GPT-6 Luna** is the default: quick, and good with your apps. Pricier models, such as GPT-6.1 Sol or Claude, think harder and use more words. |
+| Speaking speed | Slower or faster than the voice as recorded, for voices that support it. |
+
+<Frame>
+  <img src="/images/ai-employees/voice-calls-settings.webp" alt="Voice on calls: the voice Hope, Language you speak set to Detect automatically, Answers written by GPT-6 Luna, and Speaking speed" />
+</Frame>
+
+Click **Save**. The settings apply from the next call.
+
+## What calls cost
+
+| Plan | Calls |
+| --- | --- |
+| Unlimited 200 and higher, Teams 200 and Teams 300, Enterprise | Up to 20 minutes each. Spoken answers use your plan's words at twice the rate of a chat reply, plus a chat reply's usual cost on the pricier answer models. |
+| Other plans, including Free | 10 minutes every 30 days, up to 3 minutes per call. These free minutes don't use words. |
+
+Listening, the voice, and the call itself are included. Tasks a call starts are billed like any chat message. Free call minutes for AI Employees are separate from the ones for testing [agents' voice calls](/agents/voice).
+
+You can be on one call at a time.
+
+<AccordionGroup>
+  <Accordion title="The employee can't hear me">
+    Check that your browser can use the microphone (the icon in the address bar) and that you're not muted on the call screen. If it still doesn't hear you, pick your language under **Language you speak**.
+  </Accordion>
+  <Accordion title="It says I've used this month's free minutes">
+    On plans below Unlimited 200, calls are limited to 10 minutes every 30 days. Wait until older calls fall out of the 30 days, or upgrade on the [pricing page](https://easy-peasy.ai/pricing).
+  </Accordion>
+  <Accordion title="Can I call an employee in a group chat?">
+    No. Calls are one to one, from the employee's direct message.
+  </Accordion>
+</AccordionGroup>
+
+<Columns cols={2}>
+  <Card title="Work with an employee" icon="comments" href="/ai-employees/direct-messages">
+    Where calls, transcripts, and tasks show up.
+  </Card>
+  <Card title="Voices" icon="microphone" href="/audio/voices">
+    Clone a voice for your employee.
+  </Card>
+</Columns>

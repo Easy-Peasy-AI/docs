@@ -12,7 +12,7 @@ OpenAPI file; it's a CLI quirk and appears on `main` too.
 
 | Tab | Folder | Audience |
 | --- | --- | --- |
-| Guides | `index.mdx`, `get-started/`, `ai-images/`, `account/`, then one folder per product area as it's written (`marky/`, `videos/`, `audio/`, `tools/`, `agents/`, `workflows/`) | People using the dashboard |
+| Guides | `index.mdx`, `get-started/`, `ai-images/`, `account/`, then one folder per product area as it's written (`marky/`, `ai-employees/`, `videos/`, `audio/`, `tools/`, `agents/`, `workflows/`) | People using the dashboard |
 | Developers | `developers/`, `mcp/` | People building on the API, MCP server, or embeds |
 | API Reference | `api-reference/` | Endpoint reference generated from `api-reference/openapi*.json` |
 
@@ -27,6 +27,10 @@ Use these names exactly. The docs repeat them hundreds of times, so consistency 
 | **Easy-Peasy.AI** | The product and company | Easy Peasy, EasyPeasy |
 | **Marky Agent**, then **Marky** | The AI agent in the sidebar that chats, researches, builds slides and websites | Marky Chat, the chatbot |
 | **Agents** | AI agents people build, train on their data, and deploy to a website or channels (formerly Bots) | bots, chatbots (except "formerly Bots", once per page at most) |
+| **AI Employees**, then **employees** | The product, then the AI teammates people hire in it. Each has a role, instructions, memory, a computer, and apps | AI workers, bots, agents |
+| **direct message** | An employee's one-to-one chat with its owner | DM (in prose), conversation (for the whole list) |
+| **group chat** | A conversation with several employees, and sometimes invited people (`rooms` in the code) | room, channel |
+| **routines** | Work an employee does on its own, on a schedule or when a webhook or email starts it. Marky's equivalent is **automations** | scheduled tasks |
 | **tools** | The single-purpose AI generators under **All Tools** (Blog Post Generator, SOAP Note Generator, and so on) | templates, presets |
 | **custom tools** | Tools people build themselves with **Create Tool** | custom generators, dynamic templates |
 | **templates** | Ready-made starting points inside a creator: image and video templates, workflow templates, slide templates | tools |
@@ -37,7 +41,6 @@ Use these names exactly. The docs repeat them hundreds of times, so consistency 
 | **bonus credits**, **bonus words** | Extra allowance bought separately or earned through referrals; used after the plan allowance and carried over | add-on credits |
 | **dashboard** | The signed-in app at easy-peasy.ai | platform, portal |
 
-Not documented yet: AI Employees (hidden in the app).
 
 ## Writing style
 
@@ -96,6 +99,8 @@ Agent pages carry a few hand-written rules from the app code: the Free plan's 10
 Audio pages carry hand-written rules too: text-to-speech rates (Turbo half, **Saver** voices one per 10) and per-generation caps (`kopi/src/pages/tts.tsx` and `/api/generate-audio`), and how transcriptions are counted (`getTotalAudios` in `kopi/src/data/audios.ts`). Check `audio/text-to-speech.mdx` and `audio/speech-to-text.mdx` when those change. The other audio tools draw on the same character allowance at hand-written rates: voice changer and dubbing about 2,000 per minute (`VOICE_CHANGER_SECONDS_AS_WORDS_MULTIPLIER`, `DUBBING_SECONDS_AS_WORDS_MULTIPLIER` in `common.ts`), sound effects and the audio generator 1,000 per generation (`soundEffects.ts`, `audioGenerator.ts`), and music 600 per generation, because Suno returns two tracks at 300 each (`generate-song.ts` + `webhooks/song-callback.ts`). `audio/limits.mdx` has the table; check it, the tool's own page, `marky/media.mdx`, `videos/video-editor.mdx`, `videos/video-agent.mdx` and `workflows/build.mdx` when those change.
 
 Tools, workflows and the image extras carry hand-written rates as well: the tools model table in `tools/models.mdx` (the multiplier lists and `getClaudePresetInputRates` in `kopi/src/data/completions.ts`, options in `constants/aiModels.ts`), the public-link limits in `tools/custom-tools.mdx` (`api/shared-template/generate.ts`), Interior Designer prices (`api/room-gpt.ts`, `constants/nanoBananaCredits.ts`), the Photo Studio rendering models (`PHOTO_STUDIO_ENGINES` in `pages/ai-images/index.tsx`) and pack price (`run-photo-packs.ts`), headshot packages (`components/headshots/PricingSection.tsx`), and referral bonuses (`constants/referrals.ts`).
+
+AI Employees pages (`ai-employees/`) are hand-written from the app code too. Check them when these change: employees per plan (`EMPLOYEES_IN_PLAN` and `employeesLimitForPlan` in `kopi/src/constants/employees.ts`), the Standard and Best quality models (`DEFAULT_EMPLOYEE_MODEL`, `EMPLOYEE_BEST_QUALITY_MODEL`, same file), voice calls (`VOICE_CALL_PLANS` and the `VOICE_TRIAL_*` constants in `constants/botVoice.ts`; `EMPLOYEE_CALL_MAX_MINUTES`, `EMPLOYEE_CALL_MAX_TASKS`, `EMPLOYEE_CALL_END_AFTER_SILENCE` and `EMPLOYEE_VOICE_MODELS` in `constants/employeeVoice.ts`), approvals (`DEFAULT_APPROVAL_POLICY` and the gated tools in `lib/employee-approvals/rules.ts`, `LIVE_APPROVAL_WAIT_MS` in `gate.ts`, the email interval in `notify.ts`, the 7-day expiry in `docs/ai-employees-approvals.sql`), routines (`ROUTINE_EVENT_LIMITS` in `lib/routine-triggers/constants.ts`, the 10-routine cap and 5-minute minimum in `pages/api/employees/[uuid]/routines.ts`, `SCHEDULE_PRESETS` in `components/employees/workspace/routines/routineFormat.tsx`), group chats (`MAX_ROOMS_PER_USER` and `MAX_ROOM_MEMBERS` in `lib/employee-team/api.ts`, hand-off limits in `routing.ts`, task reminders in `tasks.ts`), invited people (`ROOM_PEOPLE_LIMITS`, invite and per-person limits in `lib/employee-team/people.ts`, file limits in `attachments.ts`, email rules in `notifications.ts`), Slack (`DEFAULT_SLACK_SETTINGS` in `lib/employee-slack/config.ts`), and the company profile fields (`lib/companyProfile.ts`). Screenshots for these pages come from the tutorial account `tutorial-employees@easy-peasy.ai`, the account the YouTube tutorial was recorded in, which has the Aurela team set up; it's the one exception to the docs demo account rule. Examples use the fictional brand Aurela (a small perfume brand). Never show an Aurela web address: aurela.com and aurela.co are real sites.
 
 The other video tools price outside the catalog, so their pages carry hand-written rates: `videos/extend.mdx` (`kopi/src/constants/videoExtend.ts`), `videos/edit.mdx` (the edit tiers in `videoModels.ts`), `videos/upscale.mdx` (`VIDEO_UPSCALE_CREDITS_PER_SECOND` and `MINIMAX_VIDEO_UPGRADE_CREDITS` in `common.ts`), `videos/motion-control.mdx` and `videos/talking-videos.mdx` (their API routes). Check them when those change.
 

@@ -1,0 +1,94 @@
+---
+title: "Approvals"
+description: "Employees ask before they send messages, change calendars, or write to your apps. Approve, edit, or reject each action, and choose what needs approval."
+---
+
+Your employees prepare emails, calendar invites, and changes in your apps, but nothing goes out without your OK. When an employee wants to act on your behalf, it shows you exactly what it will do and waits. You approve it as it is, edit it first, or reject it with a note.
+
+## What needs approval
+
+| Group | What it covers |
+| --- | --- |
+| **Messages** | Sending emails from Gmail or Outlook, and WhatsApp messages. An email only to you, at your own addresses, never needs approval. |
+| **Calendar** | Creating, changing, or deleting events in Google Calendar or Outlook Calendar. |
+| **Other apps** | Writing to Notion, GitHub, Google Drive, OneDrive, OneNote, Canva, and your other connected apps, such as Stripe or Supabase. For a custom API, anything that isn't a simple read. |
+
+Reading never needs approval: an employee can search your inbox, check your calendar, or look up an order in Stripe without asking.
+
+## Approve, edit, or reject
+
+The approval card shows what the employee wants to do: for an email, the recipients, the subject, and the message; for a calendar event, its time in the event's own time zone; for other apps, the action and its details.
+
+| Button | What happens |
+| --- | --- |
+| **Approve** | The action runs now. The card shows **Approved and done**, with a link to what it created when there is one. |
+| **Edit** | Change the details first, such as the text of an email, then click **Approve with changes**. |
+| **Reject** | Optionally write why, then click **Don't do it**. The employee reads your note, so "Wait until Monday" or "Use a friendlier tone" helps it try again. |
+
+<Frame>
+  <img src="/images/ai-employees/approvals-card.webp" alt="A decided approval from Maya's routine: an email to marta@example.com with the sender (blurred), the subject and the message, marked Approved and done" />
+</Frame>
+
+If an approved action fails, for example because the app refused it, the card says **Approved, but it failed** and the employee is told why.
+
+## Where you approve
+
+- **In a direct message.** The card appears at the step where the employee asked. While you're in the chat, the employee waits for up to 4 minutes, and the card says it's waiting for your answer. When you decide, it carries on in the same reply. If you don't answer in time, the request moves to your approvals and the employee finishes without it.
+- **In a group chat.** Requests from employees in the group chat show above the message box. After you decide, the group chat gets a note, such as "Approved and done".
+- **In Approvals.** Click **Approvals** in the AI Employees sidebar to see everything waiting from all your employees, under **Waiting**, and what you already decided, under **Decided**. The row shows how many are waiting for you.
+- **In the employee's workspace.** **Approvals** lists that employee's requests.
+- **On a voice call.** Requests the employee makes during a [call](/ai-employees/voice-calls) appear on the call screen.
+
+## When nobody is watching
+
+[Routines](/ai-employees/routines), group chats, and [Slack](/ai-employees/slack) conversations run without you watching. There the employee doesn't wait: the request goes to your **Approvals**, the work finishes without that action, and you get an email. You get at most one email every 30 minutes for each employee.
+
+When you decide later, the approved action runs then, and the employee hears what you decided the next time it works in that conversation. In Slack, a note in the thread says whether the action was approved.
+
+A request you don't answer within 7 days expires, and nothing happens.
+
+## Choose what needs approval
+
+Each employee has its own settings. In its workspace, open **Profile** and scroll to **Approvals**, or open **Approvals** and click **What needs approval**:
+
+- **Ask before sending messages**
+- **Ask before changing calendars**
+- **Ask before writing to other apps**
+
+All three are on for every new employee. Turn one off to let the employee do those actions without asking, then click **Save**.
+
+<Frame>
+  <img src="/images/ai-employees/approvals-settings.webp" alt="An employee's approval settings with three switches on: Ask before sending messages, Ask before changing calendars, and Ask before writing to other apps" />
+</Frame>
+
+<Warning>
+  With a switch off, the employee acts without asking in every chat, routine, group chat, and Slack conversation, including requests from people you invited when they can use your apps. Turn one off only for an employee whose instructions and apps you trust for that kind of action.
+</Warning>
+
+## Know when something is waiting
+
+- **Approvals** in the AI Employees sidebar shows how many requests are waiting.
+- The **Direct messages** list shows **Waiting for you** next to the employee.
+- With browser notifications on (the bell in the sidebar), you get a notification.
+- When nobody is watching, you get an email.
+
+<AccordionGroup>
+  <Accordion title="Did the email go out?">
+    Open the request in **Approvals** under **Decided**. **Approved and done** means it was sent. **Not approved** means it wasn't. **Approved, but it failed** shows the reason, such as an expired Gmail connection.
+  </Accordion>
+  <Accordion title="Why didn't my employee ask before emailing me?">
+    Emails only to your own addresses, your account email or a mailbox you connected, never need approval.
+  </Accordion>
+  <Accordion title="Do Marky's automations use the same approvals?">
+    Marky's [automations](/marky/automations#approvals) have their own approval settings on the Automations page. An automation run by an employee uses that employee's settings.
+  </Accordion>
+</AccordionGroup>
+
+<Columns cols={2}>
+  <Card title="Apps" icon="puzzle-piece" href="/ai-employees/apps">
+    Give each employee only the apps it needs.
+  </Card>
+  <Card title="Routines" icon="clock" href="/ai-employees/routines">
+    Work employees do while you're away.
+  </Card>
+</Columns>
