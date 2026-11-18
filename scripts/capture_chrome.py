@@ -17,6 +17,13 @@ Usage:
 Needs Screen Recording permission for the terminal/app that runs it. The
 display is woken for a few seconds before each capture (caffeinate -u), since
 macOS can't capture windows while it sleeps; a locked screen stays locked.
+
+While the Claude in Chrome extension acts on the tab, Chrome shows a debugging
+bar (the page is ~56 px shorter) and the extension draws a "Claude is working
+here" pill and an orange glow over the page, outside the page's DOM, so CSS
+can't hide them. Both go away a while after the extension's last action.
+--wait-idle N retries for up to N seconds until the bar, the pill and the
+glow are gone; pass the page's height without the debugging bar as --viewport.
 """
 import argparse
 import json
@@ -60,6 +67,30 @@ def window_list():
                                      text=True).stdout)
 
 
+def overlay_visible(img, top, dpr):
+    """True while Chrome's debugging bar or the extension's overlay shows."""
+    rgb = img.convert('RGB')
+    # The debugging bar sits under the toolbar, so the toolbar's colour carries
+    # on below the line where the page should start.
+    x = rgb.width - round(5 * dpr)
+    if rgb.getpixel((x, top - round(3 * dpr))) == rgb.getpixel(
+            (x, top + round(12 * dpr))):
+        return True
+    strip = rgb.crop((0, top, rgb.width, top + round(60 * dpr)))
+    w, h = strip.size
+    orange = 0
+    # The pill sits at the top centre; the logo at the top left is orange too.
+    for y in range(0, h, 4):
+        for x in range(w // 4, w * 3 // 4, 6):
+            r, g, b = strip.getpixel((x, y))
+            if r > 170 and 70 < g < 150 and b < 120 and r - b > 80:
+                orange += 1
+    # The glow tints the page's top edge pink.
+    edge = strip.getpixel((w // 2, 1))
+    inner = strip.getpixel((w // 2, h - 1))
+    return orange > 10 or (edge[0] - edge[2]) > (inner[0] - inner[2]) + 12
+
+
 def main():
     p = argparse.ArgumentParser()
     p.add_argument('--marker', default='[cap]',
@@ -71,6 +102,8 @@ def main():
     p.add_argument('--max-width', type=int, default=1600,
                    help='downscale wider images to this many pixels')
     p.add_argument('--quality', type=int, default=90, help='WebP quality')
+    p.add_argument('--wait-idle', type=int, default=0, metavar='SECONDS',
+                   help='retry until the Claude in Chrome overlay is gone')
     args = p.parse_args()
 
     vw, vh = (int(v) for v in args.viewport.lower().split('x'))
@@ -83,25 +116,36 @@ def main():
     # macOS can't capture windows while the display sleeps. A short
     # user-activity assertion wakes it (a locked screen stays locked); waking
     # takes a moment, so retry the capture a few times.
-    subprocess.Popen(['caffeinate', '-u', '-t', '8'])
-    with tempfile.NamedTemporaryFile(suffix='.png', delete=False) as tmp:
-        raw_path = tmp.name
-    try:
-        for attempt in range(8):
-            time.sleep(1)
-            done = subprocess.run(['screencapture', '-l', str(win['id']), '-o',
-                                   '-x', raw_path], capture_output=True)
-            if done.returncode == 0 and os.path.getsize(raw_path) > 0:
-                break
-        else:
-            sys.exit('Could not capture the window (is the display asleep?).')
-        img = Image.open(raw_path)
-        img.load()
-    finally:
-        os.unlink(raw_path)
+    deadline = time.time() + args.wait_idle
+    while True:
+        subprocess.Popen(['caffeinate', '-u', '-t', '8'])
+        with tempfile.NamedTemporaryFile(suffix='.png', delete=False) as tmp:
+            raw_path = tmp.name
+        try:
+            for attempt in range(8):
+                time.sleep(1)
+                done = subprocess.run(['screencapture', '-l', str(win['id']),
+                                       '-o', '-x', raw_path],
+                                      capture_output=True)
+                if done.returncode == 0 and os.path.getsize(raw_path) > 0:
+                    break
+            else:
+                sys.exit('Could not capture the window (is the display '
+                         'asleep?).')
+            img = Image.open(raw_path)
+            img.load()
+        finally:
+            os.unlink(raw_path)
 
-    dpr = img.width / win['width']
-    top = img.height - round(vh * dpr)
+        dpr = img.width / win['width']
+        top = img.height - round(vh * dpr)
+        if not args.wait_idle or not 0 < top < img.height:
+            break
+        if not overlay_visible(img, top, dpr):
+            break
+        if time.time() > deadline:
+            sys.exit('The Claude in Chrome overlay is still on the page.')
+        time.sleep(4)
     if abs(img.width - round(vw * dpr)) > 2 or not 0 < top < 250 * dpr:
         sys.exit(f'Window is {img.width / dpr:.0f}x{img.height / dpr:.0f} pt; '
                  f'it does not match a {vw}x{vh} viewport. Resize the window '
