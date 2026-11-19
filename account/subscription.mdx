@@ -3,33 +3,37 @@ title: "Manage your subscription"
 description: "Upgrade or change your plan, update your card, download invoices, and cancel."
 ---
 
-Everything about your plan is on [**Settings** > **Subscription**](https://easy-peasy.ai/settings/billing). You can also get there from the account menu under the logo.
+Everything about your plan is on [**Settings** > **Subscription**](https://easy-peasy.ai/settings/billing). You can also click your name at the bottom of the sidebar and choose **Subscription**.
 
 <Frame>
-  <img src="/images/account/subscription-plan-card.webp" alt="The Subscription tab: the current plan with its renewal date, buttons for Change plan, Edit payment details, and View billing history, and the image and video credits used this period" />
+  <img src="/images/account/subscription-plan-card.webp" alt="The Subscription tab: the current plan, Unlimited 200, marked Active, with the date the limits renew and a Change plan button; the image and video credits left this period, split into plan and bonus, with Buy more credits; and Edit payment details, View billing history, and Cancel plan along the bottom of the card" />
 </Frame>
 
-The card at the top shows your plan, its status, and the date your allowance renews. Payments are handled by Stripe, so the buttons open Stripe's secure billing page in the same window.
+The card at the top shows your plan, its status, and the date your limits renew. Under it, **Image & video credits** shows how many credits you have left this period, with **Buy more credits**. Along the bottom of the card:
+
+- **Edit payment details** opens Stripe's secure billing page, where you add or change a card.
+- **View billing history** takes you to your invoices and receipts, further down the page.
+- **Cancel plan**, at the far right, cancels your subscription.
 
 <Note>
-  On a team, only the account owner can manage the subscription. Team members see a message asking them to talk to the owner.
+  On a team, only the account owner can manage the subscription. Team members see the owner's plan, marked **Team plan**, and their own credits.
 </Note>
 
 ## Upgrade or change your plan
 
 <Steps>
-  <Step title="Pick a plan">
-    Scroll to **Choose your plan** on the same page. Switch between **Monthly** and **Yearly** at the top; yearly billing costs less per month. Click **Show all plans** to see the larger plans.
+  <Step title="Click Change plan">
+    It takes you to **Choose your plan**, below the card. Switch between **Monthly** and **Yearly** at the top; yearly billing costs less per month. Click **Show all plans** to see the larger plans.
   </Step>
-  <Step title="Click Upgrade">
-    Stripe shows what you'll pay before you confirm. When you upgrade, you pay only the difference for the rest of the current period, and your billing date doesn't change.
+  <Step title="Click Upgrade on the plan you want">
+    Stripe shows what you'll pay today before you confirm. You pay only the price difference, your billing date doesn't change, and the new plan's full allowance applies right away.
   </Step>
   <Step title="Start using it">
     Your new allowance applies as soon as the payment goes through. Check it on [**Settings** > **Usage**](/account/usage).
   </Step>
 </Steps>
 
-To move to a smaller plan, or between monthly and yearly billing, click **Change plan**. Stripe shows the new price and when it takes effect before you confirm.
+To move to a cheaper plan, or between monthly and yearly billing, pick the plan the same way. Stripe shows the new price and when the change takes effect before you confirm. A cheaper plan starts at your next renewal; until then, you keep your current plan and its allowance.
 
 ## Update your payment method
 
@@ -37,26 +41,34 @@ Click **Edit payment details**, then add a card or change the default one on the
 
 ## Download invoices and receipts
 
-Click **View billing history**. Stripe lists every invoice with a link to download it as a PDF.
+Click **View billing history**, or scroll to **Billing history** at the bottom of the page. It lists your payments, including those for subscriptions that have ended. Each one has buttons to download it as a PDF and to view it online, and an unpaid invoice has **Pay now**. Click **Show all** to see the whole list.
+
+If the list doesn't go back far enough, click **Open billing portal** under it to find older payments on Stripe's billing page.
 
 ## Free trials
 
-If your plan started with a free trial, the card shows how many days are left and the date the trial ends. During a trial you get the plan's full allowance, except image & video credits, which are limited to 50.
+If your plan started with a free trial, the card shows **Free trial** with the days left, the date the trial ends, and what you'll pay after it. During a trial you get the plan's full allowance, except image & video credits, which are limited to 50.
 
-To start paying early and unlock the full credit allowance, click **End trial and start plan now**. You're charged right away, a new billing period starts today, and you give up the trial days you had left.
+To start paying early and unlock the full credit allowance, click **End trial and start plan now**, then **Start plan now** to confirm. You're charged right away, a new billing period starts today, and you give up the trial days you had left.
 
 ## Cancel your plan
 
 <Steps>
   <Step title="Click Cancel plan">
-    It's next to the other buttons on the plan card.
+    It's at the bottom right of the plan card.
   </Step>
   <Step title="Confirm">
-    Read the notice and click **Yes, cancel my plan**, then finish on the Stripe page.
+    Read the notice and click **Yes, cancel my plan**, then finish on the Stripe page. To back out instead, click **Keep my subscription**.
   </Step>
 </Steps>
 
-Your plan stays active until the end of the period you've paid for, and the card shows the date it ends. After that, your account moves to the Free plan. Changed your mind before then? Click **Don't cancel** on the same card.
+Your plan stays active until the end of the period you've paid for. Until then, the card shows **Cancelling** and the date your subscription ends. After that, your account moves to the Free plan.
+
+<Frame>
+  <img src="/images/account/subscription-cancelling.webp" alt="A plan set to cancel: Unlimited 200 marked Cancelling, with a Don't cancel button and a notice that the subscription is set to cancel on a date, with full access until then" />
+</Frame>
+
+Changed your mind before then? Click **Don't cancel** on the same card, and your subscription continues as usual.
 
 <Warning>
   Some older plans are no longer sold. If you're on one and cancel, you can't subscribe to it again later.
@@ -64,11 +76,11 @@ Your plan stays active until the end of the period you've paid for, and the card
 
 ## If a payment fails
 
-If your card is declined, we email you a link to pay the invoice. Until it's paid, your account works like the Free plan. Pay the invoice from that email to restore your plan right away, and update your card with **Edit payment details** so the next renewal goes through.
+If your card is declined, we email you a link to pay the invoice. Until it's paid, your account works like the Free plan, and **Settings** > **Subscription** shows your plan as **Past due** or **Unpaid**. Pay the invoice from that email, or with **Pay now** under **Billing history**, to restore your plan right away. Then update your card with **Edit payment details** so the next renewal goes through.
 
 ## Add-ons
 
-- **Team seats.** Add people to your plan from [**Settings** > **Team**](https://easy-peasy.ai/settings/team) with **Purchase Seats**. Each seat gets the plan's full allowance.
+- **Team seats.** Add people to your plan from [**Settings** > **Team**](/account/team) with **Add seats**. Each seat gets the plan's full allowance.
 - **Always-On Hosting.** Keeps a website or app that Marky built for you running around the clock. Turn it on for each app in its deployment settings.
 - **Extra credits and words.** See [Buy more credits](/account/buy-credits).
 
@@ -76,7 +88,10 @@ If your card is declined, we email you a link to pay the invoice. Until it's pai
 
 <AccordionGroup>
   <Accordion title="Do unused credits carry over to the next month?">
-    No. Your plan allowance resets every month. Credits and words you buy separately do carry over until you use them. See [Plans and credits](/account/plans-and-credits#when-your-allowance-resets).
+    No. Your plan allowance resets every month. Bonus credits and words, whether you bought them or got them for a referral, carry over until you use them. See [Bonus words and credits](/account/plans-and-credits#bonus-words-and-credits).
+  </Accordion>
+  <Accordion title="What happens to my bonus credits and words if I cancel?">
+    You keep them. After your plan ends, you can use them on the Free plan, within its limits.
   </Accordion>
   <Accordion title="I pay yearly. Do I get my whole year of credits at once?">
     No. Yearly plans get the same allowance every month, renewing on the same day each month.
